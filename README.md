@@ -105,13 +105,8 @@ bash scripts/SCM/SCM_reasoning.sh <start_idx> <end_idx> <batch_size> <model>
 
 ## Supported Models
 
-The benchmark supports various LLMs through configuration files in `conf/model/`:
+The benchmark supports various LLMs through configuration files in `conf/model/`. Currently, models from **OpenAI**, **TogetherAI**, and **HuggingFace** are supported
 
-- **OpenAI**: `gpt-4o-mini`
-- **Qwen Series**: `Qwen3-0.6B`, `Qwen3-1.7B`, `Qwen3-4B`, `Qwen3-8B`, `Qwen3-14B`, `Qwen3-32B`, `Qwen2.5-14B`
-- **DeepSeek**: `DeepSeek-V3`, `DeepSeek-R1-Distill-Llama-70B-free`
-- **Llama**: `Llama-3.2-3B`, `Llama-3.3-70B-Instruct-Turbo-Free`
-- **Others**: `QwQ-32b`, `exaone-3-5-32b-instruct`, `Mathstral-7B-v0.1`, `ChatTS-14B`
 
 ## Evaluation
 
