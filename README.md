@@ -110,10 +110,6 @@ bash scripts/SCM/SCM_context.sh <start_idx> <end_idx> <batch_size> <model>
 bash scripts/SCM/SCM_reasoning.sh <start_idx> <end_idx> <batch_size> <model>
 ```
 
-## Supported Models
-
-The benchmark supports various LLMs through configuration files in `conf/model/`. Currently, models from **OpenAI**, **TogetherAI**, and **HuggingFace** are supported
-
 
 ## Evaluation
 
@@ -132,6 +128,10 @@ python evaluate_DEs.py --dataset strogatz_extended --model <model_name>
 ```bash
 python evaluate_scm.py
 ```
+
+## Supported Models
+
+The benchmark supports various LLMs through configuration files in `conf/model/`. Currently, models from **OpenAI**, **TogetherAI**, and **HuggingFace** are supported
 
 ## Experiment Settings
 
