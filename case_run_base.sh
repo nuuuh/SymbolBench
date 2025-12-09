@@ -3,7 +3,7 @@
 export OPENAI_API_KEY="your_openai_api_key_here"
 
 dataset="data/strogatz_extended.json"
-model="ChatTS-14b" # ChatTS-14b gpt4o_mini
+model="ChatTS-14B" # ChatTS-14b gpt4o_mini
 judge_model="gpt-4.1-nano"
 additional_prompt='none'
 
@@ -14,7 +14,7 @@ use_context=true
 judge_enabled=false
 prompt_path="prompts/DE/DE_textual_base.json"
 
-for idx in 5 9; # 8 27 33 43 49 50 58
+for idx in 5; # 8 27 33 43 49 50 58
 do
     python pipeline.py \
         device="auto" \

@@ -50,7 +50,9 @@ SymbolBench/
 
 **Step1:** Go to the conf/config.yaml and set the "root:" to your own directory.
 
-**Step2:** If using models from OpenAI of TogetherAI, set your API keys within scripts under the ***script*** folder:
+**Step2:** Configure model caching directory for each model file (e.g., conf/model/ChatTS-14B.yaml sets "cache_dir: '/home/ubuntu/models'")
+
+**Step3 (optional):** If using models from OpenAI of TogetherAI, set your API keys within scripts under the ***script*** folder:
 
 ```bash
 export OPENAI_API_KEY="your_openai_api_key_here"
@@ -58,6 +60,12 @@ export TOGETHER_API_KEY="your_together_api_key_here"
 ```
 
 ## Running Experiments
+
+### Quick Run:
+
+```bash
+bash case_run_base.sh
+```
 
 ### Boolean Networks (BN)
 
@@ -88,7 +96,6 @@ bash scripts/DE/strogatz/DE_context.sh <start_idx> <end_idx> <batch_size> <model
 # Reasoning setting
 bash scripts/DE/strogatz/DE_reasoning.sh <start_idx> <end_idx> <batch_size> <model>
 ```
-
 
 ### Structural Causal Models (SCM)
 
