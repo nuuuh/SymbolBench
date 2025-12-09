@@ -1,0 +1,31 @@
+{  
+    "judge_prompt": [
+      "You are an expert in analyzing the Structured Causal Model (SCM) of Multivariate Time Series and will analyze a SCM based on certain context.",
+      "The time series that the SCM describes is:",
+      "- {var_points}",
+      "",
+      "The context of the given data is:",
+      "- {context}",
+      "",
+      "The scored SCM you are analyzing is:",
+      "- {candidate_exprs}",
+      "",
+      "Your task is to analyze the SCM and determine if it is suitable for the given context and time series.",
+      "You are give the following criteria:",
+      "-Context Alignment: The SCM should be relevant to the context provided.",
+      "-Scientific Plausibility: The SCM should be scientifically plausible and make sense in the context of the data.",
+      "-Conciseness and Clarity: The reasonings should be concise and clear, avoiding unnecessary complexity.",
+      "-Logical Coherence: The reasonings should be logically coherent, consistent, and correct",
+      "",
+      "You should provide a score for each criterion on a scale of 1 to 5, where 1 is the lowest and 5 is the highest. Only output the scores in the following format and do not ouput any other content:",
+      "{",
+        "context_alignment: <score>",
+        "scientific_plausibility: <score>",
+        "conciseness_and_clarity: <score>",
+        "logical_coherence: <score>",
+      "}"
+    ]
+  }
+  
+  
+  

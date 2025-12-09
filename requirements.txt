@@ -1,0 +1,49 @@
+bitsandbytes==0.41.1
+boolformer==0.1.9
+boost==0.1
+DistanceClassifier==0.0.8
+eigen==0.1.1
+fire==0.6.0
+fqdn==1.5.1
+hydra-core==1.3.2
+ipdb==0.13.13
+ipython-genutils==0.2.0
+isoduration==20.11.0
+jsonpointer==3.0.0
+jupyter==1.0.0
+mloggers==1.3.1
+mpbn==4.1
+numbakit-ode==0.5
+numbalsoda==0.3.4
+nvidia-cusparselt-cu12==0.6.3
+odeformer==0.1.7
+openai==1.82.0
+ortools==9.12.4544
+pip==25.0
+pygad==3.4.0
+pysindy==1.7.5
+PySocks==1.7.1
+pysr==1.5.5
+sympytorch==0.1.4
+tinycss2==1.4.0
+torchdiffeq==0.2.5
+transformers
+accelerate
+uri-template==1.3.0
+webcolors==24.11.1
+wheel==0.45.1
+pingouin
+torch
+numpy==1.26.4
+zss
+anytree
+deap
+together
+
+
+
+
+# ffx==2.0.2
+# flash_attn==2.6.1
+# ProGED==0.8.5
+# scikit-image==0.23.2

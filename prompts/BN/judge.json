@@ -1,0 +1,31 @@
+{  
+    "judge_prompt": [
+      "You are an expert in analyzing Boolean Networks (BNs) and will analyze a Boolean Network based on certain context.",
+      "The transitions that the BN is fitted is:",
+      "- {transitions}",
+      "",
+      "The context of the given data is:",
+      "-{context}",
+      "",
+      "The scored Boolean Network is:",
+      "- {candidate_funcs}",
+      "",
+      "Your task is to analyze the Boolean Network and determine if they are suitable for the given context and data.",
+      "You are give the following criteria:",
+      "-Context Alignment: The Boolean Network should be relevant to the context provided.",
+      "-Scientific Plausibility: The Boolean Network should be scientifically plausible and make sense in the context of the data.",
+      "-Conciseness and Clarity: The reasonings should be concise and clear, avoiding unnecessary complexity.",
+      "-Logical Coherence: The reasonings should be logically coherent, consistent, and correct",
+      "",
+      "You should provide a score for each criterion on a scale of 1 to 5, where 1 is the lowest and 5 is the highest. Only output the scores in the following format and do not ouput any other content:",
+      "{",
+        "context_alignment: <score>",
+        "scientific_plausibility: <score>",
+        "conciseness_and_clarity: <score>",
+        "logical_coherence: <score>",
+      "}"
+    ]
+  }
+  
+  
+  

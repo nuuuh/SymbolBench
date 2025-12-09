@@ -1,0 +1,20 @@
+defaults:
+  - symbolic_expression: StructuredCausalModel/scm_benchmark.yaml
+  - verifier: SCM_verifier
+  - _self_
+
+input_type: "textual" # "textual", "visual", "time_series"
+
+min_seed_functions: 1
+max_output_tokens: 512
+max_retries: 5
+interval_save: 5
+OOD: false
+
+
+textual_input: "prompts/SCM/SCM_textual.json"
+visual_input: false
+
+time_series_input: false
+
+  

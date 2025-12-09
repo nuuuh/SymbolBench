@@ -1,0 +1,3 @@
+name: SCM_verifier
+
+data_save_path: "data/save_scm.json"

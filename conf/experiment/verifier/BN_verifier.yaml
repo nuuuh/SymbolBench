@@ -1,0 +1,3 @@
+name: BN_verifier
+
+data_save_path: "data/solved_bns.json"

@@ -1,0 +1,60 @@
+{
+    "base_prompt": [
+      "Generate a synthetic ordinary differential equation (ODE) or a system of coupled ODEs in the following structured format. The system should model a plausible real-world or conceptual dynamical process that fits the given domain and context.",
+      "Requirements:",
+      "1. Use variable names ONLY in {var_list}.",
+      "2. No actual values allowed and the constants should be denoted ONLY by c.",
+      "3. You don't neccsaarily need to involve all variables in the equations (the simplest case is just an constant c)",
+      "4. For coupled equations (dim > 1), separate right-hand sides using the pipe symbol '|'.",
+      "5. Equations must be algebraic expressions involving only the x_* variables from {var_list} and the constant c.",
+      "6. You may combine basic mathematical operations (+, -, *, /, ^, sqrt, exp, log, abs), trigonometric expressions (sin, cos, tan), constants (c), and variables in any way to create diverse and meaningful functions.",
+      "7. The generated equations should firstly achieve a good fitting score, and secondly have a low complexity as much as possible.",
+      "8. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+      "",
+      "The generated equations should fit the follwoing context:",
+      "- {context}",
+      "",
+      "The time series you are fitting is:",
+      "- {var_points}",
+      "",
+      "You are give the previous generated results and scores as follows:",
+      "{functions}",
+      "",
+      "Format Examples (depend on the current dim):",
+      "{example_str}",
+      "",
+      "Generate Five sets of improved samples compared to the previously generated results, each sample is a JSON object with the same format as above. Each sample should have dim={num_eqs}. Each sample should be separated by a comma. Do not output other irrelevant text.",
+      "Think the problem step by step and store your reasonsing process (based on your own knowledge and the given context) using a json formt {'reasoning': 'your reasoning process'}.",
+      "You can either propose entirely new equations with diverse reasoning paths or refine the given equations along with their reasoning."
+    ],
+  
+  
+    "seed_prompt": [
+      "Generate a synthetic ordinary differential equation (ODE) or a system of coupled ODEs in the following structured format. The system should model a plausible real-world or conceptual dynamical process that fits the given domain and context.",
+      "Requirements:",
+      "1. Use variable names ONLY in {var_list}.",
+      "2. No actual values allowed and the constants should be denoted ONLY by c.",
+      "3. You don't neccsaarily need to involve all variables in the equations (the simplest case is just an constant c)",
+      "4. For coupled equations (dim > 1), separate right-hand sides using the pipe symbol '|'.",
+      "5. Equations must be algebraic expressions involving only the x_* variables from {var_list} and the constant c.",
+      "6. You may combine basic mathematical operations (+, -, *, /, ^, sqrt, exp, log, abs), trigonometric expressions (sin, cos, tan), constants (c), and variables in any way to create diverse and meaningful functions.",
+      "7. The generated equations should firstly achieve a good fitting score, and secondly have a low complexity as much as possible.",
+      "8. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+      "",
+      "The generated equations should fit the follwoing context:",
+      "- {context}",
+      "",
+      "The time series you are fitting is:",
+      "- {var_points}",
+      "",
+      "Format Examples (depend on the current dim):",
+      "{example_str}",
+      "",
+      "Generate Five sets of samples, each sample is a JSON object with the same format as above. Each sample should have dim={num_eqs}. Each sample should be separated by a comma. Do not output other irrelevant text.",
+      "Think the problem step by step and store your reasonsing process (based on your own knowledge and the given context) using a json formt {'reasoning': 'your reasoning process'}.",
+      "You can either propose entirely new equations with diverse reasoning paths or reflect and refine the given equations along with their reasoning."
+    ]
+  }
+  
+  
+  

@@ -1,0 +1,31 @@
+I want you to act as a coupled differential function generator.
+Given a set of points below, you are to come up with 5 potential coupled differential functions that would fit the points. Don't worry too much about accuracy: your task is to generate a set of functions that are as diverse as possible, so that they can serve as starting points for further optimization.
+
+Function Requirements:
+- {num_eqs} variable symbols: {eq_list}. Each variable corresponds a differential equation and is potentially influenced by other variables.
+- A coefficient symbol: c (there is no need to write a number - write this generic coefficient instead).
+- Basic operators: +, -, *, /, ^.
+- Standard constants: "pi" represents pi and "E" represents euler's constant.
+- t should not be involved as a variable in the functions.
+- Make sure there are no numbers in the functions, use the coefficient token 'c' instead.
+- The functions should be scientifically meaningful and diverse.
+
+Output Requirements:
+- Each set of coupled differential equation should be included within (). The functions should all begin with the indicators, e.g., "dx1/dt = ... ".
+- The output should follow the following format (choose one template based on the number of differential equations: {num_eqs}): 
+1. One variable: "(dx1/dt=...)\n (dx1/dt=...)\n ... "; (no "|" allowed).
+2. Two variables: "(dx1/dt=... | dx2/dt=...)\n (dx1/dt=... | dx2/dt=...)\n ..." (separate each set of functions using "|").
+3 ...
+- Only one template is chosen, for index larger than 2., the style is similar to 2. but with more differential equations like dx3/dt, dx4/dt ....
+- Only write the new sets of functions and no additional output except the reasoning process. 
+
+
+Points: {points}
+
+Given the below data points, plaese give the reasoning process and think step by step. Reasoning Process:
+
+
+
+Given the reasoning process and the data points, please directly output the Functions without additional content:
+
+

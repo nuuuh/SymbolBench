@@ -1,0 +1,17 @@
+{  
+    "judge_prompt": [
+      "You are an expert in analyzing Boolean Networks (BNs) and will analyze some BNs based on certain context.",
+      "The context of the given data is:",
+      "-{context}",
+      "",
+      "The scored candidate coupled ODE is:",
+      "- {candidate_exprs}",
+      "",
+      "Your task is to analyze the candidate Boolean Network and determine if they are suitable for the given context and your own knowledge.",
+      "",
+      "You should give a score ranging from 1 to 10 to measure the quality of the ODE that reflects the alignment with the context. Higher score indicates better quality. Give the score directly without outputting any other content."
+    ]
+  }
+  
+  
+  

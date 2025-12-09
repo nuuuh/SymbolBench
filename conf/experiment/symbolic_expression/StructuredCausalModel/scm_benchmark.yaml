@@ -1,0 +1,41 @@
+# synthetic or scicence SCM
+name: "Science_SCM"
+type: "SCM"
+idx: 1 # 24
+data_path: "data/synthetic_sgc.npy"
+
+judge:
+  enabled: false
+  gpt_model: "gpt-4.1-nano"
+  prompt_path: "prompts/SCM/judge.json"
+
+use_context: false
+reasoning: false
+
+additional_prompt: 'none' # 'time_series' 'image'
+
+context:
+  time_series: true
+  var_description: true
+  consts_description: true
+  image: false
+  ts_encoder: false
+
+# Train points
+train_points:
+  min_points: 0
+  max_points: 10
+  num_points: 50
+
+# Test points
+test_points:
+  min_points: 0
+  max_points: 10
+  num_points: 100
+
+tolerance: 0.95
+
+# Total iterations
+iterations: 50
+
+max_retries: 25

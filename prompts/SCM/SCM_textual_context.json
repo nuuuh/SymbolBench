@@ -1,0 +1,51 @@
+{
+  "base_prompt": [
+    "You are an expert in analyzing Multi-variate Time Series data, esprcially their causal relations. Your task is to generate Structured Causal Models (SCMs) in the following structured format.",
+    "Requirements:",
+    "1. The system should model a plausible real-world or conceptual dynamical process",
+    "2. Use variable names ONLY in {var_list}.",
+    "3. SCMs must be expressed in directed graphs, involving only the x* variables from {var_list}.",
+    "4. Each edge is given an positive integer value indicating the lagging of causal effect.",
+    "5. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+    "",
+    "You are given the follwoing context:",
+    "- {context}",
+    "",
+    "The time series you are fitting is:",
+    "- {var_points}",
+    "",
+    "You are given the previously generated results and scores as follows:",
+    "{graphs}",
+    "",
+    "Format of one example sample:",
+    "{example_str}",
+    "",
+    "Above is just an example of output format. The actually lagging values should only be chosen from {lagging_list}.",
+    "Generate Five sets of samples, each sample is a JSON object with the same format as above. Each sample should be separated by a comma. Do not output other irrelevant text."
+  ],
+
+
+  "seed_prompt": [
+    "You are an expert in analyzing Multi-variate Time Series data, esprcially their causal relations. Your task is to generate Structured Causal Models (SCMs) in the following structured format.",
+    "Requirements:",
+    "1. The system should model a plausible real-world or conceptual dynamical process",
+    "2. Use variable names ONLY in {var_list}.",
+    "3. SCMs must be expressed in directed graphs, involving only the x* variables from {var_list}.",
+    "4. Each edge is given an positive integer value indicating the lagging of causal effect.",
+    "5. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+    "",
+    "You are given the follwoing context:",
+    "- {context}",
+    "",
+    "The time series you are fitting is:",
+    "- {var_points}",
+    "",
+    "Format of one example sample:",
+    "{example_str}",
+    "",
+    "Above is just an example of output format. The actually lagging values should only be chosen from {lagging_list}.",
+    "Generate Five sets of samples, each sample is a JSON object with the same format as above. Each sample should be separated by a comma. Do not output other irrelevant text."
+  ]
+}
+
+

@@ -1,0 +1,19 @@
+defaults:
+  - symbolic_expression: BooleanNetwork/bn_benchmark
+  - verifier: BN_verifier
+  - _self_
+
+input_type: "textual" # "textual", "visual", "time_series"
+
+min_seed_functions: 5
+max_output_tokens: 512
+max_retries: 5
+interval_save: 5
+OOD: false
+
+
+textual_input: "prompts/BN/BN_textual.json"
+visual_input: false
+time_series_input: false
+
+  

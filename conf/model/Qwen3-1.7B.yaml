@@ -1,0 +1,21 @@
+defaults:
+  - _self_
+
+# General
+name: Qwen/Qwen3-1.7B 
+tokenizer_pad: \\[PAD\\]
+tokenizer_padding_side: left
+visual: false
+time_series: false
+cache_dir: '/home/ubuntu/models'
+
+# Sampling
+max_new_tokens: 4098
+top_p: 0.90
+top_k: 60
+num_beams: 1
+
+# Sampling temperature
+temperature: 1.0
+temperature_schedule: false
+temperature_schedule_gamma: 0.995

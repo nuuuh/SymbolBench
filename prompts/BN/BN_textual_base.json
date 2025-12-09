@@ -1,0 +1,42 @@
+{
+    "base_prompt": [
+        "Generate Boolean Networks in the following structured format. The system should model a plausible real-world or conceptual process.",
+        "Requirements:",
+        "1. Use variable names ONLY in {var_list}.",
+        "2. Equations must be logical expressions involving only the x* variables from {var_list}.",
+        "3. There are free variables that do not need to be modeled ans simply serve as observed variables: {free_vars}.",
+        "4. Allowed operations: AND (&), OR (|), NOT (!), XOR (^), and IMPLIES (->).",
+        "4. Use ; to separate each logical expression in a sample.",
+        "5. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+        "",
+        "You are given the previously generated results and scores as follows:",
+        "{functions}",
+        "",
+        "Format Examples (depend on the current dim):",
+        "{example_str}",
+        "",
+        "You are free to use any amount of the variables in {var_list}, and any number of operations to construct one equation. The generated equations should be creative and not the same as the example!",
+        "Generate Five sets of samples that are better than the previously generated results, each sample is a JSON object with the same format as above. Each sample should have dim={num_eqs}. Each sample should be separated by a comma. Do not output other irrelevant text."
+     ],
+  
+  
+    "seed_prompt": [
+      "Generate Boolean Networks in the following structured format. The system should model a plausible real-world or conceptual process.",
+      "Requirements:",
+      "1. Use variable names ONLY in {var_list}.",
+      "2. Equations must be logical expressions involving only the x* variables from {var_list}.",
+      "3. There are free variables that do not need to be modeled ans simply serve as observed variables: {free_vars}.",
+      "4. Allowed operations: AND (&), OR (|), NOT (!), XOR (^), and IMPLIES (->).",
+      "4. Use ; to separate each logical expression in a sample.",
+      "5. Output ONLY a JSON object (not a string) in the following format (no extra text):",
+      "",
+      "A format example for one sample:",
+      "{example_str}",
+      "",
+      "You are free to use any amount of the variables in {var_list}, and any number of operations to construct one equation. The generated equations should be creative and not the same as the example!",
+      "Generate Five sets of samples, each sample is a JSON object with the same format as above. Each sample should have dim={num_eqs}. Each sample should be separated by a comma. Do not output other irrelevant text."
+    ]
+  }
+  
+  
+  

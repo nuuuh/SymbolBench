@@ -1,0 +1,43 @@
+# name: "Physiome"
+name: "strogatz"
+type: "DE"
+idx: 2 # 24
+# data/Physiome/small_odes.json
+data_path: "data/strogatz_extended.json"
+# data_path: "data/Physiome/small_odes.json"
+
+judge:
+  enabled: false
+  gpt_model: "gpt-4.1-nano"
+  prompt_path: "prompts/DE/judge.json"
+
+use_context: false
+reasoning: false
+
+additional_prompt: 'none' # 'time_series' 'image'
+
+context:
+  time_series: true
+  var_description: true
+  consts_description: true
+  image: false
+  ts_encoder: false
+
+# Train points
+train_points:
+  min_points: 0
+  max_points: 10
+  num_points: 50
+
+# Test points
+test_points:
+  min_points: 0
+  max_points: 10
+  num_points: 100
+
+tolerance: 0.99
+
+# Total iterations
+iterations: 100
+
+max_retries: 10
