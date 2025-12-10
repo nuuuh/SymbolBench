@@ -1,0 +1,1377 @@
+[
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-0.6B/textual/size_compute_wo_thinking/Expr_13/."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Slurm job ID: 280."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 102127122."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Using device: cuda:0 with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "07/07/2025 21:36:59",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:00",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 13."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:00",
+        "level": "INFO",
+        "message": "Groundtruth Function:                domain             model  ... substituted solutions\n12  electrophysiology  gall_susa_1999_c  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:00",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:01",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-0.6B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:02",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:06",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:06",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:06",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:08",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:08",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:08",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:10",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_2 - c*x_3 + c | c*x_2 - c*x_3 | c*x_2 - c*x_3 | c*x_3 - c*x_0\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:10",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_2 - c*x_3 + c, c*x_2 - c*x_3, c*x_2 - c*x_3, -c*x_0 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:10",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:23",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0 + c*x_2 | c*x_1 | c*x_3 | c*x_0*x_1*x_2 | c*x_3 + c*x_0*x_2 - c*x_1*x_2 | c*x_3*x_2 | c*x_2 | c*x_1*x_0 | c*x_2*x_3 | c*x_1*x_2*c | c*x_1*x_0*x_2 | c*x_1*x_0*x_3 | c*x_2*x_3*x_1 | c*x_1*x_2*x_3 | c*x_1*x_3 | c*x_0*x_2*x_3 | c*x_0*x_1*x_3 | c*x_1*x_0*x_2 | c*x_1*x_0*x_3 | c*x_0*x_1*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_3*x_0 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_1*x_3*x_0 | c*x_0*x_1*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:23",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\n  \"eq\": \"c*x_0 + c*x_2 | c*x_1 | c*x_3 | c*x_0*x_1*x_2 | c*x_3 + c*x_0*x_2 - c*x_1*x_2 | c*x_3*x_2 | c*x_2 | c*x_1*x_0 | c*x_2*x_3 | c*x_1*x_2*c | c*x_1*x_0*x_2 | c*x_1*x_0*x_3 | c*x_2*x_3*x_1 | c*x_1*x_2*x_3 | c*x_1*x_3 | c*x_0*x_2*x_3 | c*x_0*x_1*x_3 | c*x_1*x_0*x_2 | c*x_1*x_0*x_3 | c*x_0*x_1*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_3*x_0 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_1*x_3*x_0 | c*x_0*x_1*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3 | c*x_0*x_2*x_3 | c*x_1*x_2*x_3\",\n  \"dim\": 4\n}"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:23",
+        "level": "INFO",
+        "message": "Parsed model outputs: []"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:23",
+        "level": "INFO",
+        "message": "Attempt 5 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:25",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_2 - c*x_0*x_1 | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:25",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[-c*x_0*x_1 + c*x_2, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:26",
+        "level": "INFO",
+        "message": "Attempt 6 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:28",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",  \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:28",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:28",
+        "level": "INFO",
+        "message": "Attempt 7 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:31",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:31",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:31",
+        "level": "INFO",
+        "message": "Attempt 8 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:34",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:34",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:34",
+        "level": "INFO",
+        "message": "Attempt 9 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:36",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:36",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:36",
+        "level": "INFO",
+        "message": "Attempt 10 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:39",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:39",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:39",
+        "level": "INFO",
+        "message": "Attempt 11 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:42",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:42",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:42",
+        "level": "INFO",
+        "message": "Attempt 12 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:45",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:45",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:45",
+        "level": "INFO",
+        "message": "Attempt 13 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:53",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_2 + c*x_3 - c | c*x_1/x_2 + c*x_3 | c*x_0*x_2 | c*x_2\", \"dim\": 4}\n{\"eq\": \"c*x_1*x_2 + c*x_3 - c | c*x_1*x_0 + c*x_3 | c*x_1 | c*x_3\", \"dim\": 4}\n{\"eq\": \"c*x_0*x_3 + c*x_1 - c | c*x_1*x_2 + c*x_0 | c*x_0 | c*x_2\", \"dim\": 4}\n{\"eq\": \"c*x_2 + c*x_3 - c | c*x_3 + c*x_0 | c*x_2 | c*x_1\", \"dim\": 4}\n{\"eq\": \"c*x_0 + c*x_1 - c | c*x_1 + c*x_3 | c*x_2 | c*x_0\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:53",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_2 + c*x_3 - c, c*x_1/x_2 + c*x_3, c*x_0*x_2, c*x_2], [c*x_1*x_2 + c*x_3 - c, c*x_0*x_1 + c*x_3, c*x_1, c*x_3], [c*x_0*x_3 + c*x_1 - c, c*x_0 + c*x_1*x_2, c*x_0, c*x_2], [c*x_2 + c*x_3 - c, c*x_0 + c*x_3, c*x_2, c*x_1], [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:53",
+        "level": "INFO",
+        "message": "Attempt 14 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:55",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0 + c*x_2 | c*x_1 | c*x_2 | c*x_3\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:37:55",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 + c*x_2, c*x_1, c*x_2, c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:37:55",
+        "level": "INFO",
+        "message": "Attempt 15 of 15 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0 + c*x_1 + c*x_2 - c*x_3\",\n  \"dim\": 4,\n  \"samples\": [\n    {\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3\", \"x0\": -76.0, \"x1\": 0.1, \"x2\": 0.52, \"x3\": 0.7},\n    {\"eq\": \"c*x_1 - c*x_2 - c*x_3\", \"x0\": -76.0, \"x1\": 0.1, \"x2\": 0.513, \"x3\": 0.707},\n    {\"eq\": \"c*x_0*x_1 + c*x_1 - c*x_3\", \"x0\": -76.0, \"x1\": 0.098, \"x2\": 0.513, \"x3\": 0.714},\n    {\"eq\": \"c*x_3 + c*x_2 - c*x_0\", \"x0\": -76.0, \"x1\": 0.096, \"x2\": 0.499, \"x3\": 0.72},\n    {\"eq\": \"c*x_2 + c*x_1 - c*x_0\", \"x0\": -76.0, \"x1\": 0.094, \"x2\": 0.493, \"x3\": 0.727}\n  ]\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\n  \"eq\": \"c*x_0 + c*x_1 + c*x_2 - c*x_3\",\n  \"dim\": 4,\n  \"samples\": [\n    {\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3\", \"x0\": -76.0, \"x1\": 0.1, \"x2\": 0.52, \"x3\": 0.7}"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\"eq\": \"c*x_1 - c*x_2 - c*x_3\", \"x0\": -76.0, \"x1\": 0.1, \"x2\": 0.513, \"x3\": 0.707}"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\"eq\": \"c*x_0*x_1 + c*x_1 - c*x_3\", \"x0\": -76.0, \"x1\": 0.098, \"x2\": 0.513, \"x3\": 0.714}"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\"eq\": \"c*x_3 + c*x_2 - c*x_0\", \"x0\": -76.0, \"x1\": 0.096, \"x2\": 0.499, \"x3\": 0.72}"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Skipping block as number of equations does not match: {\"eq\": \"c*x_2 + c*x_1 - c*x_0\", \"x0\": -76.0, \"x1\": 0.094, \"x2\": 0.493, \"x3\": 0.727}"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Parsed model outputs: []"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "INFO",
+        "message": "Generated 17 functions: [[c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_2 - c*x_3 + c, c*x_2 - c*x_3, c*x_2 - c*x_3, -c*x_0 + c*x_3], [-c*x_0*x_1 + c*x_2, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_2 + c*x_3 - c, c*x_1/x_2 + c*x_3, c*x_0*x_2, c*x_2], [c*x_1*x_2 + c*x_3 - c, c*x_0*x_1 + c*x_3, c*x_1, c*x_3], [c*x_0*x_3 + c*x_1 - c, c*x_0 + c*x_1*x_2, c*x_0, c*x_2], [c*x_2 + c*x_3 - c, c*x_0 + c*x_3, c*x_2, c*x_1], [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0], [c*x_0 + c*x_2, c*x_1, c*x_2, c*x_3]]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:08",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "INFO",
+        "message": "Expression [-c*x_0*x_1 + c*x_2, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:11",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:12",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_2 + c*x_3 - c, c*x_1/x_2 + c*x_3, c*x_0*x_2, c*x_2] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:13",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:14",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:14",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:14",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:14",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:15",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:16",
+        "level": "INFO",
+        "message": "Num candidate expressions: 6"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:16",
+        "level": "INFO",
+        "message": "Current functions:                                                 expr  ...                                          fit_exprs\n4   [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0]  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n0  [c*x_2 - c*x_3 + c, c*x_2 - c*x_3, c*x_2 - c*x...  ...  [517.7197*x_2 + 518.3805*x_3 - 631.6635, -0.05...\n5               [c*x_0 + c*x_2, c*x_1, c*x_2, c*x_3]  ...  [-0.0018*x_0 + 0.3807*x_2, -0.2858*x_1, -0.199...\n1  [c*x_1*x_2 + c*x_3 - c, c*x_0*x_1 + c*x_3, c*x...  ...  [8.7172*x_1*x_2 + 0.4755*x_3 - 0.3461, 0.0038*...\n2  [c*x_0*x_3 + c*x_1 - c, c*x_0 + c*x_1*x_2, c*x...  ...  [-0.0386*x_0*x_3 + 15.2949*x_1 - 3.1559, -0.55...\n3   [c*x_2 + c*x_3 - c, c*x_0 + c*x_3, c*x_2, c*x_1]  ...  [517.7197*x_2 + 518.3805*x_3 - 631.6635, 0.000...\n\n[6 rows x 5 columns]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:16",
+        "level": "INFO",
+        "message": "Succesfully generated 17 seed functions in 66.06652870000107 seconds."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:16",
+        "level": "INFO",
+        "message": "Round 1."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:16",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:26",
+        "level": "INFO",
+        "message": "Model output: ```json\n[\n  {\n    \"eq\": \"c*x_0 + c*x_1 - c | c*x_1 + c*x_3 | c*x_2 - c | c*x_0\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0*x_2 + c*x_3 - c | c*x_1*x_2 + c*x_3 | c*x_2 - c*x_3 | c*x_2*x_3\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0 + c*x_2 - c | c*x_1 + c*x_3 | c*x_0*x_3 + c | c*x_0*x_1 + c*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0*x_3 + c*x_1 - c | c*x_0 + c*x_1*x_2 | c*x_2 - c*x_3 | c*x_3*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_1*x_3 + c*x_0 - c | c*x_1*x_3 | c*x_0*x_3 | c*x_3*x_2\",\n    \"dim\": 4\n  }\n]\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2 - c, c*x_0], [c*x_0*x_2 + c*x_3 - c, c*x_1*x_2 + c*x_3, c*x_2 - c*x_3, c*x_2*x_3], [c*x_0 + c*x_2 - c, c*x_1 + c*x_3, c*x_0*x_3 + c, c*x_0*x_1 + c*x_2], [c*x_0*x_3 + c*x_1 - c, c*x_0 + c*x_1*x_2, c*x_2 - c*x_3, c*x_2*x_3], [c*x_0 + c*x_1*x_3 - c, c*x_1*x_3, c*x_0*x_3, c*x_2*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "INFO",
+        "message": "Generated 5 functions: [[c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2 - c, c*x_0], [c*x_0*x_2 + c*x_3 - c, c*x_1*x_2 + c*x_3, c*x_2 - c*x_3, c*x_2*x_3], [c*x_0 + c*x_2 - c, c*x_1 + c*x_3, c*x_0*x_3 + c, c*x_0*x_1 + c*x_2], [c*x_0*x_3 + c*x_1 - c, c*x_0 + c*x_1*x_2, c*x_2 - c*x_3, c*x_2*x_3], [c*x_0 + c*x_1*x_3 - c, c*x_1*x_3, c*x_0*x_3, c*x_2*x_3]]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:27",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:28",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Num candidate expressions: 11"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Current functions:                                                 expr  ...                                          fit_exprs\n8  [c*x_0 + c*x_2 - c, c*x_1 + c*x_3, c*x_0*x_3 +...  ...  [0.2164*x_0 + 1.3871*x_2 + 16.0877, -0.2875*x_...\n6  [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2 - c, ...  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n0   [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0]  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n1  [c*x_2 - c*x_3 + c, c*x_2 - c*x_3, c*x_2 - c*x...  ...  [517.7197*x_2 + 518.3805*x_3 - 631.6635, -0.05...\n2               [c*x_0 + c*x_2, c*x_1, c*x_2, c*x_3]  ...  [-0.0018*x_0 + 0.3807*x_2, -0.2858*x_1, -0.199...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Succesfully generated 5 functions in 10.87744042603299 seconds."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Checkpoint 0. Saving results."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Checkpoint 0 saved."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Round 2."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:29",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:33",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_2 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:33",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_2 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:33",
+        "level": "INFO",
+        "message": "Attempt 2 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:35",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_3 + c*x_2 - c, c*x_1*x_0 + c*x_2 - c*x_3, c*x_0*x_1 + c*x_3, c*x_2 - c*x_1\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:35",
+        "level": "WARN",
+        "message": "Could not parse line c*x_0*x_3+c*x_2-c,c*x_1*x_0+c*x_2-c*x_3,c*x_0*x_1+c*x_3,c*x_2-c*x_1."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:35",
+        "level": "WARN",
+        "message": "'tuple' object has no attribute 'atoms'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:35",
+        "level": "INFO",
+        "message": "Parsed model outputs: []"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:35",
+        "level": "INFO",
+        "message": "Attempt 3 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_2 - c*x_0*x_1 | c*x_1 - c*x_2 | c*x_3 - c*x_2\", \"dim\": 4}\n{\"eq\": \"c*x_2 + c*x_3 - c | c*x_1 - c*x_3 | c*x_2 - c*x_1 | c*x_3 - c*x_1\", \"dim\": 4}\n{\"eq\": \"c*x_0*x_3 + c*x_1 | c*x_0 - c*x_1 | c*x_2 | c*x_3\", \"dim\": 4}\n{\"eq\": \"c*x_0 - c*x_2 + c | c*x_1 + c*x_3 | c*x_2 - c*x_1 | c*x_3\", \"dim\": 4}\n{\"eq\": \"c*x_2 + c*x_3 | c*x_2 + c*x_3 | c*x_1 | c*x_0\", \"dim\": 4}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, -c*x_0*x_1 + c*x_2, c*x_1 - c*x_2, -c*x_2 + c*x_3], [c*x_2 + c*x_3 - c, c*x_1 - c*x_3, -c*x_1 + c*x_2, -c*x_1 + c*x_3], [c*x_0*x_3 + c*x_1, c*x_0 - c*x_1, c*x_2, c*x_3], [c*x_0 - c*x_2 + c, c*x_1 + c*x_3, -c*x_1 + c*x_2, c*x_3], [c*x_2 + c*x_3, c*x_2 + c*x_3, c*x_1, c*x_0]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "INFO",
+        "message": "Generated 6 functions: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_2 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, -c*x_0*x_1 + c*x_2, c*x_1 - c*x_2, -c*x_2 + c*x_3], [c*x_2 + c*x_3 - c, c*x_1 - c*x_3, -c*x_1 + c*x_2, -c*x_1 + c*x_3], [c*x_0*x_3 + c*x_1, c*x_0 - c*x_1, c*x_2, c*x_3], [c*x_0 - c*x_2 + c, c*x_1 + c*x_3, -c*x_1 + c*x_2, c*x_3], [c*x_2 + c*x_3, c*x_2 + c*x_3, c*x_1, c*x_0]]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_2 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:44",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "INFO",
+        "message": "Num candidate expressions: 16"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n0   [c*x_0 + c*x_2 - c, c*x_1 + c*x_3, c*x_0*x_3 +...  ...  [0.2164*x_0 + 1.3871*x_2 + 16.0877, -0.2875*x_...\n11  [c*x_0*x_1 + c*x_2 - c*x_3 + c, -c*x_0*x_1 + c...  ...  [-0.3815*x_0*x_1 - 762.116*x_2 - 758.1552*x_3 ...\n1   [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2 - c, ...  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n2    [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0]  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n15       [c*x_2 + c*x_3, c*x_2 + c*x_3, c*x_1, c*x_0]  ...  [0.4965*x_2 + 0.1083*x_3, -0.0554*x_2 + 0.0031...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "INFO",
+        "message": "Succesfully generated 6 functions in 14.639776488998905 seconds."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "INFO",
+        "message": "Round 3."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:47",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:50",
+        "level": "INFO",
+        "message": "Model output: ```json\n{\n  \"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_0*x_1 - c*x_3 | c*x_2 - c*x_0 | c*x_3 - c*x_1\",\n  \"dim\": 4\n}\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:38:50",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_0*x_1 - c*x_3, -c*x_0 + c*x_2, -c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:38:50",
+        "level": "INFO",
+        "message": "Attempt 2 of 5 to generate functions."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "INFO",
+        "message": "Model output: ```json\n[\n  {\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_2/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4},\n  {\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_2/x_1 + c*x_3 | c*x_2 - c*x_0*x_1 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4},\n  {\"eq\": \"c*x_2 + c*x_3 | c*x_2/x_1 + c*x_3 | c*x_2 - c*x_0*x_1 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4},\n  {\"eq\": \"c*x_2 + c*x_3 | c*x_2/x_2 + c*x_3 | c*x_2 - c*x_0*x_1 | c*x_0 + c*x_1 - c*x_3\", \"dim\": 4},\n  {\"eq\": \"c*x_2 + c*x_3 | c*x_2/x_3 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_0 + c*x_1 - c*x_1\", \"dim\": 4}\n]\n```."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_2 + c*x_3, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_2 + c*x_3, c*x_3 + c, -c*x_0*x_1 + c*x_2, c*x_0 + c*x_1 - c*x_3], [c*x_2 + c*x_3, c*x_2/x_3 + c*x_3, -c*x_0*x_3 + c*x_2, c*x_0]]"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "INFO",
+        "message": "Generated 6 functions: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_0*x_1 - c*x_3, -c*x_0 + c*x_2, -c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_2 + c*x_3, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_2 + c*x_3, c*x_3 + c, -c*x_0*x_1 + c*x_2, c*x_0 + c*x_1 - c*x_3], [c*x_2 + c*x_3, c*x_2/x_3 + c*x_3, -c*x_0*x_3 + c*x_2, c*x_0]]."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "INFO",
+        "message": "Expression [c*x_2 + c*x_3, c*x_3 + c*x_2/x_1, -c*x_0*x_1 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Expression [c*x_2 + c*x_3, c*x_2/x_3 + c*x_3, -c*x_0*x_3 + c*x_2, c*x_0] is not valid."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Num candidate expressions: 18"
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n17  [c*x_2 + c*x_3, c*x_3 + c, -c*x_0*x_1 + c*x_2,...  ...  [0.4965*x_2 + 0.1083*x_3, 0.0586*x_3 - 0.0677,...\n0   [c*x_0 + c*x_2 - c, c*x_1 + c*x_3, c*x_0*x_3 +...  ...  [0.2164*x_0 + 1.3871*x_2 + 16.0877, -0.2875*x_...\n1   [c*x_0*x_1 + c*x_2 - c*x_3 + c, -c*x_0*x_1 + c...  ...  [-0.3815*x_0*x_1 - 762.116*x_2 - 758.1552*x_3 ...\n2   [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2 - c, ...  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n3    [c*x_0 + c*x_1 - c, c*x_1 + c*x_3, c*x_2, c*x_0]  ...  [0.1368*x_0 + 5.039*x_1 + 10.2864, -0.2875*x_1...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Succesfully generated 6 functions in 13.618953450990375 seconds."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "07/07/2025 21:39:04",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmphvfvs_vx'>"
+    }
+]

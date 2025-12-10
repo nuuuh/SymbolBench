@@ -1,0 +1,84 @@
+model:
+  name: Qwen/Qwen3-0.6B
+  tokenizer_pad: \\[PAD\\]
+  tokenizer_padding_side: left
+  visual: false
+  time_series: false
+  cache_dir: /opt/dlami/nvme/models
+  max_new_tokens: 10000
+  top_p: 0.9
+  top_k: 60
+  num_beams: 1
+  temperature: 1.0
+  temperature_schedule: false
+  temperature_schedule_gamma: 0.995
+experiment:
+  symbolic_expression:
+    name: BN_size_compute_w_thinking
+    type: BN
+    idx: 6
+    data_path: data/BN_small.json
+    judge:
+      enabled: false
+      gpt_model: gpt-4.1-nano
+      prompt_path: prompts/BN/judge.json
+    use_context: true
+    reasoning: false
+    additional_prompt: none
+    context:
+      time_series: true
+      var_description: true
+      consts_description: true
+      image: false
+      ts_encoder: false
+    train_points:
+      min_points: 0
+      max_points: 10
+      num_points: 50
+    test_points:
+      min_points: 0
+      max_points: 10
+      num_points: 100
+    tolerance: 0.9
+    iterations: 100
+  verifier:
+    name: BN_verifier
+    data_save_path: data/solved_bns.json
+  input_type: textual
+  min_seed_functions: 5
+  max_output_tokens: 4096
+  max_retries: 5
+  interval_save: 5
+  OOD: false
+  textual_input: prompts/BN/BN_textual_context.json
+  visual_input: false
+  time_series_input: false
+dataset:
+  name: BN_dataset
+logger:
+  loggers:
+  - console
+  - file
+  level: INFO
+  run_id: 20250719-041600
+output_dir: analysis_output
+force_valid: false
+force_unique: false
+prompts_path: prompts
+max_points_in_prompt: 100
+checkpoints:
+- 50
+- 100
+- 200
+- 300
+- 400
+- 500
+- 600
+- 700
+- 800
+- 900
+device: cuda:3
+use_bfloat16: true
+seed: 378274002
+enable_thinking: true
+root: /home/ubuntu/projects/Symbolic_LLMs/

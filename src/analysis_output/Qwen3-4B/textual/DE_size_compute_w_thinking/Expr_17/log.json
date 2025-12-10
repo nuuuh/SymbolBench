@@ -1,0 +1,602 @@
+[
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-4B/textual/DE_size_compute_w_thinking/Expr_17/."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Slurm job ID: 287."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1598044463."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Using device: cuda:2 with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 17."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Groundtruth Function:                              domain  ... solutions\n16  excitation-contraction_coupling  ...          \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "13/07/2025 02:17:47",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:50",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-4B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "13/07/2025 02:17:50",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 02:19:52",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five different s of ODEs based on the given context. The domain is 'excitation-contraction coupling', which I know relates to muscle physiology. The variables are x0, x1, x2, x3, each representing different components. The time series data shows x0 increasing gradually, x1 similarly but a bit slower, while x2 and x3 are decreasing. \n\nFirst, I need to model how these variables change over time. Since the data shows a smooth, increasing trend for x0 and x1, and decreasing for x2 and x3, maybe there's a  where x0 and x1 are increasing due to some excitation, while x2 and x3 are decreasing due to contraction or some other process.\n\nLet me think of possible interactions. Maybe x0 is a stimulus, and x1 is a response. Then x2 and x3 could be components that decrease as the  contracts. For example, x2 could be a calcium concentration that decreases as the contraction happens, and x3 could be a state variable that depends on x2.\n\nI need to make sure the equations are algebraic expressions using only x0, x1, x2, x3 and constants c. Also, the equations should be simple enough to have a good fitting score. Let me consider using linear or simple nonlinear terms.\n\nFor the first sample, maybe x0 increases because of some input, like x1. So dx0/dt = c * x1. Then x1 could be decreasing because of x2, so dx1/dt = -c * x2. Then x2 could be decreasing due to x3, dx2/dt = -c * x3. And x3 could be a decay term, maybe dx3/dt = -c * x3. But this might be too simple. Alternatively, maybe x2 depends on x0 and x3. Let me check the data. For example, x0 increases, x2 decreases. Maybe x2 is a function of x0 and x3. So dx2/dt = -c * x0 + c * x3. But I need to make sure the equations are coupled. Alternatively, maybe x2 and x3 are related in a way that their rates depend on each other.\n\nAnother approach: since x0 and x1 are increasing, maybe they are influenced by each other. For example, dx0/dt = c * x1 - c * x2. Then dx1/dt = c * x0 - c * x3. Then dx2/dt = -c * x0 + c * x3. And dx3/dt = -c * x1 + c * x2. But that's a  where variables are interdependent, maybe leading to oscillations or some stable behavior. However, the data shows x2 and x3 decreasing, so maybe negative terms.\n\nAlternatively, for a simple  where x0 increases due to x1, and x1 decreases due to x2, and x2 decreases due to x3, and x3 decreases due to x0. That would be a cyclic . For example:\n\ndx0/dt = c * x1\ndx1/dt = -c * x2\ndx2/dt = -c * x3\ndx3/dt = -c * x0\n\nThis is a  where each variable is driven by another, creating a cycle. However, the data shows x0 and x1 increasing, while x2 and x3 decreasing. This might fit if the  is such that x0 and x1 are being produced, and x2 and x3 are being consumed. But in this case, the equations would need to have positive terms for x0 and x1, and negative for x2 and x3.\n\nBut maybe that's too simple. The problem says to have low complexity. Let me try to make each equation involve two variables. For example:\n\ndx0/dt = c * x1 - c * x3\ndx1/dt = c * x0 - c * x2\ndx2/dt = -c * x1 + c * x3\ndx3/dt = -c * x0 + c * x2\n\nThis is a coupled  where each equation has two terms. It's symmetric. This could model a  where variables are interdependent. For instance, x0 and x1 are part of an excitation process, and x2 and x3 are parts of a contraction process. The equations could represent interactions between excitation and contraction.\n\nAnother idea: since x2 and x3 are decreasing, maybe their rates are negative of some combination. For example, dx2/dt = -c * x0 - c * x1, and dx3/dt = -c * x2 - c * x3. But that might not fit the data as well. Alternatively, maybe dx2/dt = -c * x1, and dx3/dt = -c * x2. Then x0 and x1 could be increasing based on some other factors.\n\nAlternatively, maybe x0 is a constant, but the data shows it increasing. So that's not the case. Therefore, the equations need to have variables that change over time.\n\nLet me think of the first sample. Let me create a  where x0 and x1 are increasing due to x1 and x2, while x2 and x3 are decreasing due to x3 and x0. For example:\n\ndx0/dt = c * x1 - c * x3\ndx1/dt = c * x0 - c * x2\ndx2/dt = -c * x1 + c * x3\ndx3/dt = -c * x0 + c * x2\n\nThis  is a set of four equations, each with two terms. It's symmetric and might fit the data if the  is such that the variables are in a cycle. For example, x0 increases because x1 is higher than x3, x1 increases because x0 is higher than x2, etc. But since the data shows x0 and x1 increasing, and x2 and x3 decreasing, this could be plausible.\n\nAnother sample could have different couplings. Maybe x0 is driven by x1, and x1 is driven by x0 and x2, while x2 is driven by x3 and x0, and x3 is driven by x2 and x1. For example:\n\ndx0/dt = c * x1\ndx1/dt = c * x0 - c * x2\ndx2/dt = -c * x3 + c * x0\ndx3/dt = -c * x2 - c * x1\n\nThis  is a bit different, with some variables dependent on others. Maybe this would model a  where x0 and x1 are part of a feedback loop, while x2 and x3 are being reduced by other factors.\n\nThird sample: Maybe x0 is increasing due to x3, and x3 is decreasing due to x2. Then x1 is increasing due to x0, and x2 is decreasing due to x1. So:\n\ndx0/dt = c * x3\ndx1/dt = c * x0\ndx2/dt = -c * x1\ndx3/dt = -c * x2\n\nThis is a simple  where each variable is driven by another, leading to exponential growth or decay. But the data for x0 and x1 shows increasing, while x2 and x3 are decreasing. This could fit if, for example, x0 is driven by x3, which is driven by x2, which is driven by x1, which is driven by x0. But the equations would be more complex.\n\nWait, maybe that's a good . For example, dx0/dt = c * x3, dx1/dt = c * x0, dx2/dt = -c * x1, dx3/dt = -c * x2. This would lead to x0 and x1 growing if x3 and x0 are positive, but x2 and x3 decay. However, if x3 is driven by x2, but x3 is negative here. Hmm, perhaps not. Alternatively, maybe the equations are:\n\ndx0/dt = c * x1 - c * x3\ndx1/dt = c * x0 - c * x2\ndx2/dt = -c * x1 + c * x3\ndx3/dt = -c * x0 + c * x2\n\nWhich is similar to the first sample. But I need to make sure that each sample is different. Let me think of other possibilities.\n\nAnother approach: Since the data shows that x0 and x1 are increasing, maybe they are being driven by some external factor, while x2 and x3 are being consumed. For example:\n\ndx0/dt = c * (1 - x3)\ndx1/dt = c * (1 - x2)\ndx2/dt = -c * x0\ndx3/dt = -c * x1\n\nThis way, x0 and x1 increase as x3 and x2 decrease, which aligns with the data. However, this might be more complex with the (1 - x3) terms. But the problem allows for constants c and variables, so that's acceptable.\n\nBut the variables are dimensionless, so maybe 1 is a constant. Wait, but the problem says constants should be denoted by c. So perhaps I can't use 1 unless it's a c. So maybe dx0/dt = c * (x1 - x3), and similar for others.\n\nAlternatively, maybe dx0/dt = c * x1 - c * x3, which is a combination of two variables. That's similar to earlier ideas.\n\nSo, for each sample, I need to generate four equations, each involving the variables and constants. The key is to have different couplings but with similar complexity.\n\nSample 1: \ndx0/dt = c * x1 - c * x3\ndx1/dt = c * x0 - c * x2\ndx2/dt = -c * x1 + c * x3\ndx3/dt = -c * x0 + c * x2\n\nSample 2:\ndx0/dt = c * x1 + c * x2\ndx1/dt = -c * x0 + c * x3\ndx2/dt = -c * x0 - c * x1\ndx3/dt = c * x0 + c * x1\n\nSample 3:\ndx0/dt = c * x3 - c * x1\ndx1/dt = c * x0 - c * x3\ndx2/dt = -c * x1 + c * x0\ndx3/dt = -c * x2 - c * x0\n\nSample 4:\ndx0/dt = c * (x1 - x2)\ndx1/dt = c * (x0 - x3)\ndx2/dt = -c * (x0 + x3)\ndx3/dt = -c * (x1 + x0)\n\nSample 5:\ndx0/dt = c * x1 + c * x3\ndx1/dt = c * x0 + c * x2\ndx2/dt = -c * x3 - c * x0\ndx3/dt = -c * x2 - c * x1\n\nThese are five different s, each with four equations. They involve combinations of variables and constants. Each sample has a different coupling structure but maintains the same variables and constants. The equations are algebraic expressions using the allowed operations. The first sample is symmetric, while others have different combinations. This should satisfy the requirements of being simple, coupled, and fitting the data trends.\n</think>\n\n{\"eq\": \"c*x_1 - c*x_3 | c*x_0 - c*x_2 | -c*x_1 + c*x_3 | -c*x_0 + c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1 + c*x_2 | -c*x_0 + c*x_3 | -c*x_0 - c*x_1 | c*x_0 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_3 - c*x_1 | c*x_0 - c*x_3 | -c*x_1 + c*x_0 | -c*x_2 - c*x_0\", \"dim\": 4}, {\"eq\": \"c*(x_1 - x_2) | c*(x_0 - x_3) | -c*(x_0 + x_3) | -c*(x_1 + x_0)\", \"dim\": 4}, {\"eq\": \"c*x_1 + c*x_3 | c*x_0 + c*x_2 | -c*x_3 - c*x_0 | -c*x_2 - c*x_1\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 02:19:52",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_1 - c*x_3, c*x_0 - c*x_2, c*x_1 + c*x_3, c*x_0 + c*x_2], [c*x_1 + c*x_2, c*x_0 + c*x_3, c*x_0 - c*x_1, c*x_0 + c*x_1], [-c*x_1 + c*x_3, c*x_0 - c*x_3, c*x_0 + c*x_1, -c*x_0 + c*x_2], [c*(x_1 - x_2), c*(x_0 - x_3), c*(x_0 + x_3), c*(x_0 + x_1)], [c*x_1 + c*x_3, c*x_0 + c*x_2, -c*x_0 + c*x_3, -c*x_1 + c*x_2]]"
+    },
+    {
+        "timestamp": "13/07/2025 02:19:52",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five synthetic ODEs that model the excitation-contraction coupling process. The variables are x0, x1, x2, x3. The time series data shows x0 increasing gradually, x1 also increasing but slower than x0, while x2 and x3 are decreasing. So the  should capture this dynamic.\n\nFirst, I should think about the relationships between these variables. In excitation-contraction coupling, there might be interactions between different components. For example, x0 (R) could be a response to x1 (RI), which might be influenced by x2 (O) and x3 (I). \n\nLooking at the data, x2 and x3 are decreasing over time. Maybe x2 and x3 are related to the contraction or some inhibitory process. Let me consider simple linear relationships. Since x0 is increasing, perhaps it's a function of x1 and x2. But how?\n\nAlternatively, maybe there's a feedback loop. For instance, x0 could depend on x1, which in turn depends on x2 and x3. But since x2 and x3 are decreasing, maybe they are acting as inhibitors. Let me try to create equations where x0 increases as x1 increases, and x1 is affected by x2 and x3. \n\nFor example, the derivative of x0 could be proportional to x1. Then, the derivative of x1 could be a function of x2 and x3. But since the data shows x2 and x3 decreasing, perhaps their derivatives are negative. \n\nWait, but the problem says the ODEs should model the dynamical process. So each equation should be a derivative. Let's think of x0 as increasing due to x1, x1 as increasing due to some other factors, but x2 and x3 are decreasing because of interactions. \n\nAlternatively, maybe x0 is a result of x1, which is influenced by x2 and x3. Let me try to create equations where:\n\ndx0/dt = c * x1\ndx1/dt = c * x2 + c * x3\ndx2/dt = -c * x1\ndx3/dt = -c * x0\n\nBut that might not fit the data well. Let's check the data: x0 increases, x1 increases, x2 decreases, x3 decreases. If dx0/dt is positive, and dx1/dt is positive, but dx2/dt is negative, dx3/dt is negative. But in the given data, x2 and x3 are decreasing, so their derivatives should be negative. However, the equations above would have dx1/dt as positive (since x2 and x3 are negative in their derivatives?), wait no. Wait, if dx2/dt is -c*x1, then x2 is decreasing if x1 is positive. But x1 is increasing. So that could make sense. But how do these equations fit the data?\n\nAlternatively, maybe x0 is increasing due to x1, x1 is decreasing due to x2 and x3, while x2 and x3 are decreasing due to some other factors. But I need to make sure that the equations are algebraic expressions, not necessarily involving derivatives. Wait, the problem says ODEs, so each equation is a derivative. Wait, the problem says \"generate a synthetic ordinary differential equation (ODE) or a  of coupled ODEs\". So the equations are the derivatives of the variables.\n\nBut the 's example has equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\", which suggests that each equation is the derivative of the variable. So each part after the pipe is the derivative of each variable.\n\nSo for example, in the sample, the first equation is c*x0*x1 + c*x2 - c*x3 + c, which would be dx0/dt. Then the second equation is c*x1/x0 + c*x3, which is dx1/dt. Then the third is c*x2 - c*x0*x3, and the fourth is c*x3 + c*x0 - c*x1.\n\nSo each equation is the derivative of x0, x1, x2, x3. So for the problem, I need to create four equations, each being the derivative of x0, x1, x2, x3. The equations must be algebraic expressions involving x0, x1, x2, x3, and constants c.\n\nNow, considering the data: x0 is increasing, x1 is increasing but slower, x2 and x3 are decreasing. So the derivatives of x0 and x1 should be positive, and derivatives of x2 and x3 should be negative.\n\nLet me think of a possible . Let's say:\n\ndx0/dt = c * x1 - c * x2\ndx1/dt = c * x3 - c * x0\ndx2/dt = -c * x1 + c * x3\ndx3/dt = -c * x2 - c * x0\n\nBut I need to check if this would fit the data. However, the problem says the equations should fit the data well. The time series data for x0 increases, x1 increases, x2 and x3 decrease. So, if dx0/dt is positive, then x0 is increasing. Similarly for dx1/dt.\n\nBut this is just one possibility. Alternatively, maybe the equations are simpler. Let me think of a  where x0 is increasing as x1 increases, and x1 is decreasing as x2 and x3 increase. But in the data, x2 and x3 are decreasing. Hmm, maybe that's not the case.\n\nAlternatively, maybe there's a simple coupling where x0 depends on x1, x1 depends on x2, x2 depends on x3, and x3 depends on x0. But that would be a cyclic . For example:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = c * x3\ndx3/dt = -c * x0\n\nThis way, x0 increases as x1 increases, x1 increases as x2 increases, x2 increases as x3 increases, and x3 decreases as x0 increases. But according to the data, x3 is decreasing, so this might work. However, in the data, x0 is increasing, x1 is increasing, but x2 and x3 are decreasing. Wait, but according to this , x2 would be increasing as x3 increases. But in the data, x2 is decreasing. So this  is not compatible. Hence, that's not correct.\n\nAlternatively, maybe x2 and x3 are decreasing due to some negative feedback. For example:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = -c * x3\ndx3/dt = -c * x0\n\nIn this case, x2 is decreasing if x3 increases, but x3 is decreasing. So dx3/dt is negative, so x3 is decreasing. Then x2's derivative is -c*x3, so if x3 is decreasing (negative derivative), then dx2/dt would be positive (since x3 is decreasing, so -c*x3 is positive). Wait, no: if x3 is decreasing, then its derivative is negative. So dx2/dt = -c * x3 would be positive if x3 is positive, which it is. So x2 would be increasing. But according to the data, x2 is decreasing. So this is not matching.\n\nHmm. Maybe I need to think of another approach. Since x2 and x3 are both decreasing, perhaps their derivatives are negative. Let's think of x2 and x3 being negative functions of x0 and x1.\n\nAnother idea: perhaps x0 is a response to x1, which is a response to x2 and x3. For example:\n\ndx0/dt = c * x1\ndx1/dt = -c * x2 - c * x3\ndx2/dt = -c * x1\ndx3/dt = -c * x0\n\nIn this case, x0 increases with x1, x1 decreases with x2 and x3, x2 decreases with x1, and x3 decreases with x0. This might fit the data. Let's see:\n\nIf x0 is increasing, then x1 is increasing (since dx0/dt is c*x1). But if x1 is increasing, then dx1/dt is -c*x2 -c*x3. But x2 and x3 are decreasing (so negative in derivative), so their values are decreasing, so if x2 and x3 are positive, their derivatives are negative. So -c*x2 -c*x3 would be negative, so x1 would be decreasing. But in the data, x1 is increasing. That contradicts. So this  is not matching.\n\nAlternatively, maybe the equations are:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = -c * x1\ndx3/dt = -c * x0\n\nIn this case, x0 increases with x1, x1 increases with x2, x2 decreases with x1, and x3 decreases with x0. Let's see the data: x0 is increasing, so x1 increases. Then x1 increases, so x2 increases. But in the data, x2 is decreasing. So this is not matching.\n\nAlternatively, maybe x2 and x3 are both decreasing because they are being subtracted by some terms. For example:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = -c * x0\ndx3/dt = -c * x1\n\nIn this case, x0 increases with x1, x1 increases with x2, x2 decreases with x0, and x3 decreases with x1. So if x0 increases, then x2 decreases. But x1 is increasing because of x2, which is decreasing. This seems conflicting. Maybe not the best fit.\n\nAlternatively, maybe the equations are more complex. For example:\n\ndx0/dt = c * x1 - c * x3\ndx1/dt = c * x2 - c * x0\ndx2/dt = c * x3 - c * x1\ndx3/dt = c * x0 - c * x2\n\nThis is a  where each variable is a function of others. But I need to check if this would fit the data. For example, if x0 is increasing, then dx0/dt is positive. So c*x1 - c*x3 > 0. Since x1 is increasing and x3 is decreasing, perhaps x1 is larger than x3. This could work. Similarly, dx1/dt is c*x2 - c*x0. If x2 is decreasing, and x0 is increasing, then this might be negative, which would mean x1 is decreasing. But in the data, x1 is increasing. So this might not fit.\n\nAlternatively, maybe the  is:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = -c * x0\ndx3/dt = -c * x1\n\nThis way, x0 increases with x1, x1 increases with x2, x2 decreases with x0, and x3 decreases with x1. So if x0 is increasing, then x2 decreases. But x1 is increasing because x2 is increasing, which is conflicting. Wait, if x2 decreases, then dx1/dt = c*x2 would decrease, which would mean x1 is decreasing. But in the data, x1 is increasing. So this is not matching.\n\nThis is tricky. Let me think of the data again. x0 increases, x1 increases, x2 decreases, x3 decreases. So, for x0, its derivative is positive. For x1, derivative is positive. For x2 and x3, derivatives are negative.\n\nSo possible equations:\n\ndx0/dt = c * x1\ndx1/dt = c * x3\ndx2/dt = -c * x0\ndx3/dt = -c * x1\n\nBut here, dx1/dt is positive if x3 is positive, which it is. However, dx3/dt is negative if x1 is positive, which is the case. So this would make x0 increase with x1, x1 increase with x3, which is decreasing. Wait, but if x3 is decreasing, then dx1/dt = c*x3 would be negative. But in the data, x1 is increasing. So this is conflicting.\n\nHmm. Maybe the  is more like:\n\ndx0/dt = c * x1 - c * x2\ndx1/dt = c * x2 - c * x3\ndx2/dt = c * x3 - c * x0\ndx3/dt = c * x0 - c * x1\n\nThis is a cyclic . Let me think: if x0 increases, then dx0/dt is positive, so x1 - x2 must be positive. If x1 is increasing, then dx1/dt is positive, so x2 - x3 must be positive. If x2 is decreasing, then dx2/dt is negative, so x3 - x0 must be negative. Similarly for dx3/dt. This is a bit complicated, but maybe this  could work. It's a set of coupled equations where each variable is a function of the next.\n\nBut how would this fit the data? Let's assume that in the data, x0 is increasing, x1 is increasing, x2 and x3 are decreasing. So dx0/dt = c*(x1 - x2). Since x1 is increasing and x2 is decreasing, x1 - x2 would be positive, so dx0/dt is positive. That works. For dx1/dt = c*(x2 - x3). x2 is decreasing, x3 is decreasing, but x2 - x3 could be positive or negative. If x2 is decreasing faster than x3, then x2 - x3 would be positive, so dx1/dt is positive. That would mean x1 is increasing. So that works. For dx2/dt = c*(x3 - x0). Since x3 is decreasing and x0 is increasing, x3 - x0 is negative, so dx2/dt is negative. That fits x2 decreasing. For dx3/dt = c*(x0 - x1). If x0 is increasing and x1 is increasing, but x0 is increasing faster than x1, then x0 - x1 is positive, so dx3/dt is positive. But in the data, x3 is decreasing. So that's a problem. Thus, this  doesn't fit the data.\n\nThis is getting complicated. Maybe I need to simplify the equations. Since the data shows x0 increasing, x1 increasing, x2 and x3 decreasing, perhaps the equations can be:\n\ndx0/dt = c * x1\ndx1/dt = c * x1\ndx2/dt = -c * x1\ndx3/dt = -c * x1\n\nIn this case, x0 increases as x1 increases, x1 increases at a rate proportional to itself (so exponential growth), but in the data, x1 is increasing but not exponentially. However, maybe this is a simple . But x2 and x3 are decreasing due to x1. This could fit the data. But x1's derivative is c*x1, leading to exponential growth, which might not match the data. However, the data shows a linear increase. Hmm. Maybe a different approach.\n\nAlternatively, maybe the equations are linear and have a simple form. For example:\n\ndx0/dt = c * x1\ndx1/dt = c * x2\ndx2/dt = -c * x0\ndx3/dt = -c * x1\n\nThis way, x0 increases with x1, x1 increases with x2, x2 decreases with x0, and x3 decreases with x1. Let's see: if x0 is increasing, then x1 is increasing. If x1 is increasing, then x2 is increasing, but x2 decreases with x0. This would create a cycle where x0 and x2 are in opposition. However, in the data, x2 is decreasing. So if x2 is increasing (due to x1), but also decreasing (due to x0), which is increasing. So it depends on which term is stronger. Maybe with the right constants, this can fit. However, the data shows x2 decreasing, so maybe this  is plausible.\n\nAlternatively, perhaps the equations are:\n\ndx0/dt = c * x1\ndx1/dt = c * x3\ndx2/dt = -c * x1\ndx3/dt = -c * x2\n\nHere, x0 increases with x1, x1 increases with x3 (which is decreasing), so x3 is decreasing, which would mean dx1/dt is negative, contradicting the data. So no.\n\nHmm. Let's try to think of the simplest possible equations that would generate the observed behavior. Since x0 and x1 are increasing, and x2 and x3 are decreasing, maybe:\n\ndx0/dt = c * x1\ndx1/dt = c * x1\ndx2/dt = -c * x1\ndx3/dt = -c * x1\n\nThis way, x0 and x1 increase, while x2 and x3 decrease. The equations are simple. However, x1's derivative is c*x1, which would cause exponential growth. But the data shows a linear increase. However, since the data is given as a time series, and the equations are just a model, perhaps it's acceptable. The constants can be adjusted to fit the data. But the problem says that the equations should be algebraic expressions involving the variables and constants. So this is possible.\n\nIn this case, the equations would be:\n\ndx0/dt = c*x1\ndx1/dt = c*x1\ndx2/dt = -c*x1\ndx3/dt = -c*x1\n\nBut in this case, the equations for x2 and x3 are the same, and x1 is growing exponentially. However, the data for x1 is increasing, but slowly. So maybe this is a plausible model. However, this is a simple .\n\nAlternatively, maybe the equations are:\n\ndx0/dt = c*x1\ndx1/dt = c*x2\ndx2/dt = -c*x0\ndx3/dt = -c*x2\n\nThis would have x0 increasing with x1, x1 increasing with x2, x2 decreasing with x0, and x3 decreasing with x2. So if x0 is increasing, x2 decreases, which would mean x1 is decreasing (since dx1/dt = c*x2). But in the data, x1 is increasing. So this is conflicting.\n\nAnother approach: since x2 and x3 are both decreasing, maybe they are both negative of x0 or x1. For example:\n\ndx0/dt = c*x1\ndx1/dt = c*x2\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nIn this case, x0 increases with x1, x1 increases with x2, x2 decreases with x0, and x3 decreases with x1. If x0 is increasing, then x2 is decreasing, so x1 increases with x2 (which is decreasing) would mean x1 is decreasing. But in the data, x1 is increasing. So this is conflicting.\n\nThis is really challenging. Maybe the best approach is to create equations where x0 and x1 are increasing due to each other, and x2 and x3 are decreasing due to x0 and x1. For example:\n\ndx0/dt = c*x1 - c*x2\ndx1/dt = c*x0 - c*x3\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nIn this case, x0 and x1 are increasing if the terms on the right are positive. Let's see:\n\nIf x0 is increasing, then dx0/dt is positive. So c*x1 - c*x2 > 0. If x1 is increasing, then dx1/dt is positive, so c*x0 - c*x3 > 0. Since x3 is decreasing, this would be true if x0 is increasing and x3 is decreasing. This could work. x2 is decreasing due to x0, and x3 is decreasing due to x1. This seems plausible.\n\nSo, these equations would be:\n\ndx0/dt = c*x1 - c*x2\ndx1/dt = c*x0 - c*x3\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nThis is a  of four equations. Let's check if this could fit the data. For x0, dx0/dt is positive if x1 > x2. Given that x1 is increasing and x2 is decreasing, this is likely true. Similarly, dx1/dt is positive if x0 > x3. x0 is increasing, x3 is decreasing, so x0 is larger than x3. So this  might fit the data.\n\nAnother possibility is to have x0 and x1 as increasing functions, and x2 and x3 as decreasing functions. For example, a simple linear :\n\ndx0/dt = c*x1\ndx1/dt = c*x1\ndx2/dt = -c*x0\ndx3/dt = -c*x0\n\nThis would have x0 and x1 increasing, x2 and x3 decreasing. But again, the data for x1 is increasing, but the model for x1 is exponential. However, the problem allows any mathematical functions, and the constants can be adjusted.\n\nBut the  mentioned that the equations should first achieve a good fitting score, so maybe this is acceptable.\n\nAlternatively, maybe the equations are:\n\ndx0/dt = c*x1\ndx1/dt = c*x2\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nThis is a cyclic  where x0 increases with x1, x1 increases with x2, x2 decreases with x0, and x3 decreases with x1. If x0 is increasing, x2 is decreasing, which would make x1 increase with x2 (decreasing), so x1 might be decreasing. But in the data, x1 is increasing, so this is not matching.\n\nBut perhaps with some other combinations. Let me think of the first sample. The  provided an example where the equations are:\n\n{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\",  \"dim\": 4}\n\nThis seems to be a  where each equation is a combination of variables and constants. So for the problem, I need to generate similar equations that fit the data.\n\nLet me think of the first sample. The equations could be:\n\ndx0/dt = c*x0*x1 + c*x2 - c*x3 + c\ndx1/dt = c*x1/x0 + c*x3\ndx2/dt = c*x2 - c*x0*x3\ndx3/dt = c*x3 + c*x0 - c*x1\n\nThis is a  where the equations are more complex. Maybe this is a good fit for the data, as it combines different terms.\n\nBut I need to ensure that the equations fit the data. Given that x0 is increasing, x1 is increasing, x2 and x3 are decreasing. Let's think: for dx0/dt to be positive, the terms need to sum to positive. Similarly for dx1/dt. However, without knowing the actual data, it's hard to say. But since the problem says that the equations should have a good fitting score and low complexity, maybe a simple  is better.\n\nLet me go back to the earlier  where:\n\ndx0/dt = c*x1\ndx1/dt = c*x1\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nThis  is simple and has low complexity. It's a set of equations where x0 and x1 increase, and x2 and x3 decrease. This could fit the data, even if x1 is growing exponentially. The data might be a linear approximation of an exponential growth, but since the problem allows for any mathematical expressions, this could work.\n\nSo the equations would be:\n\ndx0/dt = c*x1\ndx1/dt = c*x1\ndx2/dt = -c*x0\ndx3/dt = -c*x1\n\nIn JSON format, this would be:\n\n{\n  \"eq\": \"c*x_1 | c*x_1 | -c*x_0 | -c*x_1\",\n  \"dim\": 4\n}\n\nBut wait, the first equation is dx0/dt, so it's c*x1. The second equation is dx1/dt = c*x1. The third is dx2/dt = -c*x0. The fourth is dx3/dt = -c*x1. So the right-hand sides are separated by |, so:\n\n\"eq\": \"c*x_1 | c*x_1 | -c*x_0 | -c*x_1\"\n\nBut this is the first sample. Then, for the second sample, maybe another . For example:\n\ndx0/dt = c*x1\ndx1/dt = c*x2\ndx2/dt = -c*x1\ndx3/dt = -c*x0\n\nSo:\n\n\"eq\": \"c*x_1 | c*x_2 | -c*x_1 | -c*x_0\"\n\nAnother  could be:\n\ndx0/dt = c*x1 - c*x2\ndx1/dt = c*x2 - c*x3\ndx2/dt = c*x3 - c*x0\ndx3/dt = c*x0 - c*x1\n\nWhich is the cyclic  mentioned earlier.\n\nSo, the five samples could be variations of these s. Each with different combinations of terms.\n\nBut I need to ensure that the equations are simple and fit the data. Another possibility is:\n\ndx0/dt = c*x1\ndx1/dt = c*x2\ndx2/dt = -c*x1\ndx3/dt = -c*x2\n\nThis would have x0 and x1 increasing with x2, but x2 decreasing due to x1. This could work.\n\nSo, the five samples could be:\n\nSample 1: dx0/dt = c*x1, dx1/dt = c*x1, dx2/dt = -c*x0, dx3/dt = -c*x1\n\nSample 2: dx0/dt = c*x1, dx1/dt = c*x2, dx2/dt = -c*x1, dx3/dt = -c*x0\n\nSample 3: dx0/dt = c*x1 - c*x2, dx1/dt = c*x2 - c*x3, dx2/dt = c*x3 - c*x0, dx3/dt = c*x0 - c*x1\n\nSample 4: dx0/dt = c*x1, dx1/dt = c*x3, dx2/dt = -c*x1, dx3/dt = -c*x0\n\nSample 5: dx0/dt = c*x1, dx1/dt = c*x2, dx2/dt = -c*x0, dx3/dt = -c*x1\n\nBut I need to check if these are valid and fit the data. Since the  wants the equations to fit the data well, and the data shows x0 and x1 increasing, and x2 and x3 decreasing, these s seem plausible.\n\nSo the JSON objects for these would be:\n\nSample 1:\n{\"eq\": \"c*x_1 | c*x_1 | -c*x_0 | -c*x_1\", \"dim\": 4}\n\nSample 2:\n{\"eq\": \"c*x_1 | c*x_2 | -c*x_1 | -c*x_0\", \"dim\": 4}\n\nSample 3:\n{\"eq\": \"c*x_1 - c*x_2 | c*x_2 - c*x_3 | c*x_3 - c*x_0 | c*x_0 - c*x_1\", \"dim\": 4}\n\nSample 4:\n{\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_0\", \"dim\": 4}\n\nSample 5:\n{\"eq\": \"c*x_1 | c*x_2 | -c*x_0 | -c*x_1\", \"dim\": 4}\n\nWait, but sample 5 is same as sample 1. So I need to generate five unique samples.\n\nLet me adjust. Sample 5 could be:\n\ndx0/dt = c*x1\ndx1/dt = c*x3\ndx2/dt = -c*x1\ndx3/dt = -c*x2\n\nWhich would be:\n\n{\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_2\", \"dim\": 4}\n\nThat's different from the others.\n\nThus, the five samples would be:\n\n1. {\"eq\": \"c*x_1 | c*x_1 | -c*x_0 | -c*x_1\", \"dim\": 4}\n2. {\"eq\": \"c*x_1 | c*x_2 | -c*x_1 | -c*x_0\", \"dim\": 4}\n3. {\"eq\": \"c*x_1 - c*x_2 | c*x_2 - c*x_3 | c*x_3 - c*x_0 | c*x_0 - c*x_1\", \"dim\": 4}\n4. {\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_0\", \"dim\": 4}\n5. {\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_2\", \"dim\": 4}\n\nThese five samples have varying complexity and different combinations of variables, which should cover the requirements. Each has a different equation, and they are all algebraic expressions involving the allowed variables and constants. They are simple and likely to fit the data well, especially since they involve the variables in a way that matches the observed trends.\n</think>\n\n{\"eq\": \"c*x_1 | c*x_1 | -c*x_0 | -c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_1 | c*x_2 | -c*x_1 | -c*x_0\", \"dim\": 4}, {\"eq\": \"c*x_1 - c*x_2 | c*x_2 - c*x_3 | c*x_3 - c*x_0 | c*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_0\", \"dim\": 4}, {\"eq\": \"c*x_1 | c*x_3 | -c*x_1 | -c*x_2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_2, c*x_0, c*x_1], [c*x_1, c*x_3, c*x_1, c*x_2], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_3, c*x_1, c*x_2], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_3, c*x_1, c*x_2]]"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "INFO",
+        "message": "Generated 23 functions: [[c*x_1 - c*x_3, c*x_0 - c*x_2, c*x_1 + c*x_3, c*x_0 + c*x_2], [c*x_1 + c*x_2, c*x_0 + c*x_3, c*x_0 - c*x_1, c*x_0 + c*x_1], [-c*x_1 + c*x_3, c*x_0 - c*x_3, c*x_0 + c*x_1, -c*x_0 + c*x_2], [c*(x_1 - x_2), c*(x_0 - x_3), c*(x_0 + x_3), c*(x_0 + x_1)], [c*x_1 + c*x_3, c*x_0 + c*x_2, -c*x_0 + c*x_3, -c*x_1 + c*x_2], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_2, c*x_0, c*x_1], [c*x_1, c*x_3, c*x_1, c*x_2], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_3, c*x_1, c*x_2], [c*x_1, c*x_1, c*x_0, c*x_1], [c*x_1, c*x_2, c*x_1, c*x_0], [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3, c*x_0 - c*x_1], [c*x_1, c*x_3, c*x_1, c*x_0], [c*x_1, c*x_3, c*x_1, c*x_2]]."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:17",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:18",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:23",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:25",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Num candidate expressions: 11"
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n4   [c*x_1 + c*x_3, c*x_0 + c*x_2, -c*x_0 + c*x_3,...  ...  [0.0087*x_1 + 0.0564*x_3, -0.0077*x_0 + 0.0624...\n0   [c*x_1 - c*x_3, c*x_0 - c*x_2, c*x_1 + c*x_3, ...  ...  [0.0087*x_1 + 0.0564*x_3, -0.0077*x_0 + 0.0624...\n2   [-c*x_1 + c*x_3, c*x_0 - c*x_3, c*x_0 + c*x_1,...  ...  [0.0087*x_1 + 0.0564*x_3, -0.0043*x_0 + 0.0593...\n3   [c*(x_1 - x_2), c*(x_0 - x_3), c*(x_0 + x_3), ...  ...  [0.0049*x_1 + 0.06*x_2, -0.0043*x_0 + 0.0593*x...\n1   [c*x_1 + c*x_2, c*x_0 + c*x_3, c*x_0 - c*x_1, ...  ...  [0.0049*x_1 + 0.06*x_2, -0.0043*x_0 + 0.0593*x...\n8   [c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3,...  ...  [0.0049*x_1 + 0.06*x_2, -0.0778*x_2 + 0.1331*x...\n11                       [c*x_1, c*x_3, c*x_1, c*x_2]  ...  [0.042*x_1, 0.0522*x_3, -0.0342*x_1, -0.0624*x_2]\n10                       [c*x_1, c*x_2, c*x_0, c*x_1]  ...  [0.042*x_1, 0.0502*x_2, -0.0321*x_0, -0.0383*x_1]\n7                        [c*x_1, c*x_2, c*x_1, c*x_0]  ...   [0.042*x_1, 0.0502*x_2, -0.0342*x_1, -0.036*x_0]\n9                        [c*x_1, c*x_3, c*x_1, c*x_0]  ...   [0.042*x_1, 0.0522*x_3, -0.0342*x_1, -0.036*x_0]\n5                        [c*x_1, c*x_1, c*x_0, c*x_1]  ...  [0.042*x_1, 0.0304*x_1, -0.0321*x_0, -0.0383*x_1]\n\n[11 rows x 5 columns]."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Succesfully generated 23 seed functions in 447.318698901101 seconds."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Initial proposals already meet the tolerance."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "13/07/2025 02:25:27",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpxdf407we'>"
+    }
+]

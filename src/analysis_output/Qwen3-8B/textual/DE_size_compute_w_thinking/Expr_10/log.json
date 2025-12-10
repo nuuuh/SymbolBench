@@ -1,0 +1,1327 @@
+[
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-8B/textual/DE_size_compute_w_thinking/Expr_10/."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Slurm job ID: 288."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1652674142."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 10."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Groundtruth Function:               domain           model  ... substituted solutions\n9  circadian_rhythms  goodwin_1965_b  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "12/07/2025 06:27:40",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:45",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-8B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "12/07/2025 06:27:46",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:31:34",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of ODEs for circadian rhythms, using variables x0 to x3. Each equation must be in a specific format with constants denoted as 'c' and only those variables. The equations should model a plausible real-world process, fit the given time series data, and have low complexity.\n\nFirst, I need to understand the context. Circadian rhythms involve biological processes that follow a roughly 24-hour cycle. The variables x0 to x3 represent different components, like X1, Y1, Y2, X2 in nanomolar concentrations. The time series data shows x0 starting high and peaking, then decreasing, which might resemble a circadian cycle. Similarly, x1 starts negative and increases, possibly representing a component that's upregulated during certain times. x2 has a similar pattern to x1 but maybe a different phase, and x3 starts at 7 and decreases, then increases again.\n\nSince the data has periodic behavior, the ODEs should capture oscillatory dynamics. Common elements in such s include feedback loops, activation and inhibition between components. For example, maybe x0 and x3 are related through a feedback mechanism, while x1 and x2 are involved in a different pathway.\n\nI need to create equations that involve these variables. Let's think of possible interactions. For example, x0 could be influenced by x1 and x2, perhaps through some rate laws. Maybe x0's rate depends on x1 and x2, with constants. Similarly, x1 could be affected by x0 and x3. Also, since the data shows some correlation between x0 and x3, maybe they have a reciprocal relationship.\n\nI should ensure that each equation uses basic operations and doesn't get too complicated. Let's start with simple terms. For example, x0 could be modeled as a function of x1 and x2, perhaps with terms like x1 - x2, multiplied by a constant. Then x1 might depend on x0 and x3, maybe involving a product or ratio. x2 could be a function of x0 and x3 as well. x3 might have a term involving x1 and x2.\n\nLet me draft a first set of equations. Let's consider the following structure:\n\nFor x0: c*(x1 - x2) - c*x3\nFor x1: c*(x0 - x3) + c*x2\nFor x2: c*x0 - c*x1\nFor x3: c*x2 - c*x0\n\nWait, but the equations need to be algebraic expressions. Each equation's right-hand side should be an expression involving the variables and constants. Let me check if these make sense. Maybe x0 is influenced by x1 and x2, x1 by x0 and x3, etc. Also, considering the data's oscillations, the equations should include terms that can create periodic behavior, like linear combinations or products.\n\nAnother approach: Maybe use terms like (x1 - x2) for x0, and similar for others. Also, perhaps include a constant c multiplied by variables. Let's try:\n\nEquation for x0: c*(x1 - x2) - c*x3\nEquation for x1: c*(x0 - x3) + c*x2\nEquation for x2: c*x0 - c*x1\nEquation for x3: c*x2 - c*x0\n\nWait, but that might be too simplistic. Let me check if the equations are balanced. For example, in x0's equation, if x1 is higher than x2, it would increase x0. Then x1's equation depends on x0 and x3. Also, x2's equation is c*x0 - c*x1, which is similar to x0's equation. Maybe this creates a feedback loop.\n\nAlternatively, maybe include more terms. For instance, x0 could be c*(x1 + x2) - c*x3, but that might not capture the dynamics. Also, considering the data for x3 starts at 7 and decreases, then increases again, perhaps x3 is influenced by x2 and x0 in a way that creates a delayed response.\n\nAnother thought: Since the data shows periodic behavior, perhaps the equations should involve oscillations through sine or cosine functions. But the  mentioned using basic operations, so maybe not. However, the  allows trigonometric expressions. Wait, the requirements say I can use sin, cos, tan, etc. So maybe that's an option. But the  also said to prioritize fitting score and low complexity. So maybe using simple linear combinations is better.\n\nLet me think of a  where x0 is driven by x1 and x2, x1 by x0 and x3, x2 by x0 and x3, and x3 by x1 and x2. Let me try:\n\nFor x0: c*(x1 - x2) - c*x3\nFor x1: c*(x0 - x3) + c*x2\nFor x2: c*x0 - c*x1\nFor x3: c*x2 - c*x0\n\nThis seems like a  of equations that could create oscillations. Let me check if each equation uses variables and constants correctly. All variables are x0 to x3, and constants are c. Each equation is an algebraic expression. This might work. But maybe I need to generate five different sets. Let me create variations by changing the signs or the terms.\n\nFor example, another set could have:\n\nx0: c*x1 - c*x2 - c*x3\nx1: c*x0 - c*x3 + c*x2\nx2: c*x0 - c*x1\nx3: c*x2 - c*x0\n\nOr perhaps different combinations. Also, the  allows combining operations, so maybe include multiplication or division. For example, x0: c*x1 / x2 - c*x3, but that might introduce division which could be problematic if variables are zero. But since the data shows positive and negative values, maybe not an issue. However, the  mentioned that the equations should achieve a good fitting score, so perhaps keeping the equations linear is better for simplicity and fitting.\n\nLet me create five different sets, ensuring each has dim=4. Each set should have four equations separated by |. Let me check the example format: the equations are separated by | and each is an algebraic expression.\n\nFor the first sample:\n\neq: \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", dim:4\n\nWait, but the 's example uses multiplication, division, and other operations. But the actual equations need to fit the given data. Since I don't have the actual data's fitting process, I have to assume that the equations should be structured to model the dynamics.\n\nAnother approach: Since the time series for x0 starts high and decreases, then increases again, maybe x0 is influenced by x1 and x2. Similarly, x3 starts at 7 and decreases, then increases, so perhaps x3 is related to x2 and x0.\n\nLet me think of a possible  where each variable's rate is a function of others. For example:\n\nx0 = c*(x1 - x2) - c*x3\nx1 = c*(x0 - x3) + c*x2\nx2 = c*x0 - c*x1\nx3 = c*x2 - c*x0\n\nBut each equation should be an expression. Let me check if this  can be represented. Each equation is linear in variables. This  has interdependencies. Maybe this is a good starting point.\n\nNow, generating five different variations. For each set, I can vary the signs or coefficients. For example, changing the signs of some terms or combining different operations. Let's make sure each set has a different structure but still plausible.\n\nSample 1:\neq: \"c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\"\nWait, but the  requires equations that are algebraic expressions. Also, the first equation has x0*x1, which is a product. Let me think of another structure. Alternatively, maybe include sine or cosine functions. For example, x0 could have a term involving sin(c*x1) or similar. However, since the  allows trigonometric functions, but the complexity might increase. However, the  wants low complexity, so maybe stick to linear terms.\n\nAnother sample could be:\n\nSample 2:\neq: \"c*x_1 - c*x_2 - c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_0 - c*x_1 | c*x_2 - c*x_0\"\n\nSample 3:\neq: \"c*x_1 - c*x_2 + c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_0 - c*x_1 | c*x_2 - c*x_0\"\n\nWait, but this might not be distinct enough. Need to ensure each set is different. Maybe vary the coefficients or the terms. For example, adding a constant term in one equation.\n\nSample 4:\neq: \"c*x_1 - c*x_2 + c | c*x_0 - c*x_3 + c*x_2 | c*x_0 - c*x_1 | c*x_2 - c*x_0\"\n\nSample 5:\neq: \"c*x_1 - c*x_2 - c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_0 + c*x_1 | c*x_2 - c*x_0\"\n\nBut I need to ensure that each equation uses the variables and constants correctly. Also, the equations should not involve all variables, as per the requirements. So some equations might not use all variables, which is allowed.\n\nWait, the  said \"you don't necessarily need to involve all variables in the equations\". So some equations can have fewer variables. For example, an equation could be just \"c*x_0\" or \"c\".\n\nBut to model a , the equations should interact. Let me think of another approach. For example, a  where x0 is influenced by x1 and x2, x1 by x0 and x3, x2 by x3 and x0, x3 by x1 and x2. So:\n\nx0 = c*x1 - c*x2 - c*x3\nx1 = c*x0 - c*x3 + c*x2\nx2 = c*x3 - c*x0\nx3 = c*x1 - c*x2\n\nThis seems plausible. But I need to create five different variations. Maybe change the signs in different equations.\n\nSample 1:\neq: \"c*x_1 - c*x_2 - c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_3 - c*x_0 | c*x_1 - c*x_2\", dim:4\n\nSample 2:\neq: \"c*x_2 - c*x_1 - c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_3 - c*x_0 | c*x_1 - c*x_2\", dim:4\n\nSample 3:\neq: \"c*x_1 - c*x_2 - c*x_3 | c*x_0 - c*x_3 - c*x_2 | c*x_3 - c*x_0 | c*x_1 + c*x_2\", dim:4\n\nSample 4:\neq: \"c*x_1 - c*x_2 + c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_3 - c*x_0 | c*x_1 - c*x_2\", dim:4\n\nSample 5:\neq: \"c*x_1 - c*x_2 - c*x_3 | c*x_0 - c*x_3 + c*x_2 | c*x_3 - c*x_0 | c*x_1 + c*x_2\", dim:4\n\nBut I need to ensure that each set has four equations, separated by |, and each is an algebraic expression. Also, check that the variables are only x0 to x3 and constants are c. This seems to meet the requirements. Now, to format them as JSON objects with \"eq\" and \"dim\":4, separated by commas. The  wants five samples, each as a JSON object.\n</think>\n\n[{\"eq\": \"c*x_0 - c*x_1 + c*x_2 - c*x_3 | c*x_1 - c*x_2 + c*x_3 | c*x_2 - c*x_0 + c*x_1 | c*x_3 - c*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 - c*x_2 + c*x_3 | c*x_1 - c*x_2 + c*x_3 | c*x_2 - c*x_0 - c*x_1 | c*x_3 - c*x_0 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 + c*x_2 + c*x_3 | c*x_1 - c*x_2 - c*x_3 | c*x_2 - c*x_0 - c*x_1 | c*x_3 - c*x_0 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 - c*x_2 - c*x_3 | c*x_1 - c*x_2 + c*x_3 | c*x_2 - c*x_0 + c*x_1 | c*x_3 - c*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 + c*x_2 - c*x_3 | c*x_1 - c*x_2 - c*x_3 | c*x_2 - c*x_0 + c*x_1 | c*x_3 - c*x_0 - c*x_1\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "12/07/2025 06:31:34",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 - c*x_2 + c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_0 + c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_1 - c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_0 + c*x_1 + c*x_3], [c*x_0 - c*x_1 - c*x_2 - c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:31:34",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:35:34",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five sets of ODEs for the circadian rhythms domain using the given variables x0, x1, x2, x3. The  wants equations that model a plausible real-world process, and they specified that each equation should be an algebraic expression involving only the variables and constants c. Let me start by understanding the context.\n\nCircadian rhythms involve biological processes that follow a roughly 24-hour cycle. Common elements include feedback loops, oscillations, and interactions between different components. The variables here are X1, Y1, Y2, X2. I need to model how these variables change over time, possibly through interactions like activation, inhibition, degradation, etc.\n\nLooking at the time series data, x0 seems to have a peak and then decreases, possibly representing a protein level that rises and falls. x1 starts at -10 and increases, maybe indicating another component that's being upregulated. x2 starts at -10 and rises more gradually, and x3 starts at 7 and peaks then decreases. These patterns might suggest a  with multiple interacting components, maybe with delays or feedback mechanisms.\n\nSince the equations must use only x0, x1, x2, x3 and constants c, I need to think of interactions that could lead to such dynamics. For example, maybe x0 is produced by x1 and x2, and degraded by x3. Alternatively, there could be oscillatory behavior through sine or cosine functions, but the  mentioned using mathematical operations, so maybe combining them with constants.\n\nThe first sample should have equations that fit the data well. Let me consider a  where x0 is influenced by x1 and x2, x1 is influenced by x0 and x3, x2 by x1 and x3, and x3 by x0 and x1. Let me think of simple interactions like x0' = c*(x1 - x0) + c*(x2 - x3) or similar. But need to ensure each equation is algebraic and uses the allowed operations.\n\nWait, the  wants equations that can fit the data. Maybe using terms that represent activation and inhibition. For example, x0 could be increasing when x1 is high and decreasing when x3 is high. So something like x0' = c*x1 - c*x3. But need to check if that's enough. But since the data for x0 peaks and then decreases, maybe there's a more complex interaction. Alternatively, maybe using exponential terms for growth and decay.\n\nAnother approach is to model the  as a set of differential equations with terms that represent interactions. For example, x0 might be produced by x1 and x2 and degraded by x3. So x0' = c*x1 + c*x2 - c*x3. Similarly, x1 could be produced by x0 and x3, and degraded by x2: x1' = c*x0 + c*x3 - c*x2. Then x2 could be produced by x1 and x0, and degraded by x3: x2' = c*x1 + c*x0 - c*x3. And x3 could be produced by x2 and x0, and degraded by x1: x3' = c*x2 + c*x0 - c*x1. But this might lead to a  where each variable is influenced by others in a symmetrical way. However, the given data might not fit this symmetric model. Also, the equations need to be separated by pipes for each equation.\n\nWait, the example given in the format has four equations separated by |, each for x0, x1, x2, x3. So each equation is for the derivative of one variable. Let me think of possible interactions. For example, maybe x0 is influenced by x1 and x2, x1 by x0 and x3, x2 by x1 and x3, and x3 by x2 and x0. But the equations need to be algebraic expressions. Let me try to form equations that could produce the observed patterns.\n\nAnother thought: circadian rhythms often involve oscillations, which can be modeled with terms involving sine or cosine functions. However, the  allows using trigonometric functions, but the data seems to follow a more linear or exponential decay pattern, but maybe with oscillations. However, the given data for x0 starts at 7, peaks around 10.8 and then decreases, which might be part of a cycle. But without knowing the exact mechanism, it's hard to model precisely.\n\nAlternatively, perhaps using terms that represent activation and inhibition. For example, x0 could be produced by x1 and x2, and inhibited by x3. So x0' = c*(x1 + x2) - c*x3. Similarly, x1 could be produced by x0 and x3, inhibited by x2: x1' = c*(x0 + x3) - c*x2. x2' = c*(x1 + x0) - c*x3. x3' = c*(x2 + x0) - c*x1. This would create a  where variables influence each other, leading to possible oscillations.\n\nBut need to ensure that the equations are algebraic and use the allowed operations. Let me check if these equations fit the requirements. Each equation uses variables and constants c, with operations like addition and subtraction. This would be valid. However, the  might want more complex expressions. But the first requirement is to have a good fitting score and low complexity. So maybe keeping it simple is better.\n\nAnother possibility is that the  has a feedback loop, where x0 and x3 are inversely related. For example, x0' = c*x1 - c*x3, and x3' = c*x2 - c*x0. Then x1 and x2 could have their own dynamics. But need to involve all variables or not. The  allows not involving all variables.\n\nWait, the  said that the simplest case is just a constant c, but for the given data, more complex equations are needed. Let me try to create five different s. Each  could have different interactions. For example:\n\nFirst : x0' = c*x1 - c*x2, x1' = c*x2 - c*x3, x2' = c*x3 - c*x0, x3' = c*x0 - c*x1. This creates a cyclic  that might oscillate. However, this might not fit the given data.\n\nAlternatively, consider that x0 is influenced by x1 and x2, x1 by x0 and x3, etc. For example:\n\nEquation 1: x0' = c*x1 + c*x2 - c*x3\nEquation 2: x1' = c*x0 + c*x3 - c*x2\nEquation 3: x2' = c*x1 + c*x0 - c*x3\nEquation 4: x3' = c*x2 + c*x1 - c*x0\n\nBut these equations might be symmetric and could lead to oscillatory behavior. However, the given data for x0 starts at 7 and increases, then peaks and decreases. The x1 data starts at -10 and increases, which might be modeled by equations that have positive terms. \n\nAlternatively, maybe x0 is produced by x1 and x2, and x1 is produced by x0 and x3, and so on. But I need to make sure that the equations are structured correctly. Let me think of another approach. Since the time series for x0 and x3 seem to be mirror images, maybe x0 and x3 are related through some negative feedback. For example, x0' = c*x1 - c*x3, x3' = c*x0 - c*x1. Then x1 and x2 could be other components. But I need to include all variables. Let me try:\n\nEquation for x0: c*x1 - c*x3\nEquation for x1: c*x2 - c*x0\nEquation for x2: c*x3 - c*x1\nEquation for x3: c*x0 - c*x2\n\nThis  might have oscillatory behavior, but perhaps not matching the given data. \n\nAlternatively, considering that x0 and x3 have similar shapes but opposite in some aspects, maybe they are inversely related. So x0' = c*x1 - c*x3, and x3' = c*x0 - c*x1. Then x1 and x2 could be other components that influence each other. For example:\n\nEquation for x1: c*x2 - c*x0\nEquation for x2: c*x1 - c*x3\n\nBut this is a  of four variables. Let me check:\n\nEquation 0: x0' = c*x1 - c*x3\nEquation 1: x1' = c*x2 - c*x0\nEquation 2: x2' = c*x1 - c*x3\nEquation 3: x3' = c*x0 - c*x1\n\nThis  might have some symmetry. However, this could be one possible set of equations. But need to generate five such sets. Let me think of different structures.\n\nAnother possibility: using exponential terms for growth and decay. For example, x0' = c*x1 - c*x0*x3. This would model x0 being produced by x1 and degraded by x3. Similarly, x1' = c*x2 - c*x0*x1. But need to make sure the equations use allowed operations. \n\nAlternatively, consider that the  has components that activate and inhibit each other. For example:\n\nEquation for x0: c*x1 - c*x3\nEquation for x1: c*x0 - c*x2\nEquation for x2: c*x1 - c*x3\nEquation for x3: c*x0 - c*x2\n\nThis would create a  where each variable is influenced by others. However, this is similar to previous s. \n\nTo generate five different sets, I need to vary the interactions. For example, one set could have terms with addition and subtraction, another with multiplication, another with exponents, another with trigonometric functions, etc. But the  mentioned using basic operations and constants. \n\nLet me try creating the first sample. Let's assume the equations involve interactions between variables with constants. For example:\n\nSample 1:\nx0' = c*x1 - c*x3\nx1' = c*x2 - c*x0\nx2' = c*x3 - c*x1\nx3' = c*x0 - c*x2\n\nThis is a symmetric  where each variable is derived from the next in a cycle. This might create oscillations. \n\nSample 2:\nx0' = c*x1 + c*x2 - c*x3\nx1' = c*x0 + c*x3 - c*x2\nx2' = c*x1 + c*x0 - c*x3\nx3' = c*x2 + c*x1 - c*x0\n\nHere, each equation has a combination of terms. \n\nSample 3:\nx0' = c*x1 - c*x3 + c*x2\nx1' = c*x2 - c*x0 + c*x3\nx2' = c*x3 - c*x1 + c*x0\nx3' = c*x0 - c*x2 + c*x1\n\nAdding a constant term might help fit the data. \n\nSample 4:\nx0' = c*x1 - c*x2 - c*x3\nx1' = c*x2 - c*x3 - c*x0\nx2' = c*x3 - c*x0 - c*x1\nx3' = c*x0 - c*x1 - c*x2\n\nThis is a different set of interactions. \n\nSample 5:\nx0' = c*x1 - c*x2 + c\nx1' = c*x2 - c*x3 + c\nx2' = c*x3 - c*x0 + c\nx3' = c*x0 - c*x1 + c\n\nAdding constants might help adjust the baseline. \n\nI need to ensure that each equation uses only the variables and constants, and that the operations are allowed. Also, check that each sample has dim=4. \n\nNow, considering the time series data for x0, which peaks around 10.8 and then decreases, perhaps the  needs to have terms that model this. For example, if x0 is being produced by x1 and x2 and consumed by x3, which is increasing, then x0 might peak when x1 and x2 are high and x3 is low. \n\nAlternatively, maybe using terms like x0' = c*x1 - c*x3, which would model x0 increasing when x1 is high and decreasing when x3 is high. If x1 is increasing and x3 is decreasing, this could lead to x0 peaking. \n\nBut without knowing the exact mechanism, it's challenging. However, the  requires that the equations should first achieve a good fitting score, so maybe the equations need to be such that they can model the observed oscillatory behavior. \n\nIn any case, I'll proceed to generate five different sets of equations, varying the interactions and operations as per the allowed rules. Let's structure them as JSON objects with dim=4.\n</think>\n\n{\"eq\": \"c*x_0 - c*x_1 + c*x_2 | c*x_1 - c*x_2 + c*x_3 | c*x_2 - c*x_3 + c*x_0 | c*x_3 - c*x_0 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_2 - c*x_0 - c*x_3 | c*x_2*x_3 - c*x_1 - c*x_0 | c*x_3*x_0 - c*x_2 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 - c*x_3 | c*x_1 - c*x_2 - c*x_0 | c*x_2 - c*x_3 - c*x_1 | c*x_3 - c*x_0 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 | c*x_1*x_2 + c*x_3 - c*x_0 | c*x_2*x_3 + c*x_0 - c*x_1 | c*x_3*x_0 + c*x_1 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_0 + c*x_1 - c*x_2 - c*x_3 | c*x_1 + c*x_2 - c*x_0 - c*x_3 | c*x_2 + c*x_3 - c*x_0 - c*x_1 | c*x_3 + c*x_0 - c*x_1 - c*x_2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 06:35:34",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 - c*x_1 + c*x_2, c*x_1 - c*x_2 + c*x_3, c*x_0 + c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_3], [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0 - c*x_1 - c*x_3, -c*x_0 + c*x_1 - c*x_2, -c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_2 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 + c*x_1 - c*x_2], [c*x_0 + c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_0 - c*x_1 - c*x_2 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:35:34",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:38:26",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five synthetic ODE s for circadian rhythms, using variables x0 to x3. Each  must be a JSON object with equations separated by pipes and dim=4. The equations can't have actual numbers, only constants denoted as 'c'. The variables are X1, Y1, Y2, X2 in the context. \n\nFirst, I need to understand circadian rhythms. These are biological processes that follow a roughly 24-hour cycle. They involve feedback loops and oscillations. So the ODEs should model interactions between these components, possibly with periodic behavior.\n\nLooking at the time series data provided, x0 starts high, peaks, then decreases, and repeats. Similarly, x1 and x3 seem to have similar patterns but maybe different phases. x2 starts low, rises, peaks, then decreases. Maybe there's a feedback loop where x0 and x3 are related, and x1 and x2 are part of another loop.\n\nThe equations need to be algebraic expressions using x0, x1, x2, x3, and c. Operations like +, -, *, /, trigonometric functions, etc., are allowed. The goal is to create equations that fit the data well and are simple in complexity.\n\nFor each , I'll need four equations. Let me think of possible interactions. Maybe x0 is influenced by x1 and x2, x1 by x0 and x3, etc. Since circadian rhythms often involve inhibitory and activating factors, perhaps terms like -c*x1*x2 could represent inhibition.\n\nFor example, the first equation could be something like c*x0 - c*x1*x2. Then the second equation might involve x1 being affected by x0 and x3, like c*x1 + c*x0 - c*x3. Third equation could involve x2 being influenced by x1 and x3, maybe c*x2 - c*x1*x3. Fourth equation could be x3 affected by x0 and x2, like c*x3 + c*x0 - c*x2. But need to check if these combinations make sense.\n\nWait, but the  said to use only the variables x0, x1, x2, x3 and constants c. Also, the equations should fit the data. Since the data for x0 and x3 both go up and down, maybe they are part of the same cycle. x1 starts low and goes up, then down, which could be an inhibitory component. x2 starts low, peaks, then decreases, perhaps another component.\n\nLet me try to structure the equations. For x0's equation: perhaps it's influenced by x1 and x2, so maybe dx0/dt = c*x1 - c*x2. For x1, maybe it's affected by x0 and x3: dx1/dt = c*x0 - c*x3. For x2, maybe it's influenced by x1 and x3: dx2/dt = c*x1 - c*x3. For x3, maybe influenced by x0 and x2: dx3/dt = c*x0 - c*x2. But that's just a simple linear . However, the data seems to have more complexity, maybe nonlinear terms.\n\nAlternatively, using products for interactions. Like x0's equation could be c*x0 - c*x1*x2. Then x1 could be c*x1 + c*x0 - c*x3. x2 could be c*x2 - c*x1*x3. x3 could be c*x3 + c*x0 - c*x2. But need to check if that would create oscillations. \n\nWait, the  wants the equations to first achieve a good fitting score. Since the data is periodic, maybe including trigonometric functions could help. For example, using sine or cosine terms to model the oscillations. However, the problem says to use only variables, constants, and operations. So maybe include terms like c*sin(x0) or similar. But I need to make sure that the equations are algebraic expressions, not involving time explicitly.\n\nAlternatively, the  could involve feedback loops with terms like x0 being influenced by x1 and x2, and vice versa. Let me think of five different combinations. Each sample should have four equations. \n\nSample 1: Maybe simple linear interactions. dx0/dt = c*x1 - c*x2; dx1/dt = c*x0 - c*x3; dx2/dt = c*x1 - c*x3; dx3/dt = c*x0 - c*x2. That's four equations. But maybe they can be combined differently. \n\nSample 2: Introduce products. dx0/dt = c*x0 - c*x1*x2; dx1/dt = c*x1 + c*x0 - c*x3; dx2/dt = c*x2 - c*x1*x3; dx3/dt = c*x3 + c*x0 - c*x2. \n\nSample 3: Add exponential terms. dx0/dt = c*exp(x0) - c*x1; dx1/dt = c*x1 - c*exp(x2); dx2/dt = c*x2 - c*exp(x3); dx3/dt = c*x3 - c*exp(x0). But this might be too complex. \n\nWait, the  mentioned that the equations should have low complexity. So maybe keep it simple. Let me think of other possibilities. Maybe using addition and subtraction. For example, dx0/dt = c*x0 - c*x1; dx1/dt = c*x1 - c*x2; dx2/dt = c*x2 - c*x3; dx3/dt = c*x3 - c*x0. This forms a loop, which could generate oscillations. But this is a simple . \n\nAlternatively, use x0 and x3 as the main variables, and x1 and x2 as intermediaries. For example:\n\nSample 1:\neq: \"c*x1 - c*x2 | c*x0 - c*x3 | c*x1 - c*x3 | c*x0 - c*x2\"\n\nSample 2:\neq: \"c*x1*x0 - c*x2 | c*x0*x3 - c*x1 | c*x2*x1 - c*x3 | c*x3*x0 - c*x2\"\n\nBut need to ensure each equation is a valid algebraic expression. Also, variables can be used in any combination. \n\nAnother thought: since the time series for x0 and x3 seem to have similar patterns, maybe they are inversely related. So equations could involve terms like c*x0 - c*x3. Similarly for x1 and x2. \n\nSample 3 could be:\n\"c*x0 - c*x3 | c*x1 - c*x2 | c*x0*x1 - c*x2*x3 | c*x0*x2 - c*x1*x3\"\n\nBut I need to ensure that each equation is a separate term. Also, each sample should have four equations. \n\nLet me create five different sets. Let me think of five variations, varying the operations used. For example:\n\nSet 1: All linear terms.\nSet 2: Include products.\nSet 3: Include sine functions.\nSet 4: Include exponentials.\nSet 5: Include ratios.\n\nBut the  mentioned that the equations must be algebraic expressions, so using sin is allowed. However, the time series data might not require trigonometric functions if the  is autonomous. \n\nAlternatively, considering the circadian rhythm's periodic nature, maybe including terms like sin(c*t) would help, but the problem states that the equations must not involve actual values and constants are only denoted by c. So time t is not allowed. Therefore, using trigonometric functions of variables is allowed, but using time is not. \n\nSo for example, including terms like sin(x0) or cos(x1) could be part of the equations. However, this might complicate the equations, but it's allowed. \n\nBut the  said to prioritize fitting score and low complexity. Maybe better to keep it simple. \n\nSo perhaps five different sets, each with different combinations of variables and operations. Let me outline each set.\n\nSample 1:\neq: \"c*x0 - c*x1 | c*x1 - c*x2 | c*x2 - c*x3 | c*x3 - c*x0\"\n\nSample 2:\neq: \"c*x1*x0 - c*x2 | c*x0*x3 - c*x1 | c*x1*x2 - c*x3 | c*x0*x2 - c*x3\"\n\nSample 3:\neq: \"c*x0 + c*x1 - c*x2 | c*x1 + c*x2 - c*x3 | c*x2 + c*x3 - c*x0 | c*x3 + c*x0 - c*x1\"\n\nSample 4:\neq: \"c*x1 / x0 - c*x2 | c*x2 / x1 - c*x3 | c*x3 / x2 - c*x0 | c*x0 / x3 - c*x1\"\n\nSample 5:\neq: \"c*x0 - c*x1*x2 | c*x1 - c*x2*x3 | c*x2 - c*x3*x0 | c*x3 - c*x0*x1\"\n\nThese are five different combinations. Each uses different operations. Let me check if they fit the requirements. Each equation uses variables and constants, no actual numbers. All variables are included in some equations. The dim is 4. Each sample is a JSON object with \"eq\" and \"dim\". \n\nI need to make sure that the equations are valid algebraic expressions. For example, in Sample 2, the first equation is c*x1*x0 - c*x2, which is acceptable. \n\nNow, the  wants five such samples. Let me format them as JSON objects, each with the correct structure, separated by commas. The keys are \"eq\" and \"dim\", with dim=4. \n\nSo the final answer would be five JSON objects, each with their respective equations. Let me write them out.\n</think>\n\n{\"eq\": \"c*x_0 - c*x_1 | c*x_1 - c*x_2 | c*x_2 - c*x_3 | c*x_3 - c*x_0\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 - c*x_2 | c*x_1*x_2 - c*x_3 | c*x_2*x_3 - c*x_0 | c*x_3*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 + c*x_1 - c*x_2 | c*x_1 + c*x_2 - c*x_3 | c*x_2 + c*x_3 - c*x_0 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_1 / x_0 - c*x_2 | c*x_2 / x_1 - c*x_3 | c*x_3 / x_2 - c*x_0 | c*x_0 / x_3 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1*x_2 | c*x_1 - c*x_2*x_3 | c*x_2 - c*x_3*x_0 | c*x_3 - c*x_0*x_1\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 06:38:27",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 - c*x_1, c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3], [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1], [c*x_0 + c*x_1 - c*x_2, c*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_3], [-c*x_2 + c*x_1/x_0, -c*x_3 + c*x_2/x_1, -c*x_0 + c*x_3/x_2, c*x_0/x_3 - c*x_1], [c*x_0 - c*x_1*x_2, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2, -c*x_0*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:38:27",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five sets of ODEs for the circadian rhythms domain. The variables are x0, x1, x2, x3. Let me recall circadian rhythms involve biological processes with daily cycles, like gene expression or protein levels. The given time series data shows x0 and x3 going up and down, while x1 and x2 also have oscillatory patterns. \n\nFirst, I need to model the interactions between these variables. Since circadian rhythms often involve feedback loops and oscillations, maybe some variables inhibit or activate others. Let me think of possible interactions. \n\nFor example, x0 might be a protein that's produced by a transcription factor, which could be influenced by other proteins. Let's consider that x0 could be influenced by x1 and x2. Maybe x0's rate depends on the product of x1 and x2, but with some constants. \n\nLooking at the data, x0 starts high and decreases, then increases again. Maybe x0 is a result of some activation and inhibition. Suppose the equation for x0 is something like -c*x0 + c*x1*x2. That would cause x0 to decrease unless x1 and x2 are high. \n\nFor x1, maybe it's produced by x3 and inhibited by x0. So something like c*x3 - c*x0*x1. That would make x1 increase when x3 is high and decrease when x0 is high. \n\nx2 could be related to x1 and x3. Maybe it's a feedback loop. For example, x2 could be produced by x1 but inhibited by x3. So c*x1 - c*x3*x2. \n\nx3 might be influenced by x2 and x0. Perhaps x3 is produced by x2 and inhibited by x0. So c*x2 - c*x0*x3. \n\nWait, but the problem says to use variables x0, x1, x2, x3 and constants c. Also, the equations need to be algebraic expressions. Let me check the format examples. The equations should be separated by | for coupled s. \n\nLet me structure each equation. For example, the first equation for x0 could be -c*x0 + c*x1*x2. For x1, maybe c*x3 - c*x0*x1. For x2, c*x1 - c*x3*x2. For x3, c*x2 - c*x0*x3. \n\nWait, that would create a  where each variable is influenced by others. But maybe there's a better way. Alternatively, considering the data, x0 and x3 have similar patterns but inverted. Maybe they are part of a negative feedback loop. \n\nAnother thought: maybe x0 is produced by x1 and x2, but decays. So dx0/dt = c*x1*x2 - c*x0. Similarly, x1 might be produced by x3 and inhibited by x0: dx1/dt = c*x3 - c*x0*x1. x2 could be produced by x1 and inhibited by x3: dx2/dt = c*x1 - c*x3*x2. x3 is produced by x2 and inhibited by x0: dx3/dt = c*x2 - c*x0*x3. \n\nThis seems plausible. Each variable is produced by another and inhibited by another. The equations would be:\n\nx0: c*x1*x2 - c*x0\nx1: c*x3 - c*x0*x1\nx2: c*x1 - c*x3*x2\nx3: c*x2 - c*x0*x3\n\nBut wait, the example in the prompt had equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\". So the equations can have multiple terms. Let me check if this  would fit the data. \n\nAlternatively, maybe some equations have more complexity. For example, adding trigonometric functions to model the oscillations. But the  said to keep it simple and low complexity. Maybe using just multiplicative and additive terms. \n\nAnother approach: since the data shows x0 and x3 have similar patterns but inverted, perhaps they are part of a mutual inhibition. For example, x0 might be produced by x1 and x2, and x3 by x2 and x0. But I need to ensure that each equation uses the variables. \n\nLet me try creating five different s. Each with different combinations. For example:\n\nFirst : each variable's derivative is a combination of products and linear terms. \n\nSecond : maybe some variables are sinusoidal functions. But the problem says no actual values, so constants are c. \n\nAlternatively, using exponents or square roots. But again, keeping it simple. \n\nWait, the  wants equations that fit the data well. The time series data for x0 starts at 7.0, goes up to ~10.84, then decreases. Similarly, x3 starts at 7.0, increases to ~7.3, then decreases. So perhaps they are related. \n\nAnother thought: maybe x0 and x3 are in a feedback loop where they inhibit each other. For example, dx0/dt = -c*x0 + c*x3, dx3/dt = -c*x3 + c*x0. But that would make them oscillate in phase, but the data shows them going in opposite directions. So maybe with a negative sign. For example, dx0/dt = -c*x0 + c*x1, dx1/dt = -c*x1 + c*x0. But I need to include x2 and x3. \n\nAlternatively, considering that x1 and x2 might represent other components. Maybe x1 and x2 are oscillating in phase, while x0 and x3 are in opposition. \n\nLet me try to structure each  with different combinations. Let me create the first  as:\n\nFor x0: c*x1*x2 - c*x0\nx1: c*x2 - c*x1*x3\nx2: c*x3 - c*x0*x2\nx3: c*x0 - c*x1*x3\n\nThis way, each variable's derivative depends on others in a multiplicative and subtractive manner. \n\nAnother  could involve adding constants. For example:\n\nx0: c*x1 - c*x0\nx1: c*x2 - c*x1\nx2: c*x3 - c*x2\nx3: c*x0 - c*x3\n\nBut this would lead to simple oscillations, maybe. However, the data has more complex patterns. \n\nAlternatively, adding terms like sqrt or exp, but keeping the complexity low. For example:\n\nx0: c*x1 - c*x0\nx1: c*x2 - c*x1\nx2: c*x3 - c*x2\nx3: c*x0 - c*x3\n\nThis is a simple  with each variable depending on the next. But maybe that's too simple. \n\nBut the  wants equations that fit the data well. Let me think about the time series. For example, x0 starts high, goes up, then decreases. So maybe it's a combination of positive and negative terms. \n\nAlternatively, maybe x0 is produced by x1 and x2, but decays. So dx0/dt = c*x1*x2 - c*x0. Similarly, x1 is produced by x3, but inhibited by x0: dx1/dt = c*x3 - c*x0*x1. x2 is produced by x1 and inhibited by x3: dx2/dt = c*x1 - c*x3*x2. x3 is produced by x2 and inhibited by x0: dx3/dt = c*x2 - c*x0*x3. \n\nThis seems plausible. Let me check if this  would create oscillations. \n\nFor example, if x0 is high, it inhibits x1 and x3. If x1 is high, it could inhibit x2, which in turn affects x3. This could create a feedback loop leading to oscillations. \n\nSo the equations would be:\n\nx0: c*x1*x2 - c*x0\nx1: c*x3 - c*x0*x1\nx2: c*x1 - c*x3*x2\nx3: c*x2 - c*x0*x3\n\nThis would be one . Let me create five different variations. \n\nAnother  could involve x1 and x2 being linked with different terms. For example:\n\nx0: c*x1 - c*x0\nx1: c*x2 - c*x1\nx2: c*x3 - c*x2\nx3: c*x0 - c*x3\n\nThis is a simple cyclic . \n\nThird  could have:\n\nx0: c*x1*x3 - c*x0\nx1: c*x2 - c*x1\nx2: c*x3 - c*x2\nx3: c*x0 - c*x3\n\nThis introduces x3 in x0's equation. \n\nFourth :\n\nx0: c*x1 + c*x2 - c*x0\nx1: c*x3 - c*x1\nx2: c*x3 - c*x2\nx3: c*x0 - c*x3\n\nAdding x1 and x2 in x0's equation. \n\nFifth :\n\nx0: c*x2 - c*x0\nx1: c*x3 - c*x1\nx2: c*x0 - c*x2\nx3: c*x1 - c*x3\n\nAnother cyclic . \n\nNow, I need to make sure that each  is in the correct JSON format with dim=4 and equations separated by |. Each equation should be an algebraic expression with variables and c. Also, the equations should be in the order x0, x1, x2, x3. \n\nLet me write them out:\n\nFirst :\n{\n  \"eq\": \"c*x_1*x_2 - c*x_0 | c*x_3 - c*x_0*x_1 | c*x_1 - c*x_3*x_2 | c*x_2 - c*x_0*x_3\",\n  \"dim\": 4\n}\n\nSecond :\n{\n  \"eq\": \"c*x_1 - c*x_0 | c*x_2 - c*x_1 | c*x_3 - c*x_2 | c*x_0 - c*x_3\",\n  \"dim\": 4\n}\n\nThird :\n{\n  \"eq\": \"c*x_1*x_3 - c*x_0 | c*x_2 - c*x_1 | c*x_3 - c*x_2 | c*x_0 - c*x_3\",\n  \"dim\": 4\n}\n\nFourth :\n{\n  \"eq\": \"c*x_1 + c*x_2 - c*x_0 | c*x_3 - c*x_1 | c*x_3 - c*x_2 | c*x_0 - c*x_3\",\n  \"dim\": 4\n}\n\nFifth :\n{\n  \"eq\": \"c*x_2 - c*x_0 | c*x_3 - c*x_1 | c*x_0 - c*x_2 | c*x_1 - c*x_3\",\n  \"dim\": 4\n}\n\nNow, check if these fit the requirements. Each uses only x0, x1, x2, x3 and c. They are algebraic expressions. They are separated by | for dim=4. Each equation is in the correct format. \n\nI think these s are plausible for circadian rhythms, as they involve feedback loops and interactions between variables. The first  has multiplicative terms, which could model interactions, while others have simpler linear terms. \n\nThus, the five JSON objects should be generated as such.\n</think>\n\n[{\"eq\": \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 + c*x_2 | c*x_1 - c*x_2 + c*x_3 | c*x_2 - c*x_3 + c*x_0 | c*x_3 - c*x_0 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 - c*x_2 | c*x_1*x_2 - c*x_3 | c*x_2*x_3 - c*x_0 | c*x_3*x_0 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1*x_2 | c*x_1 - c*x_2*x_3 | c*x_2 - c*x_3*x_0 | c*x_3 - c*x_0*x_1\", \"dim\": 4}, {\"eq\": \"c*x_0 + c*x_1 - c*x_2 | c*x_1 + c*x_2 - c*x_3 | c*x_2 + c*x_3 - c*x_0 | c*x_3 + c*x_0 - c*x_1\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[-c*x_0 + c*x_1*x_2, -c*x_0*x_1 + c*x_3, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2], [-c*x_0 + c*x_1, -c*x_1 + c*x_2, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_1*x_3, -c*x_1 + c*x_2, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_1 + c*x_2, -c*x_1 + c*x_3, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2, c*x_1 - c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2, c*x_1 - c*x_2 + c*x_3, c*x_0 + c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_3], [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1], [c*x_0 - c*x_1*x_2, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2, -c*x_0*x_1 + c*x_3], [c*x_0 + c*x_1 - c*x_2, c*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "INFO",
+        "message": "Generated 25 functions: [[c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 - c*x_2 + c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_0 + c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_1 - c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_0 + c*x_1 + c*x_3], [c*x_0 - c*x_1 - c*x_2 - c*x_3, c*x_1 - c*x_2 + c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2, -c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2, c*x_1 - c*x_2 + c*x_3, c*x_0 + c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_3], [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0 - c*x_1 - c*x_3, -c*x_0 + c*x_1 - c*x_2, -c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_2 + c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 + c*x_1 - c*x_2], [c*x_0 + c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_0 - c*x_1 - c*x_2 + c*x_3], [c*x_0 - c*x_1, c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3], [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1], [c*x_0 + c*x_1 - c*x_2, c*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_3], [-c*x_2 + c*x_1/x_0, -c*x_3 + c*x_2/x_1, -c*x_0 + c*x_3/x_2, c*x_0/x_3 - c*x_1], [c*x_0 - c*x_1*x_2, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2, -c*x_0*x_1 + c*x_3], [-c*x_0 + c*x_1*x_2, -c*x_0*x_1 + c*x_3, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2], [-c*x_0 + c*x_1, -c*x_1 + c*x_2, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_1*x_3, -c*x_1 + c*x_2, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_1 + c*x_2, -c*x_1 + c*x_3, -c*x_2 + c*x_3, c*x_0 - c*x_3], [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2, c*x_1 - c*x_3], [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3], [c*x_0 - c*x_1 + c*x_2, c*x_1 - c*x_2 + c*x_3, c*x_0 + c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_3], [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1], [c*x_0 - c*x_1*x_2, c*x_1 - c*x_2*x_3, -c*x_0*x_3 + c*x_2, -c*x_0*x_1 + c*x_3], [c*x_0 + c*x_1 - c*x_2, c*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_2 + c*x_3, c*x_0 - c*x_1 + c*x_3]]."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:41",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:41",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:41",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:43",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:43",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:44",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:44",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:45",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:46",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:47",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:47",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:48",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:48",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:49",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:49",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:50",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:50",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:51",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:52",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:54",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:54",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:55",
+        "level": "INFO",
+        "message": "Expression [-c*x_2 + c*x_1/x_0, -c*x_3 + c*x_2/x_1, -c*x_0 + c*x_3/x_2, c*x_0/x_3 - c*x_1] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:56",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:56",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:57",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:57",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:58",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:58",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:59",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:59",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:41:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:41:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:00",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:01",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:02",
+        "level": "INFO",
+        "message": "Expression [c*x_0*x_1 + c*x_2 - c*x_3 + c, c*x_3 + c*x_1/x_0, -c*x_0*x_3 + c*x_2, c*x_0 - c*x_1 + c*x_3] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:04",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:04",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:05",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:05",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:06",
+        "level": "INFO",
+        "message": "Num candidate expressions: 19"
+    },
+    {
+        "timestamp": "12/07/2025 06:42:06",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n6   [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n8   [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n11  [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 ...  ...  [0.02*x_0*x_1 - 0.4352*x_2, 0.0264*x_1*x_2 + 0...\n18  [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2...  ...  [0.0444*x_0 - 0.2062*x_2, 0.2321*x_1 + 0.852*x...\n14  [-c*x_0 + c*x_1*x_2, -c*x_0*x_1 + c*x_3, c*x_1...  ...  [0.0327*x_0 - 0.0022*x_1*x_2, 0.0154*x_0*x_1 +...\n13  [c*x_0 - c*x_1*x_2, c*x_1 - c*x_2*x_3, -c*x_0*...  ...  [0.0327*x_0 - 0.0022*x_1*x_2, 0.0851*x_1 - 0.0...\n7   [c*x_0 - c*x_1 - c*x_3, -c*x_0 + c*x_1 - c*x_2...  ...  [0.237*x_0 - 0.3084*x_1 - 0.3695*x_3, 0.5*x_0,...\n17  [-c*x_0 + c*x_1 + c*x_2, -c*x_1 + c*x_3, -c*x_...  ...  [0.0273*x_0 - 0.2009*x_1 - 0.0636*x_2, 0.2321*...\n9   [c*x_0 + c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n10  [c*x_0 - c*x_1, c*x_1 - c*x_2, c*x_2 - c*x_3, ...  ...  [0.0204*x_0 - 0.2077*x_1, -0.0176*x_1 + 0.1498...\n15  [-c*x_0 + c*x_1, -c*x_1 + c*x_2, -c*x_2 + c*x_...  ...  [0.0204*x_0 - 0.2077*x_1, -0.0176*x_1 + 0.1498...\n16  [-c*x_0 + c*x_1*x_3, -c*x_1 + c*x_2, -c*x_2 + ...  ...  [-0.0091*x_0 + 0.021*x_1*x_3, -0.0176*x_1 + 0....\n5   [c*x_0 - c*x_1 + c*x_2, c*x_1 - c*x_2 + c*x_3,...  ...  [0.0273*x_0 - 0.2009*x_1 - 0.0636*x_2, 0.2318*...\n12  [c*x_0 + c*x_1 - c*x_2, c*x_1 + c*x_2 - c*x_3,...  ...  [0.0273*x_0 - 0.2009*x_1 - 0.0636*x_2, 0.2318*...\n0   [c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 ...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n1   [c*x_0 - c*x_1 - c*x_2 + c*x_3, c*x_1 - c*x_2 ...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n2   [c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_1 - c*x_2 ...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n3   [c*x_0 - c*x_1 - c*x_2 - c*x_3, c*x_1 - c*x_2 ...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n4   [c*x_0 - c*x_1 + c*x_2 - c*x_3, c*x_1 - c*x_2 ...  ...  [0.3087*x_0 - 0.3315*x_1 - 0.0644*x_2 - 0.4799...\n\n[19 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:06",
+        "level": "INFO",
+        "message": "Succesfully generated 25 seed functions in 833.7579779960215 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:06",
+        "level": "INFO",
+        "message": "Round 1."
+    },
+    {
+        "timestamp": "12/07/2025 06:42:06",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of ODEs for circadian rhythms, using the variables x0, x1, x2, x3. The previous examples have some equations, and I need to create better ones with higher fit scores and lower complexity.\n\nFirst, I need to understand the context. Circadian rhythms involve biological processes that follow a roughly 24-hour cycle. The variables x0 to x3 represent different components (like proteins or their complexes) in this . The time series data shows x0 increasing then decreasing, which might correspond to a peak in the morning or night. Similarly, x1 and x2 have negative values that rise and fall, possibly indicating inhibitory or activating factors. x3 starts at 7 and decreases, maybe representing another component in the feedback loop.\n\nLooking at the previous examples, some equations involve products like x0*x1, which could model interactions between components. For instance, a product might represent activation or inhibition. The previous equations had terms like c*x0*x1, which could be part of a feedback mechanism.\n\nI need to create equations that model interactions between these variables. Since the data for x0 peaks and then decreases, maybe there's a negative feedback loop. For example, if x0 is high, it might inhibit x1, which then affects other variables. Let me think about possible interactions.\n\nOne approach is to use a  where each variable's rate of change depends on others. For example, x0 might be produced by x1 and x2, and degraded by x3. So dx0/dt could be something like c*x1*x2 - c*x3*x0. Similarly, x1 might be inhibited by x0, leading to dx1/dt = c*x2 - c*x0*x1. Then x2 could be influenced by x1 and x3, and x3 by x0 and x2.\n\nWait, but the previous examples had equations like -c*x0 + c*x1*x2, which might be a way to model activation. Let me think about how to structure the equations to fit the data. The fit scores were low in the previous examples, so maybe using more terms or different combinations could help. However, the  wants low complexity, so maybe keeping it simple with products and linear terms.\n\nAnother idea: considering circadian rhythms often involve feedback loops with delays. For instance, a negative feedback loop where a component inhibits its own production. So, if x0 is high, it might inhibit x1, which then affects x0. But I need to make sure each equation uses variables from the list.\n\nLet me sketch out some possibilities. For dim=4, each equation must have a right-hand side. Let's try:\n\n1. dx0/dt = c*x1*x2 - c*x3*x0\n2. dx1/dt = c*x2 - c*x0*x1\n3. dx2/dt = c*x3 - c*x1*x2\n4. dx3/dt = c*x0 - c*x2*x3\n\nThis creates a cyclic interaction. However, I need to check if this fits the data. But the  wants the equations to be algebraic expressions with only the variables and constants. Also, the equations need to be separated by pipes for coupled equations.\n\nAlternatively, maybe include some trigonometric functions to model the oscillations. For example, using sin or cos terms. But the previous examples didn't use them, and the  mentioned using basic operations. Maybe that's not necessary.\n\nWait, the previous examples had equations with terms like -c*x0 + c*x1*x2. Let me think of another structure. Suppose:\n\ndx0/dt = c*x1 - c*x2*x0\ndx1/dt = c*x2 - c*x0*x1\ndx2/dt = c*x3 - c*x1*x2\ndx3/dt = c*x0 - c*x2*x3\n\nThis is a cyclic  where each variable's production depends on the next, and degradation depends on the previous. This might create oscillations.\n\nAlternatively, maybe use products of two variables for activation and another term for inhibition. For example, dx0/dt = c*x1*x2 - c*x3 - c*x0. But the previous examples already had similar terms. Maybe adding more variables into the equations.\n\nWait, the  said to use variables x0, x1, x2, x3. So all four variables can be involved. But the simplest case is just a constant c. But the  wants better fit than previous examples.\n\nLooking at the previous examples, the fit scores were around -0.0455 and similar. Maybe using more terms could improve fit. However, the  also wants low complexity. So perhaps adding more variables into the equations but keeping the operations simple.\n\nLet me think of another possible . For example:\n\ndx0/dt = c*x1 - c*x0\ndx1/dt = c*x2 - c*x1\ndx2/dt = c*x3 - c*x2\ndx3/dt = c*x0 - c*x3\n\nThis is a simple  with each variable decaying and being produced by the next. This could model a cyclic process, but it's linear. However, the data shows more complex behavior, so maybe non-linear terms are needed.\n\nAlternatively, include products. For example:\n\ndx0/dt = c*x1*x2 - c*x0\ndx1/dt = c*x2*x3 - c*x1\ndx2/dt = c*x3*x0 - c*x2\ndx3/dt = c*x0*x1 - c*x3\n\nThis creates a  where each variable is produced by the product of two others and decays. This could model interactions in a feedback loop.\n\nAnother approach is to use different combinations. For example, dx0/dt = c*x1 - c*x0*x2, which could represent activation and inhibition. But I need to ensure all equations are structured properly.\n\nLet me try creating five different s, each with different combinations. For example:\n\n1. dx0/dt = c*x1 - c*x2*x0\n   dx1/dt = c*x2 - c*x3*x1\n   dx2/dt = c*x3 - c*x0*x2\n   dx3/dt = c*x0 - c*x1*x3\n\nThis is a cyclic  with each variable being produced by the next and degraded by the product of the previous and current.\n\nAnother possible :\n\ndx0/dt = c*x1*x2 - c*x3\ndx1/dt = c*x2*x3 - c*x0\ndx2/dt = c*x3*x0 - c*x1\ndx3/dt = c*x0*x1 - c*x2\n\nThis is similar but with different terms. Each equation is a product of two variables minus another variable.\n\nAnother idea: include division. For example:\n\ndx0/dt = c*x1/x2 - c*x3*x0\ndx1/dt = c*x2/x3 - c*x0*x1\ndx2/dt = c*x3/x0 - c*x1*x2\ndx3/dt = c*x0/x1 - c*x2*x3\n\nBut division might complicate things, but it's allowed.\n\nAlternatively, using trigonometric functions. For example:\n\ndx0/dt = c*sin(x1) - c*x2*x0\ndx1/dt = c*cos(x2) - c*x3*x1\ndx2/dt = c*tan(x3) - c*x0*x2\ndx3/dt = c*exp(x0) - c*x1*x3\n\nBut this might be more complex and less likely to fit the data. The previous examples didn't use trigonometric functions, so perhaps better to stick with basic operations.\n\nConsidering the previous examples had terms like c*x0*x1, maybe adding more such terms. For example:\n\ndx0/dt = c*x1*x2 - c*x3 - c*x0\ndx1/dt = c*x2*x3 - c*x0 - c*x1\ndx2/dt = c*x3*x0 - c*x1 - c*x2\ndx3/dt = c*x0*x1 - c*x2 - c*x3\n\nThis is a  where each variable's rate depends on products of others minus themselves and another variable. This could model a more complex interaction.\n\nNow, I need to create five different s. Let me draft them:\n\nFirst :\ndx0/dt = c*x1*x2 - c*x3\ndx1/dt = c*x2*x3 - c*x0\ndx2/dt = c*x3*x0 - c*x1\ndx3/dt = c*x0*x1 - c*x2\n\nSecond :\ndx0/dt = c*x1 - c*x2*x0\ndx1/dt = c*x2 - c*x3*x1\ndx2/dt = c*x3 - c*x0*x2\ndx3/dt = c*x0 - c*x1*x3\n\nThird :\ndx0/dt = c*x1*x3 - c*x2\ndx1/dt = c*x2*x0 - c*x3\ndx2/dt = c*x3*x1 - c*x0\ndx3/dt = c*x0*x2 - c*x1\n\nFourth :\ndx0/dt = c*x1 - c*x0 - c*x3\ndx1/dt = c*x2 - c*x1 - c*x0\ndx2/dt = c*x3 - c*x2 - c*x1\ndx3/dt = c*x0 - c*x3 - c*x2\n\nFifth :\ndx0/dt = c*x1*x2 - c*x0 - c*x3\ndx1/dt = c*x2*x3 - c*x1 - c*x0\ndx2/dt = c*x3*x0 - c*x2 - c*x1\ndx3/dt = c*x0*x1 - c*x3 - c*x2\n\nNow, I need to format each as a JSON object with \"eq\" and \"dim\". The equations should be separated by pipes. For example, the first  would be:\n\n\"eq\": \"c*x_1*x_2 - c*x_3 | c*x_2*x_3 - c*x_0 | c*x_3*x_0 - c*x_1 | c*x_0*x_1 - c*x_2\", \"dim\": 4\n\nI should check that each equation uses the variables and constants as required. Also, ensure that the equations don't have any actual values, just constants 'c' and variables.\n\nI think these five s should meet the requirements. Let me write them out.\n</think>\n\n{\"eq\": \"c*x_1*x_2 - c*x_3 | c*x_2*x_3 - c*x_0 | c*x_3*x_0 - c*x_1 | c*x_0*x_1 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1 - c*x_2*x_0 | c*x_2 - c*x_3*x_1 | c*x_3 - c*x_0*x_2 | c*x_0 - c*x_1*x_3\", \"dim\": 4}, {\"eq\": \"c*x_1*x_3 - c*x_2 | c*x_2*x_0 - c*x_3 | c*x_3*x_1 - c*x_0 | c*x_0*x_2 - c*x_1\", \"dim\": 4}, {\"eq\": \"c*x_1 - c*x_0 - c*x_3 | c*x_2 - c*x_1 - c*x_0 | c*x_3 - c*x_2 - c*x_1 | c*x_0 - c*x_3 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1*x_2 - c*x_0 - c*x_3 | c*x_2*x_3 - c*x_1 - c*x_0 | c*x_3*x_0 - c*x_2 - c*x_1 | c*x_0*x_1 - c*x_3 - c*x_2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2], [-c*x_0*x_2 + c*x_1, -c*x_1*x_3 + c*x_2, -c*x_0*x_2 + c*x_3, c*x_0 - c*x_1*x_3], [c*x_1*x_3 - c*x_2, c*x_0*x_2 - c*x_3, -c*x_0 + c*x_1*x_3, c*x_0*x_2 - c*x_1], [-c*x_0 + c*x_1 - c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_1 - c*x_2 + c*x_3, c*x_0 - c*x_2 - c*x_3], [-c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "INFO",
+        "message": "Generated 5 functions: [[c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2], [-c*x_0*x_2 + c*x_1, -c*x_1*x_3 + c*x_2, -c*x_0*x_2 + c*x_3, c*x_0 - c*x_1*x_3], [c*x_1*x_3 - c*x_2, c*x_0*x_2 - c*x_3, -c*x_0 + c*x_1*x_3, c*x_0*x_2 - c*x_1], [-c*x_0 + c*x_1 - c*x_3, -c*x_0 - c*x_1 + c*x_2, -c*x_1 - c*x_2 + c*x_3, c*x_0 - c*x_2 - c*x_3], [-c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3]]."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "INFO",
+        "message": "fit_score: timed out after 15s"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "INFO",
+        "message": "Expression [c*x_1*x_2 - c*x_3, -c*x_0 + c*x_2*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:49",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:49",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:50",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:50",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:51",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:51",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:51",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:51",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Num candidate expressions: 23"
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Current functions:                                                 expr  ...                                          fit_exprs\n0  [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n1  [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n2  [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 ...  ...  [0.02*x_0*x_1 - 0.4352*x_2, 0.0264*x_1*x_2 + 0...\n3  [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2...  ...  [0.0444*x_0 - 0.2062*x_2, 0.2321*x_1 + 0.852*x...\n4  [-c*x_0 + c*x_1*x_2, -c*x_0*x_1 + c*x_3, c*x_1...  ...  [0.0327*x_0 - 0.0022*x_1*x_2, 0.0154*x_0*x_1 +...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Succesfully generated 5 functions in 207.04235477303155 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Checkpoint 0. Saving results."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Checkpoint 0 saved."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Round 2."
+    },
+    {
+        "timestamp": "12/07/2025 06:45:52",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:18",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of improved ODEs for circadian rhythms, using variables x0 to x3. The previous results have some expressions, and I need to create better ones based on the given time series data.\n\nFirst, I need to understand the context. Circadian rhythms involve biological processes that follow a roughly 24-hour cycle. The variables x0, x1, x2, x3 represent concentrations of different components. The time series data shows x0 increasing to a peak and then decreasing, similar to a circadian pattern. x1 starts negative and increases, while x2 starts negative and increases more gradually. x3 starts at 7 and decreases, then increases again? Wait, looking at the data for x3, it starts at 7, increases a bit, then decreases? Wait, no, let me check again. The x3 data starts at 7.0 and increases to 7.308, then starts decreasing. Wait, the values go up to around 7.308 and then start going down. So maybe x3 is part of a feedback loop.\n\nThe previous examples had equations like c*x_0*x_1 - c*x_2 - c*x_3, which might represent interactions between variables. Since the  wants improved samples, I should think about possible interactions that model circadian rhythms, like feedback loops, activation/inhibition, etc.\n\nCircadian rhythms often involve positive and negative feedback loops. For example, a protein might activate its own production (positive feedback) but also inhibit it after some time (negative feedback). So, considering variables x0, x1, x2, x3, perhaps x0 and x1 are involved in a feedback loop with x2 and x3.\n\nLooking at the time series data, x0 peaks and then decreases, while x1 starts negative and rises, which might indicate activation. x2 starts negative and increases, which could be part of a different pathway. x3 starts at 7 and initially increases, then decreases. Maybe x3 is a product that gets inhibited by x0 or x1.\n\nTo model this, I need to create equations where the derivatives of each variable depend on interactions with others. Let me think of possible terms. For example, dx0/dt could be a combination of activation (like x1*x2) and inhibition (like x0 or x3). Similarly, dx1/dt might involve x0 and x3, etc.\n\nLet me try to come up with equations. For instance, dx0/dt could be something like c*x1*x2 - c*x0 - c*x3. That would model x0 being produced by x1 and x2 but inhibited by x0 and x3. For dx1/dt, maybe c*x0*x3 - c*x1. This would mean x1 is produced by x0 and x3 but inhibited by x1 itself. Then dx2/dt could be c*x0 - c*x1*x2, where x2 is produced by x0 and inhibited by x1 and x2. For dx3/dt, maybe c*x2*x3 - c*x0*x1, representing some interaction between x2 and x3, but inhibited by x0 and x1.\n\nWait, but the  wants each equation to be an algebraic expression involving the variables and constants. Also, each equation should be separated by | for coupled equations. Let me check the previous examples. For example, one of the previous entries was [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2, ...], which seems to model different terms.\n\nLet me think of different combinations. For each variable, consider how they might influence each other. Since x0 starts high and decreases, perhaps it's being inhibited by something. Maybe x0 is produced by x1 and x2 but inhibited by x3. Similarly, x1 might be produced by x0 and x3 but inhibited by x2. x2 could be produced by x0 and inhibited by x1. x3 could be produced by x2 and inhibited by x0.\n\nAlternatively, considering the data for x1 starts at -10 and increases, which could be part of a negative feedback loop. Maybe x1 is activated by x0 and x2 but inhibited by x3. Let me try to form equations:\n\nFor x0: derivative might involve x1 and x2 producing x0, and x0 being inhibited by x3. So maybe c*x1*x2 - c*x0 - c*x3.\n\nFor x1: maybe c*x0*x2 - c*x1 - c*x3.\n\nFor x2: c*x0 - c*x1*x2.\n\nFor x3: c*x1*x2 - c*x0*x3.\n\nBut I need to ensure that the equations use only variables x0, x1, x2, x3 and constants c. Also, need to check if they fit the data's patterns. For example, x0's derivative should be positive when x0 is low and negative when high, which the first equation might capture if x1 and x2 are high and x3 is low. Similarly, x1's derivative would be positive when x0 and x2 are high and x3 is low, which matches the data where x1 starts negative and increases.\n\nAnother approach: maybe include trigonometric functions to model the circadian rhythm's periodicity. However, the previous examples didn't use them, and the  might prefer simpler expressions. Let me stick to polynomial terms for now.\n\nAnother thought: the previous examples had equations like -c*x_0 + c*x_1*x_2, which might represent activation of x1 by x0 and x2. But maybe combining terms with different interactions.\n\nLet me think of different combinations. For example:\n\nEquation for dx0/dt: c*x1*x2 - c*x0 - c*x3.\n\nEquation for dx1/dt: c*x0*x2 - c*x1 - c*x3.\n\nEquation for dx2/dt: c*x0*x3 - c*x1*x2.\n\nEquation for dx3/dt: c*x1*x3 - c*x0*x2.\n\nThis creates a  where each variable is influenced by products of others, leading to complex interactions. However, I need to check if this would fit the data's trends. For example, when x0 is high, x1 and x2 might be low, leading to dx0 being negative, which matches the data's peak and decline. Similarly, x1's increase from negative to positive could be due to x0 and x2 increasing.\n\nAlternatively, maybe some terms involve division or other operations. For example, dx0/dt could be c*x1/x2 - c*x0. But division might complicate things, but the  allows it.\n\nAnother angle: since x0 and x3 start at similar values and have opposite trends (x0 peaks then decreases, x3 starts at 7 and peaks then decreases), maybe they are inversely related. So dx0/dt could involve -x3, and dx3/dt involve -x0.\n\nBut without knowing the exact biological interactions, it's a bit challenging. However, given the previous examples and the data, I'll proceed to create five different sets of equations, ensuring they use variables and constants as required, and have good fitting scores.\n\nLet me draft the first set:\n\n1. dx0/dt = c*x1*x2 - c*x0 - c*x3\n   dx1/dt = c*x0*x3 - c*x1 - c*x2\n   dx2/dt = c*x0*x1 - c*x2 - c*x3\n   dx3/dt = c*x1*x3 - c*x0*x2\n\nThis uses products of variables and constants. Each equation has interactions between variables, which could model feedback loops.\n\nAnother set might involve different combinations, like:\n\n2. dx0/dt = c*x1 - c*x0 - c*x3\n   dx1/dt = c*x0*x2 - c*x1 + c*x3\n   dx2/dt = c*x0*x3 - c*x2\n   dx3/dt = c*x1 - c*x0*x3\n\nThis introduces linear terms and products, varying the interactions.\n\nThird set could have terms with division or other operations:\n\n3. dx0/dt = c*x1/x2 - c*x0 - c*x3\n   dx1/dt = c*x0*x3 - c*x1\n   dx2/dt = c*x0*x1 - c*x2\n   dx3/dt = c*x1*x2 - c*x0*x3\n\nHere, division is used for x1/x2 in dx0/dt.\n\nFourth set might use trigonometric functions, like sine or cosine, to model periodic behavior:\n\n4. dx0/dt = c*sin(x1) - c*x0 - c*x3\n   dx1/dt = c*cos(x0) - c*x1 + c*x2\n   dx2/dt = c*sin(x3) - c*x2\n   dx3/dt = c*cos(x2) - c*x3 + c*x1\n\nBut the  might prefer simpler expressions, so maybe this is more complex. However, the  allows trigonometric functions, so it's allowed.\n\nFifth set could involve absolute values or other operations:\n\n5. dx0/dt = c*abs(x1) - c*x0 - c*x3\n   dx1/dt = c*x0 - c*x1\n   dx2/dt = c*x0*x3 - c*x2\n   dx3/dt = c*x1 - c*x0*x3\n\nUsing absolute value could model non-linear interactions.\n\nNow, I need to ensure that each equation is an algebraic expression with the correct variables and constants, and that the dim is 4. Also, the equations should be separated by |. Let me check the format. Each equation should be in the format like \"c*x_0*x_1 - c*x_2 - c*x_3 | ...\", and the JSON should have \"eq\" and \"dim\".\n\nSo the final JSONs would look like:\n\n{\n  \"eq\": \"c*x_1*x_2 - c*x_0 - c*x_3 | c*x_0*x_3 - c*x_1 - c*x_2 | c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_3 - c*x_0*x_2\",\n  \"dim\": 4\n},\n{\n  \"eq\": \"c*x_1 - c*x_0 - c*x_3 | c*x_0*x_2 - c*x_1 + c*x_3 | c*x_0*x_1 - c*x_2 | c*x_1 - c*x_0*x_3\",\n  \"dim\": 4\n},\n... and so on for five sets.\n\nI need to make sure that each of the five sets is different and fits the criteria. Also, the equations should be algebraic expressions, not involving any actual values. Each equation uses only the variables and constants. The previous examples had some terms like c*x_0*x_1, which is acceptable.\n\nI think these five sets meet the requirements. Now, I'll structure them as JSON objects, separated by commas, without any extra text.\n</think>\n\n[{\"eq\": \"c*x_1*x_2 - c*x_0 - c*x_3 | c*x_0*x_3 - c*x_1 - c*x_2 | c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_3 - c*x_0*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1 - c*x_0 - c*x_3 | c*x_0*x_2 - c*x_1 + c*x_3 | c*x_0*x_1 - c*x_2 | c*x_1 - c*x_0*x_3\", \"dim\": 4}, {\"eq\": \"c*x_1/x_2 - c*x_0 - c*x_3 | c*x_0*x_3 - c*x_1 | c*x_0*x_1 - c*x_2 | c*x_1*x_2 - c*x_0*x_3\", \"dim\": 4}, {\"eq\": \"c*sin(x_1) - c*x_0 - c*x_3 | c*cos(x_0) - c*x_1 + c*x_2 | c*sin(x_3) - c*x_2 | c*cos(x_2) - c*x_3 + c*x_1\", \"dim\": 4}, {\"eq\": \"c*abs(x_1) - c*x_0 - c*x_3 | c*x_0 - c*x_1 | c*x_0*x_3 - c*x_2 | c*x_1 - c*x_0*x_3\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:18",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0*x_2 + c*x_1*x_3], [-c*x_0 + c*x_1 - c*x_3, c*x_0*x_2 - c*x_1 + c*x_3, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1], [-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0*x_2 + c*x_1*x_3], [-c*x_0 + c*x_1 - c*x_3, c*x_0*x_2 - c*x_1 + c*x_3, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1], [-c*x_0 + c*x_1/x_2 - c*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1*x_2], [-c*x_0 - c*x_3 + c*sin(x_1), -c*x_1 + c*x_2 + c*cos(x_0), -c*x_2 + c*sin(x_3), c*x_1 - c*x_3 + c*cos(x_2)], [-c*x_0 - c*x_3 + c*Abs(x_1), c*x_0 - c*x_1, c*x_0*x_3 - c*x_2, -c*x_0*x_3 + c*x_1]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:18",
+        "level": "INFO",
+        "message": "Generated 7 functions: [[-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0*x_2 + c*x_1*x_3], [-c*x_0 + c*x_1 - c*x_3, c*x_0*x_2 - c*x_1 + c*x_3, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1], [-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1 - c*x_2, c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0*x_2 + c*x_1*x_3], [-c*x_0 + c*x_1 - c*x_3, c*x_0*x_2 - c*x_1 + c*x_3, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1], [-c*x_0 + c*x_1/x_2 - c*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1*x_2], [-c*x_0 - c*x_3 + c*sin(x_1), -c*x_1 + c*x_2 + c*cos(x_0), -c*x_2 + c*sin(x_3), c*x_1 - c*x_3 + c*cos(x_2)], [-c*x_0 - c*x_3 + c*Abs(x_1), c*x_0 - c*x_1, c*x_0*x_3 - c*x_2, -c*x_0*x_3 + c*x_1]]."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:18",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:19",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:19",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:20",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:20",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:20",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:21",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:21",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:21",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:22",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:22",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:22",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "INFO",
+        "message": "Expression [-c*x_0 + c*x_1/x_2 - c*x_3, c*x_0*x_3 - c*x_1, c*x_0*x_1 - c*x_2, -c*x_0*x_3 + c*x_1*x_2] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:24",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:26",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:26",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:26",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:27",
+        "level": "INFO",
+        "message": "Num candidate expressions: 27"
+    },
+    {
+        "timestamp": "12/07/2025 06:49:27",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n0   [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n1   [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n28  [-c*x_0 - c*x_3 + c*Abs(x_1), c*x_0 - c*x_1, c...  ...  [-0.6128*x_0 + 1.0282*x_3 + 0.0825*Abs(x_1), 0...\n2   [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 ...  ...  [0.02*x_0*x_1 - 0.4352*x_2, 0.0264*x_1*x_2 + 0...\n3   [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2...  ...  [0.0444*x_0 - 0.2062*x_2, 0.2321*x_1 + 0.852*x...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:27",
+        "level": "INFO",
+        "message": "Succesfully generated 7 functions in 205.92899993399624 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:27",
+        "level": "INFO",
+        "message": "Round 3."
+    },
+    {
+        "timestamp": "12/07/2025 06:49:27",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of ODEs for a circadian rhythm model using the specified variables x0, x1, x2, x3. The previous attempts had some expressions, and I need to create improved versions with better fit scores and lower complexity.\n\nFirst, I need to recall the context. Circadian rhythms involve periodic biological processes, often modeled with oscillations. The variables represent different components (X1, Y1, Y2, X2) in nanomolar concentrations. The time series data shows x0 and x3 peaking and troughing, while x1 and x2 have different patterns, possibly representing interactions or feedback loops.\n\nLooking at the previous results, some equations included products of variables, linear terms, and absolute values. The fit scores were around -0.0455, which isn't great. To improve, I need equations that better capture the oscillatory behavior, maybe with more interaction terms or nonlinearities that mimic biological feedback.\n\nFor dim=4, each equation must involve x0, x1, x2, x3. Let's think about possible interactions. Since circadian rhythms often have feedback loops, maybe terms like x0*x1, x1*x2, etc. Also, considering the data trends: x0 starts high, peaks, then decreases, while x3 starts at 7, increases, peaks, then decreases. x1 and x2 start negative, increase, reach a peak, then decrease. This suggests that maybe x1 and x2 are related to activation and inhibition processes.\n\nLet me think of a possible . For example, x0 could be influenced by x1 and x2, while x3 might be influenced by x0 and x1. Also, considering the time series data, maybe there's a negative feedback loop where x1 inhibits x0, and x2 promotes x3. Let's try to form equations.\n\nFirst equation for dx0/dt: Maybe -c*x0 + c*x1*x2 - c*x3. This would have x1 and x2 promoting x0, and x3 inhibiting it. Wait, but the previous attempts had similar terms. Let me check.\n\nWait, the previous attempt had something like c*x0*x1 - c*x2 - c*x3. But maybe adding more terms. Alternatively, considering the oscillations, maybe using trigonometric functions? But the  allows trigonometric functions, so maybe something like sin or cos terms. However, the data is more like a damped oscillation, not a simple sine wave.\n\nAlternatively, maybe using terms like x0^2 or x1^2 to introduce nonlinearity. Let me think of a possible structure. For example:\n\ndx0/dt = c*x1*x2 - c*x0 - c*x3\ndx1/dt = c*x0*x3 - c*x1\ndx2/dt = c*x1 - c*x2\ndx3/dt = c*x0 - c*x3\n\nThis is a simple  with interactions. Let me check if this can fit. However, the previous attempts had some similar structures. To improve fit, maybe adding more terms. For instance, including a term like -c*x0*x3 in dx1/dt to create feedback.\n\nAlternatively, considering that x0 and x3 have similar trends but opposite phases, perhaps there's a coupling between them. For example, dx3/dt could involve x0 and x1. Let me try:\n\ndx0/dt = c*x1*x2 - c*x0 - c*x3\ndx1/dt = c*x0*x3 - c*x1\ndx2/dt = c*x1 - c*x2\ndx3/dt = c*x0 - c*x3\n\nThis seems plausible. Now, check if this can be structured into the required JSON format. Each equation should be an algebraic expression using the variables and constants. The first equation is c*x1*x2 - c*x0 - c*x3. The second equation is c*x0*x3 - c*x1. The third is c*x1 - c*x2. The fourth is c*x0 - c*x3. So the JSON would have four equations separated by |.\n\nBut the previous examples had more complex terms. Let me check if adding absolute values or other functions can improve fit. For example, maybe using Abs(x1) or sqrt(x0) terms. However, the data might not support that. Alternatively, using a term like c*x1 - c*x0*x2 to create a different interaction.\n\nWait, looking back at the previous generated results, the best fit was around -0.0455. To improve that, maybe introducing more terms. For example, in dx0/dt, maybe include x2*x3 or similar. Alternatively, consider the  as a network of feedback loops.\n\nAnother approach: since x0 starts high and then decreases, maybe it's being inhibited by x1 and x2. Similarly, x3 starts low and increases, possibly promoted by x0. So:\n\ndx0/dt = -c*x0 + c*x2*x3\ndx1/dt = -c*x1 + c*x0*x3\ndx2/dt = -c*x2 + c*x1*x0\ndx3/dt = -c*x3 + c*x2*x1\n\nBut this might be too symmetric. Alternatively, maybe:\n\ndx0/dt = c*x1 - c*x0 - c*x3\ndx1/dt = c*x0*x2 - c*x1\ndx2/dt = c*x1*x3 - c*x2\ndx3/dt = c*x2 - c*x3\n\nThis introduces more interactions. Let me structure each equation with these terms. Each equation should be in the format of expressions using x0, x1, x2, x3, and c. For example:\n\nFirst equation: c*x1 - c*x0 - c*x3\nSecond: c*x0*x2 - c*x1\nThird: c*x1*x3 - c*x2\nFourth: c*x2 - c*x3\n\nThis seems plausible. Now, to fit the JSON format with dim=4, the equations would be separated by |. Let me check if this meets the requirements. The variables are only x0, x1, x2, x3, and constants are denoted as c. The equations are algebraic expressions with basic operations. This seems acceptable.\n\nAnother possibility is to include a term with absolute values, as seen in previous attempts. For example, dx1/dt = c*x0 - c*Abs(x1). But I need to ensure that it's not overcomplicating. The  wants low complexity, so maybe stick to linear terms with products.\n\nAnother set could be:\n\ndx0/dt = c*x1 - c*x0\ndx1/dt = c*x0 - c*x1 - c*x2\ndx2/dt = c*x1 - c*x2\ndx3/dt = c*x2 - c*x3\n\nThis is simpler, with linear interactions. However, the fit score might not be as good. But since the  wants the first priority to be a good fit, maybe this is acceptable if it's simpler.\n\nAlternatively, using terms like x0*x1 and x2*x3. Let me think of another structure. For example:\n\ndx0/dt = c*x1*x2 - c*x0 - c*x3\ndx1/dt = c*x0*x3 - c*x1\ndx2/dt = c*x1 - c*x2\ndx3/dt = c*x0 - c*x3\n\nThis is similar to an earlier thought. Let me check if this structure can be varied for different samples. Each sample should be different but plausible.\n\nSo, for the five samples, I need to generate different equations. Let me think of five different combinations:\n\n1. Equations involving products and linear terms.\n2. Equations with some absolute values or trigonometric functions.\n3. Equations with more nonlinear terms like x^2.\n4. Equations with different coupling patterns.\n5. Equations with a combination of feedback loops.\n\nBut the  wants the simplest case as a constant c. However, the previous attempts already had some complexity. Let me try to create five different ODE sets, ensuring each has dim=4 and follows the format.\n\nSample 1:\neq: c*x0*x1 - c*x2 - c*x3 | c*x1*x2 - c*x0 + c*x3 | c*x2*x3 - c*x1 | c*x3*x0 - c*x2\nBut need to check if this makes sense. The first equation might model x0 as influenced by x1 and x2, etc. However, the fit might not be great, but it's a possible structure.\n\nSample 2:\neq: c*x1 - c*x0 | c*x0*x3 - c*x1 | c*x2*x1 - c*x2 | c*x3 - c*x2\nThis is simpler, with linear terms and products.\n\nSample 3:\neq: c*x1*x2 - c*x0 - c*x3 | c*x0*x3 - c*x1 | c*x1*x3 - c*x2 | c*x2 - c*x3\nThis is similar to earlier thoughts.\n\nSample 4:\neq: c*x0*x1 - c*x0 | c*x1*x2 - c*x1 | c*x2*x3 - c*x2 | c*x3*x0 - c*x3\nThis uses more interactions.\n\nSample 5:\neq: c*x0 - c*x1 | c*x1 - c*x2 | c*x2 - c*x3 | c*x3 - c*x0\nThis is a simple cyclic , but might not fit the data well. However, the  wants to see different structures.\n\nI need to ensure that each JSON object has \"eq\" as the key and \"dim\" as 4. Also, the equations must be separated by |. Each equation should be an algebraic expression using the allowed variables and constants. Let me check each sample for validity.\n\nFor example, the first sample has equations:\nc*x0*x1 - c*x2 - c*x3 | c*x1*x2 - c*x0 + c*x3 | c*x2*x3 - c*x1 | c*x3*x0 - c*x2\n\nThis uses products and linear terms. It's a plausible structure for interactions in a circadian rhythm model. The fit score might be better than previous attempts with more interactions.\n\nAnother sample could involve trigonometric functions. For example:\nc*sin(x0) - c*x1 | c*cos(x1) - c*x2 | c*sin(x2) - c*x3 | c*cos(x3) - c*x0\n\nBut this is more complex and might not be as effective. However, the  allows trigonometric expressions. However, given the data is more like a damped oscillation, maybe not. But if the fit is better, it's worth considering.\n\nAnother idea is to include a term like c*x0^2, but that might complicate things. Let me focus on the first five samples.\n\nNow, ensuring that each equation uses only the allowed variables and constants, and no actual values. Also, the equations should be algebraic expressions. For example, the first sample's first equation is c*x0*x1 - c*x2 - c*x3, which is valid.\n\nNow, I need to generate five such sets. Let me finalize the five samples.\n</think>\n\n[{\"eq\": \"c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_2 - c*x_0 + c*x_3 | c*x_2*x_3 - c*x_1 | c*x_3*x_0 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1 - c*x_0 | c*x_0*x_3 - c*x_1 | c*x_2*x_1 - c*x_2 | c*x_3 - c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1*x_2 - c*x_0 - c*x_3 | c*x_0*x_3 - c*x_1 | c*x_1*x_3 - c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 - c*x_0 | c*x_1*x_2 - c*x_1 | c*x_2*x_3 - c*x_2 | c*x_3*x_0 - c*x_3\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 | c*x_1 - c*x_2 | c*x_2 - c*x_3 | c*x_3 - c*x_0\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 + c*x_3, -c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_2], [-c*x_0 + c*x_1, c*x_0*x_3 - c*x_1, c*x_1*x_2 - c*x_2, -c*x_2 + c*x_3], [-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1, c*x_1*x_3 - c*x_2, c*x_2 - c*x_3], [c*x_0*x_1 - c*x_0, c*x_1*x_2 - c*x_1, c*x_2*x_3 - c*x_2, c*x_0*x_3 - c*x_3], [c*x_0 - c*x_1, c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "INFO",
+        "message": "Generated 5 functions: [[c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 + c*x_3, -c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_2], [-c*x_0 + c*x_1, c*x_0*x_3 - c*x_1, c*x_1*x_2 - c*x_2, -c*x_2 + c*x_3], [-c*x_0 + c*x_1*x_2 - c*x_3, c*x_0*x_3 - c*x_1, c*x_1*x_3 - c*x_2, c*x_2 - c*x_3], [c*x_0*x_1 - c*x_0, c*x_1*x_2 - c*x_1, c*x_2*x_3 - c*x_2, c*x_0*x_3 - c*x_3], [c*x_0 - c*x_1, c*x_1 - c*x_2, c*x_2 - c*x_3, -c*x_0 + c*x_3]]."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:50",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:51",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:51",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:51",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:51",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:52",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:53",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:53",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:54",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:54",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:55",
+        "level": "INFO",
+        "message": "Num candidate expressions: 31"
+    },
+    {
+        "timestamp": "12/07/2025 06:52:55",
+        "level": "INFO",
+        "message": "Current functions:                                                 expr  ...                                          fit_exprs\n0  [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n1  [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n2  [-c*x_0 - c*x_3 + c*Abs(x_1), c*x_0 - c*x_1, c...  ...  [-0.6128*x_0 + 1.0282*x_3 + 0.0825*Abs(x_1), 0...\n3  [c*x_0*x_1 - c*x_2, c*x_1*x_2 - c*x_3, -c*x_0 ...  ...  [0.02*x_0*x_1 - 0.4352*x_2, 0.0264*x_1*x_2 + 0...\n4  [-c*x_0 + c*x_2, -c*x_1 + c*x_3, c*x_0 - c*x_2...  ...  [0.0444*x_0 - 0.2062*x_2, 0.2321*x_1 + 0.852*x...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:55",
+        "level": "INFO",
+        "message": "Succesfully generated 5 functions in 203.04766526201274 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:55",
+        "level": "INFO",
+        "message": "Round 4."
+    },
+    {
+        "timestamp": "12/07/2025 06:52:55",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of improved ODEs for circadian rhythms, using variables x0 to x3. The previous examples have some equations, but I need to make sure the new ones fit better and are simpler.\n\nFirst, I need to understand the context. Circadian rhythms involve biological processes with daily cycles. The variables x0, x1, x2, x3 represent different components. The time series data shows x0 peaking and then declining, x1 starting negative and rising, x2 similar to x0 but maybe different, and x3 increasing then decreasing. \n\nLooking at the previous results, some equations used terms like x0*x1, x2, x3, and combinations with constants. The  wants equations that first fit well and are low complexity. So maybe I should focus on interactions between variables that model activation and inhibition typical in feedback loops.\n\nFor example, a possible model could involve x0 being influenced by x1 and x2, and x3 being affected by x0 and x1. Let me think of a  where each variable's rate depends on others. Let's try to create equations that have terms like -c*x0 + c*x1*x2 (like in previous examples), but maybe with different combinations. \n\nWait, the previous sample had equations like [c*x0*x1 - c*x2 - c*x3, ...], which might be part of a feedback loop. To improve, maybe adding more interaction terms or using trigonometric functions? But the  said to use basic operations, so maybe stick to algebraic terms.\n\nAnother thought: since x0 starts high and decreases, perhaps it's being inhibited by x1 or x2. Similarly, x1 starts low and increases, maybe activated by x0. Let me try to think of a  where:\n\ndx0/dt = -c*x0 + c*x1*x2 (so x0 decreases unless x1 and x2 are high)\ndx1/dt = c*x0 - c*x1 (x1 increases when x0 is high, decreases otherwise)\ndx2/dt = -c*x2 + c*x0*x1 (x2 is inhibited by something else, maybe x3)\ndx3/dt = c*x2 - c*x3 (x3 increases with x2, decreases otherwise)\n\nWait, but the previous example had similar terms. Let me check the previous fits. The first sample had equations like c*x0*x1 - c*x2 - c*x3 and others. Maybe I can vary the terms to see if they fit better. Let me try different combinations, ensuring that each equation uses variables and constants as required.\n\nAnother approach: maybe include terms that model oscillations, like using sine or cosine functions. For example, dx0/dt = c*sin(x1) - c*x0. But the  mentioned using basic operations. Wait, the  allows trigonometric functions, so that's allowed. However, the previous examples didn't use them. Maybe using them could improve fit, but I need to balance complexity.\n\nBut the  wants low complexity. So maybe stick to simple terms. Let me think of equations that are combinations of variables multiplied by constants, with subtraction. For example:\n\ndx0/dt = c*x1 - c*x0\ndx1/dt = c*x0 - c*x2\ndx2/dt = c*x1 - c*x3\ndx3/dt = c*x2 - c*x0\n\nThis is a cyclic . But does this fit the data? Maybe not. Let me think again.\n\nLooking at the time series data for x0: it starts at 7, peaks around 10.8, then decreases. x1 starts at -10, increases to around 16.5 then decreases. x2 starts at -10, increases to about 4.5 then decreases. x3 starts at 7, increases to about 7.3 then decreases. So maybe x0 and x3 have similar behavior but different phases. x1 and x2 are more like the other components but with different dynamics.\n\nPerhaps a model where x0 and x3 are influenced by x1 and x2. For example:\n\ndx0/dt = c*x1 - c*x0 - c*x2\ndx1/dt = c*x0 - c*x1 - c*x3\ndx2/dt = c*x1 - c*x2 - c*x0\ndx3/dt = c*x2 - c*x3 - c*x1\n\nThis is more complex, but maybe not. Wait, the  wants low complexity. Let me think of simpler equations. Maybe some variables are directly influenced by others.\n\nAnother idea: x0 is produced by x1 and x2, and degraded by x3. So:\n\ndx0/dt = c*x1*x2 - c*x3 - c*x0\ndx1/dt = c*x0 - c*x1 - c*x2\ndx2/dt = c*x0 - c*x1 - c*x2\ndx3/dt = c*x0 - c*x3\n\nBut this is getting complex. Let me check the previous examples again. The first sample had equations like c*x0*x1 - c*x2 - c*x3. Maybe I can create similar terms but vary the signs and variables. For example:\n\nFirst equation: c*x0*x1 - c*x2 - c*x3\nSecond equation: c*x0*x2 - c*x1 - c*x3\nThird equation: c*x0*x3 - c*x1 - c*x2\nFourth equation: c*x1*x2 - c*x0 - c*x3\n\nBut I need to make sure each equation uses variables and constants. Also, maybe include some terms with trigonometric functions to model oscillations. However, the  might prefer algebraic expressions.\n\nAlternatively, using exponential terms. For example:\n\ndx0/dt = c*x1 - c*x0\ndx1/dt = c*x2 - c*x1\ndx2/dt = c*x3 - c*x2\ndx3/dt = c*x0 - c*x3\n\nThis is a cyclic . Each variable is produced by the next and degraded by itself. This could model a simple oscillation. However, the data might not fit this. But since the  wants to generate equations, maybe this is acceptable.\n\nBut the previous examples had more complex interactions. Let me think of another approach. Maybe x0 and x3 are related, while x1 and x2 are related. For example:\n\ndx0/dt = c*x1 - c*x0\ndx1/dt = c*x0 - c*x1 - c*x2\ndx2/dt = c*x1 - c*x2 - c*x3\ndx3/dt = c*x2 - c*x3\n\nThis  has interactions where x1 affects x0, x0 affects x1 and x2, etc. This could model a feedback loop. \n\nAlternatively, to include more variables in equations. Let me try creating equations that involve all variables, but with different coefficients. For example:\n\nEquation 1: c*x0*x1 - c*x2 - c*x3\nEquation 2: c*x0*x2 - c*x1 - c*x3\nEquation 3: c*x0*x3 - c*x1 - c*x2\nEquation 4: c*x1*x2 - c*x0 - c*x3\n\nThis way, each equation has a product term and subtraction terms. This might capture the interactions better. \n\nI need to make sure that each equation is algebraic, uses the variables, and constants. Also, the previous examples had terms like -c*x0 + c*x1*x2, which is similar. So maybe varying the product terms between different variables.\n\nAnother possibility: include absolute values, as in one of the previous examples. For instance, using Abs(x1) or similar. However, the  said to use constants denoted by c, and variables. So maybe something like:\n\ndx0/dt = c*Abs(x1) - c*x0 - c*x3\ndx1/dt = c*Abs(x2) - c*x1\ndx2/dt = c*Abs(x3) - c*x2\ndx3/dt = c*Abs(x0) - c*x3\n\nBut this introduces absolute values. However, the  allows it. But maybe it's more complex than needed. The  wants low complexity, so perhaps simpler terms.\n\nAlternatively, using logarithms or exponents. For example:\n\ndx0/dt = c*exp(-x0) - c*x1\ndx1/dt = c*exp(-x1) - c*x2\ndx2/dt = c*exp(-x2) - c*x3\ndx3/dt = c*exp(-x3) - c*x0\n\nBut this is another cyclic  with exponential decay. However, the 's data might not fit this. \n\nAlternatively, considering that the data has peaks and troughs, perhaps using sinusoidal terms. For example, including sin or cos functions. But the  allows that. However, since the previous examples didn't use them, maybe the best is to stick with algebraic terms.\n\nAfter considering various options, I'll create five different s. Each  should have equations that are algebraic, use variables and constants, and aim for good fit. Let me draft them.\n\nFirst :\n\ndx0/dt = c*x1*x2 - c*x0 - c*x3\ndx1/dt = c*x0*x3 - c*x1 - c*x2\ndx2/dt = c*x0*x1 - c*x2 - c*x3\ndx3/dt = c*x1*x2 - c*x0 - c*x3\n\nWait, but this repeats terms. Maybe better to have each equation different. Let me adjust:\n\nEquation 1: c*x0*x1 - c*x2 - c*x3\nEquation 2: c*x1*x2 - c*x0 - c*x3\nEquation 3: c*x2*x3 - c*x0 - c*x1\nEquation 4: c*x3*x0 - c*x1 - c*x2\n\nThis way, each equation has a product of two variables and subtracts the others. This could model mutual interactions.\n\nSecond :\n\nEquation 1: c*x0 - c*x1 - c*x2\nEquation 2: c*x1 - c*x0 - c*x3\nEquation 3: c*x2 - c*x0 - c*x3\nEquation 4: c*x3 - c*x1 - c*x2\n\nThis is a simpler  with linear terms.\n\nThird :\n\nEquation 1: c*x0*x1 - c*x2\nEquation 2: c*x1*x2 - c*x3\nEquation 3: c*x2*x3 - c*x0\nEquation 4: c*x3*x0 - c*x1\n\nEach equation has a product term and subtracts another variable.\n\nFourth :\n\nEquation 1: c*x0*x1 - c*x3\nEquation 2: c*x1*x2 - c*x0\nEquation 3: c*x2*x3 - c*x1\nEquation 4: c*x3*x0 - c*x2\n\nThis is similar to the third  but with different pairings.\n\nFifth :\n\nEquation 1: c*x0 + c*x1 - c*x2 - c*x3\nEquation 2: c*x1 + c*x2 - c*x0 - c*x3\nEquation 3: c*x2 + c*x3 - c*x0 - c*x1\nEquation 4: c*x3 + c*x0 - c*x1 - c*x2\n\nThis is a  where each equation adds two variables and subtracts the other two.\n\nI need to ensure that each of these s is valid and fits the format. Also, check if they use variables x0 to x3 and constants c. Each equation is algebraic and meets the requirements.\n\nNow, translating these into the JSON format. Each  has four equations separated by pipes. For example:\n\n{\n  \"eq\": \"c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_2 - c*x_0 - c*x_3 | c*x_2*x_3 - c*x_0 - c*x_1 | c*x_3*x_0 - c*x_1 - c*x_2\",\n  \"dim\": 4\n}\n\nBut I need to generate five such s, each with different equations. Let me make sure they are varied enough and meet the criteria. Also, check for possible repetition or complexity.\n\nFinally, ensuring that each equation uses variables and constants as required, and that the JSON format is correct.\n</think>\n\n[\n  {\n    \"eq\": \"c*x_0*x_1 - c*x_2 - c*x_3 | c*x_1*x_2 - c*x_0 - c*x_3 | c*x_2*x_3 - c*x_0 - c*x_1 | c*x_3*x_0 - c*x_1 - c*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0 - c*x_1 - c*x_2 | c*x_1 - c*x_0 - c*x_3 | c*x_2 - c*x_0 - c*x_3 | c*x_3 - c*x_1 - c*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0*x_1 - c*x_3 | c*x_1*x_2 - c*x_0 | c*x_2*x_3 - c*x_1 | c*x_3*x_0 - c*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0 + c*x_1 - c*x_2 - c*x_3 | c*x_1 + c*x_2 - c*x_0 - c*x_3 | c*x_2 + c*x_3 - c*x_0 - c*x_1 | c*x_3 + c*x_0 - c*x_1 - c*x_2\",\n    \"dim\": 4\n  },\n  {\n    \"eq\": \"c*x_0*x_2 - c*x_1 - c*x_3 | c*x_1*x_3 - c*x_0 - c*x_2 | c*x_2*x_0 - c*x_1 - c*x_3 | c*x_3*x_1 - c*x_0 - c*x_2\",\n    \"dim\": 4\n  }\n]."
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0 - c*x_1 - c*x_2, -c*x_0 + c*x_1 - c*x_3, -c*x_0 + c*x_2 - c*x_3, -c*x_1 - c*x_2 + c*x_3], [c*x_0*x_1 - c*x_3, -c*x_0 + c*x_1*x_2, -c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_2], [c*x_0 + c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_0 - c*x_1 - c*x_2 + c*x_3], [c*x_0*x_2 - c*x_1 - c*x_3, -c*x_0 + c*x_1*x_3 - c*x_2, c*x_0*x_2 - c*x_1 - c*x_3, -c*x_0 + c*x_1*x_3 - c*x_2]]"
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "INFO",
+        "message": "Generated 6 functions: [[c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_1 - c*x_2], [c*x_0 - c*x_1 - c*x_2, -c*x_0 + c*x_1 - c*x_3, -c*x_0 + c*x_2 - c*x_3, -c*x_1 - c*x_2 + c*x_3], [c*x_0*x_1 - c*x_3, -c*x_0 + c*x_1*x_2, -c*x_1 + c*x_2*x_3, c*x_0*x_3 - c*x_2], [c*x_0 + c*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1 + c*x_2 - c*x_3, -c*x_0 - c*x_1 + c*x_2 + c*x_3, c*x_0 - c*x_1 - c*x_2 + c*x_3], [c*x_0*x_2 - c*x_1 - c*x_3, -c*x_0 + c*x_1*x_3 - c*x_2, c*x_0*x_2 - c*x_1 - c*x_3, -c*x_0 + c*x_1*x_3 - c*x_2]]."
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:56:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:00",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:04",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:04",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:05",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:05",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:05",
+        "level": "INFO",
+        "message": "Num candidate expressions: 34"
+    },
+    {
+        "timestamp": "12/07/2025 06:57:06",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n33  [c*x_0 - c*x_1 - c*x_2, -c*x_0 + c*x_1 - c*x_3...  ...  [0.0273*x_0 - 0.2009*x_1 - 0.0636*x_2, 0.4999*...\n36  [c*x_0*x_2 - c*x_1 - c*x_3, -c*x_0 + c*x_1*x_3...  ...  [-0.0132*x_0*x_2 - 0.182*x_1 + 0.0037*x_3, 0.5...\n0   [c*x_0*x_1 - c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n1   [c*x_0*x_1 + c*x_2 - c*x_3, -c*x_0 + c*x_1*x_2...  ...  [-0.0455*x_0*x_1 + 0.3662*x_2 + 0.4254*x_3, 0....\n2   [-c*x_0 - c*x_3 + c*Abs(x_1), c*x_0 - c*x_1, c...  ...  [-0.6128*x_0 + 1.0282*x_3 + 0.0825*Abs(x_1), 0...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:06",
+        "level": "INFO",
+        "message": "Succesfully generated 6 functions in 243.79937744594645 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:06",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:06",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "12/07/2025 06:57:06",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmp00g8a62w'>"
+    }
+]

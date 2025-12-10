@@ -1,0 +1,182 @@
+[
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-0.6B/textual/SCM_size_compute_wo_thinking/Expr_110/."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Slurm job ID: 299."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1713851742."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Using device: cuda:4 with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Graph edges with lag:\nx_0 -> x_0 (lag=1) | x_1 -> x_0 (lag=1) | x_1 -> x_1 (lag=1) | x_6 -> x_1 (lag=1) | x_2 -> x_1 (lag=1) | x_2 -> x_2 (lag=1) | x_1 -> x_2 (lag=1) | x_4 -> x_2 (lag=1) | x_0 -> x_2 (lag=1) | x_3 -> x_2 (lag=1) | x_3 -> x_3 (lag=1) | x_4 -> x_3 (lag=1) | x_6 -> x_3 (lag=1) | x_5 -> x_3 (lag=1) | x_2 -> x_3 (lag=1) | x_4 -> x_4 (lag=1) | x_7 -> x_4 (lag=1) | x_5 -> x_5 (lag=1) | x_1 -> x_5 (lag=1) | x_6 -> x_5 (lag=1) | x_6 -> x_6 (lag=1) | x_1 -> x_6 (lag=1) | x_4 -> x_6 (lag=1) | x_3 -> x_6 (lag=1) | x_5 -> x_6 (lag=1) | x_7 -> x_7 (lag=1) | x_8 -> x_7 (lag=1) | x_8 -> x_8 (lag=1) | x_9 -> x_8 (lag=1) | x_9 -> x_9 (lag=1) | x_10 -> x_9 (lag=1) | x_10 -> x_10 (lag=1) | x_11 -> x_10 (lag=1) | x_11 -> x_11 (lag=1) | x_12 -> x_11 (lag=1) | x_12 -> x_12 (lag=1) | x_13 -> x_12 (lag=1) | x_13 -> x_13 (lag=1) | x_14 -> x_13 (lag=1) | x_14 -> x_14 (lag=1) | x_15 -> x_14 (lag=1) | x_15 -> x_15 (lag=1) | x_16 -> x_15 (lag=1) | x_16 -> x_16 (lag=1)"
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/SCM_science_small.npy with index 110."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:21",
+        "level": "INFO",
+        "message": "Groundtruth: [('x_0', 'x_0', 1), ('x_1', 'x_0', 1), ('x_1', 'x_1', 1), ('x_6', 'x_1', 1), ('x_2', 'x_1', 1), ('x_2', 'x_2', 1), ('x_1', 'x_2', 1), ('x_4', 'x_2', 1), ('x_0', 'x_2', 1), ('x_3', 'x_2', 1), ('x_3', 'x_3', 1), ('x_4', 'x_3', 1), ('x_6', 'x_3', 1), ('x_5', 'x_3', 1), ('x_2', 'x_3', 1), ('x_4', 'x_4', 1), ('x_7', 'x_4', 1), ('x_5', 'x_5', 1), ('x_1', 'x_5', 1), ('x_6', 'x_5', 1), ('x_6', 'x_6', 1), ('x_1', 'x_6', 1), ('x_4', 'x_6', 1), ('x_3', 'x_6', 1), ('x_5', 'x_6', 1), ('x_7', 'x_7', 1), ('x_8', 'x_7', 1), ('x_8', 'x_8', 1), ('x_9', 'x_8', 1), ('x_9', 'x_9', 1), ('x_10', 'x_9', 1), ('x_10', 'x_10', 1), ('x_11', 'x_10', 1), ('x_11', 'x_11', 1), ('x_12', 'x_11', 1), ('x_12', 'x_12', 1), ('x_13', 'x_12', 1), ('x_13', 'x_13', 1), ('x_14', 'x_13', 1), ('x_14', 'x_14', 1), ('x_15', 'x_14', 1), ('x_15', 'x_15', 1), ('x_16', 'x_15', 1), ('x_16', 'x_16', 1)]"
+    },
+    {
+        "timestamp": "17/07/2025 02:50:23",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-0.6B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:23",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:57",
+        "level": "INFO",
+        "message": "Model output: {\"scm\": \"x0 <- x8_(lag=1) | x1 <- x4_(lag=1) | x2 <- x12_(lag=1) | x3_(lag=1), x4_(lag=1), x11_(lag=1) | x5_(lag=1), x16_(lag=1) | x6 <- x14_(lag=1), x8_(lag=1), x4_(lag=1), x9_(lag=1) | x7 <- x7_(lag=1), x8_(lag=1), x13_(lag=1) | x8 <- x0_(lag=1), x4_(lag=1), x10_(lag=1) | x9 <- x1_(lag=1), x7_(lag=1) | x10 <- x10_(lag=1), x7_(lag=1), x2_(lag=1) | x11 <- x9_(lag=1) | x12 <- x1_(lag=1), x13_(lag=1), x5_(lag=1) | x13 <- x13_(lag=1), x5_(lag=1) | x14 <- x4_(lag=1) | x15 <- x11_(lag=1) | x16 <- x15_(lag=1), x16_(lag=1), \"dim\": 17}."
+    },
+    {
+        "timestamp": "17/07/2025 02:50:57",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpng9eq6bt'>"
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-0.6B/textual/SCM_size_compute_wo_thinking/Expr_110/."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Slurm job ID: 304."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1675682220."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "WARN",
+        "message": "CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)"
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Using device: cuda:4 with dtype: torch.float16."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Graph edges with lag:\nx_0 -> x_0 (lag=1) | x_1 -> x_0 (lag=1) | x_1 -> x_1 (lag=1) | x_6 -> x_1 (lag=1) | x_2 -> x_1 (lag=1) | x_2 -> x_2 (lag=1) | x_1 -> x_2 (lag=1) | x_4 -> x_2 (lag=1) | x_0 -> x_2 (lag=1) | x_3 -> x_2 (lag=1) | x_3 -> x_3 (lag=1) | x_4 -> x_3 (lag=1) | x_6 -> x_3 (lag=1) | x_5 -> x_3 (lag=1) | x_2 -> x_3 (lag=1) | x_4 -> x_4 (lag=1) | x_7 -> x_4 (lag=1) | x_5 -> x_5 (lag=1) | x_1 -> x_5 (lag=1) | x_6 -> x_5 (lag=1) | x_6 -> x_6 (lag=1) | x_1 -> x_6 (lag=1) | x_4 -> x_6 (lag=1) | x_3 -> x_6 (lag=1) | x_5 -> x_6 (lag=1) | x_7 -> x_7 (lag=1) | x_8 -> x_7 (lag=1) | x_8 -> x_8 (lag=1) | x_9 -> x_8 (lag=1) | x_9 -> x_9 (lag=1) | x_10 -> x_9 (lag=1) | x_10 -> x_10 (lag=1) | x_11 -> x_10 (lag=1) | x_11 -> x_11 (lag=1) | x_12 -> x_11 (lag=1) | x_12 -> x_12 (lag=1) | x_13 -> x_12 (lag=1) | x_13 -> x_13 (lag=1) | x_14 -> x_13 (lag=1) | x_14 -> x_14 (lag=1) | x_15 -> x_14 (lag=1) | x_15 -> x_15 (lag=1) | x_16 -> x_15 (lag=1) | x_16 -> x_16 (lag=1)"
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/SCM_science_small.npy with index 110."
+    },
+    {
+        "timestamp": "17/07/2025 21:08:01",
+        "level": "INFO",
+        "message": "Groundtruth: [('x_0', 'x_0', 1), ('x_1', 'x_0', 1), ('x_1', 'x_1', 1), ('x_6', 'x_1', 1), ('x_2', 'x_1', 1), ('x_2', 'x_2', 1), ('x_1', 'x_2', 1), ('x_4', 'x_2', 1), ('x_0', 'x_2', 1), ('x_3', 'x_2', 1), ('x_3', 'x_3', 1), ('x_4', 'x_3', 1), ('x_6', 'x_3', 1), ('x_5', 'x_3', 1), ('x_2', 'x_3', 1), ('x_4', 'x_4', 1), ('x_7', 'x_4', 1), ('x_5', 'x_5', 1), ('x_1', 'x_5', 1), ('x_6', 'x_5', 1), ('x_6', 'x_6', 1), ('x_1', 'x_6', 1), ('x_4', 'x_6', 1), ('x_3', 'x_6', 1), ('x_5', 'x_6', 1), ('x_7', 'x_7', 1), ('x_8', 'x_7', 1), ('x_8', 'x_8', 1), ('x_9', 'x_8', 1), ('x_9', 'x_9', 1), ('x_10', 'x_9', 1), ('x_10', 'x_10', 1), ('x_11', 'x_10', 1), ('x_11', 'x_11', 1), ('x_12', 'x_11', 1), ('x_12', 'x_12', 1), ('x_13', 'x_12', 1), ('x_13', 'x_13', 1), ('x_14', 'x_13', 1), ('x_14', 'x_14', 1), ('x_15', 'x_14', 1), ('x_15', 'x_15', 1), ('x_16', 'x_15', 1), ('x_16', 'x_16', 1)]"
+    },
+    {
+        "timestamp": "17/07/2025 21:08:03",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpcza_v0m6'>"
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-0.6B/textual/SCM_size_compute_wo_thinking/Expr_110/."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Slurm job ID: 314."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 2036985852."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "WARN",
+        "message": "CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:109.)"
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Using device: cuda:3 with dtype: torch.float16."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Graph edges with lag:\nx_0 -> x_0 (lag=1) | x_1 -> x_0 (lag=1) | x_1 -> x_1 (lag=1) | x_6 -> x_1 (lag=1) | x_2 -> x_1 (lag=1) | x_2 -> x_2 (lag=1) | x_1 -> x_2 (lag=1) | x_4 -> x_2 (lag=1) | x_0 -> x_2 (lag=1) | x_3 -> x_2 (lag=1) | x_3 -> x_3 (lag=1) | x_4 -> x_3 (lag=1) | x_6 -> x_3 (lag=1) | x_5 -> x_3 (lag=1) | x_2 -> x_3 (lag=1) | x_4 -> x_4 (lag=1) | x_7 -> x_4 (lag=1) | x_5 -> x_5 (lag=1) | x_1 -> x_5 (lag=1) | x_6 -> x_5 (lag=1) | x_6 -> x_6 (lag=1) | x_1 -> x_6 (lag=1) | x_4 -> x_6 (lag=1) | x_3 -> x_6 (lag=1) | x_5 -> x_6 (lag=1) | x_7 -> x_7 (lag=1) | x_8 -> x_7 (lag=1) | x_8 -> x_8 (lag=1) | x_9 -> x_8 (lag=1) | x_9 -> x_9 (lag=1) | x_10 -> x_9 (lag=1) | x_10 -> x_10 (lag=1) | x_11 -> x_10 (lag=1) | x_11 -> x_11 (lag=1) | x_12 -> x_11 (lag=1) | x_12 -> x_12 (lag=1) | x_13 -> x_12 (lag=1) | x_13 -> x_13 (lag=1) | x_14 -> x_13 (lag=1) | x_14 -> x_14 (lag=1) | x_15 -> x_14 (lag=1) | x_15 -> x_15 (lag=1) | x_16 -> x_15 (lag=1) | x_16 -> x_16 (lag=1)"
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/SCM_science_small.npy with index 110."
+    },
+    {
+        "timestamp": "18/07/2025 02:30:51",
+        "level": "INFO",
+        "message": "Groundtruth: [('x_0', 'x_0', 1), ('x_1', 'x_0', 1), ('x_1', 'x_1', 1), ('x_6', 'x_1', 1), ('x_2', 'x_1', 1), ('x_2', 'x_2', 1), ('x_1', 'x_2', 1), ('x_4', 'x_2', 1), ('x_0', 'x_2', 1), ('x_3', 'x_2', 1), ('x_3', 'x_3', 1), ('x_4', 'x_3', 1), ('x_6', 'x_3', 1), ('x_5', 'x_3', 1), ('x_2', 'x_3', 1), ('x_4', 'x_4', 1), ('x_7', 'x_4', 1), ('x_5', 'x_5', 1), ('x_1', 'x_5', 1), ('x_6', 'x_5', 1), ('x_6', 'x_6', 1), ('x_1', 'x_6', 1), ('x_4', 'x_6', 1), ('x_3', 'x_6', 1), ('x_5', 'x_6', 1), ('x_7', 'x_7', 1), ('x_8', 'x_7', 1), ('x_8', 'x_8', 1), ('x_9', 'x_8', 1), ('x_9', 'x_9', 1), ('x_10', 'x_9', 1), ('x_10', 'x_10', 1), ('x_11', 'x_10', 1), ('x_11', 'x_11', 1), ('x_12', 'x_11', 1), ('x_12', 'x_12', 1), ('x_13', 'x_12', 1), ('x_13', 'x_13', 1), ('x_14', 'x_13', 1), ('x_14', 'x_14', 1), ('x_15', 'x_14', 1), ('x_15', 'x_15', 1), ('x_16', 'x_15', 1), ('x_16', 'x_16', 1)]"
+    },
+    {
+        "timestamp": "18/07/2025 02:30:52",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmp7jps_2wi'>"
+    }
+]

@@ -1,0 +1,122 @@
+[
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-32B/textual/DE_size_compute_w_thinking/Expr_1/."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Slurm job ID: 292."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1864077872."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:59",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "13/07/2025 01:30:00",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 1."
+    },
+    {
+        "timestamp": "13/07/2025 01:30:00",
+        "level": "INFO",
+        "message": "Groundtruth Function:              domain                    model  ... substituted solutions\n0  calcium_dynamics  bindschadler_sneyd_2001  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "13/07/2025 01:30:00",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:32",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-32B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:36",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:37",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpzlih2uxa'>"
+    },
+    {
+        "timestamp": "22/07/2025 06:48:46",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:46",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-32B/textual/DE_size_compute_w_thinking/Expr_1/."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:46",
+        "level": "INFO",
+        "message": "Slurm job ID: 325."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:46",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1332719887."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 1."
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Groundtruth Function:              domain                    model  ... substituted solutions\n0  calcium_dynamics  bindschadler_sneyd_2001  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "22/07/2025 06:48:47",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:08",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmp_erw3cvv'>"
+    }
+]

@@ -1,0 +1,90 @@
+model:
+  name: deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free
+  tokenizer_pad: \\[PAD\\]
+  tokenizer_padding_side: left
+  visual: false
+  time_series: false
+  cache_dir: /home/ubuntu/models
+  max_new_tokens: 4098
+  top_p: 0.9
+  top_k: 60
+  num_beams: 1
+  temperature: 1.0
+  temperature_schedule: false
+  temperature_schedule_gamma: 0.995
+  api_key_path: openai/openai_key
+  organization_id_path: openai/openai_org
+experiment:
+  symbolic_expression:
+    name: DE_size_compute_wo_thinking
+    type: DE
+    idx: 6
+    data_path: data/DE_4_dims.json
+    judge:
+      enabled: false
+      gpt_model: gpt-4.1-nano
+      prompt_path: prompts/DE/judge.json
+    use_context: true
+    reasoning: false
+    additional_prompt: none
+    context:
+      time_series: true
+      var_description: true
+      consts_description: true
+      image: false
+      ts_encoder: false
+    train_points:
+      min_points: 0
+      max_points: 10
+      num_points: 50
+    test_points:
+      min_points: 0
+      max_points: 10
+      num_points: 100
+    tolerance: 0.99
+    iterations: 100
+    max_retries: 10
+  verifier:
+    name: DE_verifier
+  input_type: textual
+  min_seed_functions: 5
+  max_output_tokens: 512
+  max_retries: 5
+  interval_save: 5
+  OOD: false
+  textual_input: prompts/DE/DE_textual_context.json
+  visual_input: false
+  time_series_input: false
+dataset:
+  name: DE_dataset
+logger:
+  loggers:
+  - console
+  - file
+  level: INFO
+  run_id: 20251005-021024
+output_dir: analysis_output
+force_valid: false
+force_unique: false
+prompts_path: prompts
+max_points_in_prompt: 100
+checkpoints:
+- 50
+- 100
+- 200
+- 300
+- 400
+- 500
+- 600
+- 700
+- 800
+- 900
+use_llm: true
+llm_weight: 1
+hybrid: false
+noise_level: 0
+enable_thinking: true
+device: cpu
+use_bfloat16: true
+seed: 530831444
+root: /home/ubuntu/zw/Symbolic_LLMs

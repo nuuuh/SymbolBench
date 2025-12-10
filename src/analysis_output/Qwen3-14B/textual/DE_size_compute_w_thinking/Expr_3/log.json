@@ -1,0 +1,642 @@
+[
+    {
+        "timestamp": "13/07/2025 01:29:07",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:07",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-14B/textual/DE_size_compute_w_thinking/Expr_3/."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:07",
+        "level": "INFO",
+        "message": "Slurm job ID: 291."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:07",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 925880886."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 3."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Groundtruth Function:              domain             model  ... substituted solutions\n2  calcium_dynamics  gall_susa_1999_c  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "13/07/2025 01:29:08",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:17",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-14B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "13/07/2025 01:29:18",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:35:49",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of coupled ODEs for calcium dynamics with variables x0 to x3. The time series data shows that x0 is decreasing slowly over time, x1 is also decreasing, x2 is decreasing, and x3 is increasing. So I need to model these behaviors.\n\nFirst, looking at x0, it's a membrane voltage. In calcium dynamics, voltage-gated channels might influence ion concentrations. Maybe x0's derivative is related to some leak current or a constant. But since the data shows a linear decrease, perhaps a simple equation like dx0/dt = -c could work, but maybe with some dependence on x3 if calcium affects voltage.\n\nFor x1, which is a potassium gate variable, it might be a function of x0. For example, if the gate opens in response to voltage, maybe a term like (x0 - threshold) or something with exponential terms. But the data shows a steady decrease, so maybe a linear decay with a constant, or a function that's influenced by x0. Maybe dx1/dt = -c * x1 + some term involving x0.\n\nx2 is intracellular calcium, which typically has dynamics involving influx and efflux. If x3 is the calcium in the reticulum, then maybe x2 decreases due to efflux into x3, or something like dx2/dt = -c*(x2 - x3). But the data for x2 is decreasing, while x3 is increasing, so maybe a term where x2 is losing to x3. Alternatively, a simple decay with a rate constant, or a function involving x3.\n\nx3 is the reticular calcium. If it's increasing, maybe it's accumulating from x2, so dx3/dt = c*(x2 - x3) or something similar. But need to make sure that the equations are coupled and fit the data.\n\nLet me think about the time series. x0 is decreasing linearly, which might be modeled by a simple negative constant, but perhaps with a slight dependence on x3. If calcium affects voltage, maybe dx0/dt = -c*(x3 - some baseline), but that might complicate things. Alternatively, dx0/dt = -c, which is simple and matches the linear trend.\n\nFor x1, it's decreasing steadily. Maybe a simple decay: dx1/dt = -c*x1. That would model an exponential decay, but the data shows a linear decrease. Hmm, but the time series data for x1 is more of a linear decrease. Wait, but exponential decay would start steep and flatten. The given data for x1 starts at 0.1 and decreases by about 0.002 per step. Maybe a linear decay? But that's not typical in ODEs. Alternatively, maybe a combination of a constant and a term with x0. For example, dx1/dt = -c*(x0 + x1). If x0 is decreasing, this could lead to a non-linear decay. Or perhaps a linear term like dx1/dt = -c.\n\nBut the  wants the equations to fit the data well. So for x0, if the data is a linear decrease, maybe dx0/dt = -c. For x1, similarly dx1/dt = -c. But that would make them both decrease at the same rate, which might not match the data. Let's check the data: x0 decreases from -76 to about -73.9 over time. x1 starts at 0.1 and ends at 0.007, so it's a more significant decrease. So maybe x0's rate is smaller than x1's. But without actual values, constants can be different. However, the problem says all constants are denoted by c. So all equations must use the same constant 'c'\u2014wait, no, the constants can be different as long as they are represented by c. Wait, no, the instructions say: \"No actual values allowed and the constants should be denoted ONLY by c.\" So all constants in the equations must be 'c', same 'c' across equations. So I can't use different constants. That complicates things because the decay rates for x0 and x1 might need different constants, but since we can only use c, we need to find a way to model that with the same c.\n\nSo maybe for x0: dx0/dt = -c * x0. If x0 is decreasing linearly, but that would be exponential decay. Wait, the data for x0 is a linear decrease. That would imply dx0/dt is a constant. So maybe dx0/dt = -c. Similarly for x1: dx1/dt = -c. But then x0 and x1 would both decrease at the same rate. However, in the data, x1 starts higher and decreases more than x0. Hmm, but without actual values, the  is expecting the equations to be plausible, not necessarily to exactly match the data. Maybe they want a simple  where each variable has its own equation, possibly not coupled, but using the same 'c'.\n\nAlternatively, for x0: dx0/dt = -c * (x0 - x3). Since x3 is increasing, and x0 is decreasing, maybe that's a way to couple them. For example, if the voltage is being pulled by calcium in the reticulum.\n\nFor x1, maybe a simple decay: dx1/dt = -c * x1. That would make x1 decay exponentially, but the data shows a linear decrease. Hmm, but maybe with the given data, it's acceptable.\n\nFor x2, which is decreasing, and x3 is increasing. If they are exchanging calcium, maybe dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3). But that would make x2 and x3 approach each other. However, in the data, x2 is decreasing and x3 is increasing, so maybe that's the case. However, the data for x2 starts at 0.52 and ends around 0.07, while x3 starts at 0.7 and ends at 1.14. So if they are coupled, x2 would decrease and x3 increase. That seems plausible. Let me check the equations:\n\ndx2/dt = -c*(x2 - x3) would mean that when x2 > x3, it decreases. Since x2 starts at 0.52 and x3 at 0.7, x2 < x3, so dx2/dt would be negative (x2 decreases) and x3 would increase (dx3/dt = c*(x2 -x3) = negative, so x3 decreases? Wait, that contradicts the data. Wait, if dx2/dt = -c*(x2 - x3), then dx3/dt = c*(x2 - x3). If x2 < x3, then x2 -x3 is negative, so dx2/dt is positive? No, wait: dx2/dt = -c*(x2 -x3) = -c*x2 + c*x3. If x2 is less than x3, then this term would be positive. So x2 would increase? But the data shows x2 decreasing. That's a problem. So maybe the equations are dx2/dt = -c*(x2 + x3) or something else. Alternatively, if x2 is losing to x3, maybe dx2/dt = -c*x2 and dx3/dt = c*x2. But then x3 would increase as x2 decreases. That would fit the data. So dx2/dt = -c*x2 and dx3/dt = c*x2. But then x2 and x3 are not directly coupled, but x2 affects x3. But x3's equation is dx3/dt = c*x2. That would mean as x2 decreases, x3's rate of increase decreases. In the data, x3 increases over time, but the rate might be slowing down. Let me see the x3 data: starts at 0.7, ends at ~1.14. The initial increases are larger, and the later steps are smaller. So if x2 is decreasing, then dx3/dt = c*x2 would decrease over time, leading to a slowing increase in x3, which matches the data. That seems plausible. Then x2 is decreasing with a rate proportional to itself, which is an exponential decay. The data for x2 shows a decreasing trend, but not sure if it's exponential. However, without knowing the exact data, this might be a good approximation.\n\nPutting it all together, the equations could be:\n\ndx0/dt = -c (linear decrease)\ndx1/dt = -c*x1 (exponential decay)\ndx2/dt = -c*x2 (exponential decay)\ndx3/dt = c*x2 (so x3 increases as x2 decreases)\n\nBut the  wants the equations to be coupled. However, in this case, x0 is not coupled to others, x1 is not coupled, x2 and x3 are coupled. But the example shows that equations can be uncoupled. The problem allows not involving all variables. So this might be acceptable.\n\nAlternatively, to make them more coupled, maybe x0's equation depends on x3. For example, dx0/dt = -c*(x0 - x3). If x3 is increasing, and x0 is decreasing, then this could lead to x0 approaching x3. However, with the given data, x0 is decreasing from -76 to about -73.9, while x3 increases from 0.7 to 1.14. So their values are not approaching each other. So this might not fit. Maybe another approach: if calcium affects the voltage, perhaps a term like dx0/dt = -c*(x3 - baseline), where baseline is a constant. But since we can't use constants other than c, maybe dx0/dt = -c*x3. If x3 is increasing, then dx0/dt would be more negative, leading to faster decrease in x0. But in the data, x0 decreases linearly. Let me see: x3 increases from 0.7 to ~1.14. If dx0/dt = -c*x3, then x0 would decrease faster as time goes on, which might not match the data's linear trend. So maybe not.\n\nAnother possibility: x0 is influenced by x1. For example, dx0/dt = -c*x1. If x1 is decreasing, then dx0/dt would decrease in magnitude, leading to a slower decrease in x0. But the data shows x0 decreasing linearly. Hmm, not sure. Maybe not.\n\nAlternatively, for x1: maybe it's a function of x0, like a voltage-gated potassium channel. So dx1/dt = (some function of x0) - c*x1. For example, a standard HH-type gate equation: dx1/dt = (alpha(x0) * (1 - x1) - beta(x0)*x1). But since we can't use complex functions, maybe approximate with something like dx1/dt = (x0 - c) * x1. Not sure. But the data shows x1 decreasing steadily, so maybe a simple decay like dx1/dt = -c*x1.\n\nPutting it all together, I think the simplest set of equations that can fit the data (even if not perfectly, but with low complexity) would be:\n\ndx0/dt = -c (linear decrease)\ndx1/dt = -c*x1 (exponential decay)\ndx2/dt = -c*x2 (exponential decay)\ndx3/dt = c*x2 (x3 increases as x2 decreases)\n\nThis satisfies the requirement of using only c, and variables x0-x3. Each equation is simple and uses the allowed operations.\n\nNow, the  wants five samples. Each sample is a JSON with \"eq\" as the string of equations separated by |, and \"dim\":4.\n\nSo for each sample, I need to generate different equations, possibly varying the terms but keeping the same structure. For example, another possible set could be:\n\ndx0/dt = -c*x0 (exponential decay)\ndx1/dt = -c\ndx2/dt = -c*(x2 - x3)\ndx3/dt = c*(x2 - x3)\n\nBut here, the x2 and x3 equations are coupled, which might be better for fitting their data. Let's check: if x2 and x3 are coupled, then dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3). This would mean x2 and x3 approach each other. However, in the data, x2 is decreasing and x3 increasing, so they are moving apart. So this might not be correct. If the equations are dx2/dt = -c*(x2 + x3) and dx3/dt = c*(x2 + x3), that would make x2 decrease and x3 increase, but the sum would be constant. However, in the data, the sum of x2 and x3 starts at 0.52 + 0.7 = 1.22 and ends at ~0.07 + 1.14 = 1.21, which is roughly the same. So maybe that's a possibility. Then:\n\ndx2/dt = -c*(x2 + x3)\ndx3/dt = c*(x2 + x3)\n\nThat way, the sum is conserved. So x2 decreases and x3 increases, and their sum remains roughly constant. This might fit the data better. But then x2 and x3 are coupled.\n\nSo another sample could be:\n\ndx0/dt = -c\ndx1/dt = -c\ndx2/dt = -c*(x2 + x3)\ndx3/dt = c*(x2 + x3)\n\nThis is another valid set.\n\nAlternatively, for x0, maybe a term involving x1: dx0/dt = -c*x1. If x1 is decreasing, then the rate of x0's decrease would slow down over time. But the data shows x0 decreasing linearly. So maybe not. But for the purpose of generating diverse equations, this is acceptable.\n\nAnother approach for x1: maybe dx1/dt = c*(x0 - x1). This would model a  where x1 approaches x0. But x0 is decreasing, and x1 is also decreasing. If x0 starts lower than x1, this might cause x1 to decrease faster. Not sure, but it's a possible equation.\n\nSo generating five different samples with these variations. Let's ensure that each uses the variables x0-x3 and c, and the equations are algebraic expressions as required.\n</think>\n\n{\"eq\": \"-c | -c*x1 | -c*x2 | c*x2\", \"dim\": 4}, {\"eq\": \"-c*x0 | -c*x1 | -c*(x2 - x3) | c*(x2 - x3)\", \"dim\": 4}, {\"eq\": \"-c | -c*x1 | -c*(x2 + x3) | c*(x2 + x3)\", \"dim\": 4}, {\"eq\": \"-c*x0 | -c | -c*x2 | c*x2\", \"dim\": 4}, {\"eq\": \"-c*x3 | -c*x1 | -c*x2 | c*x2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 01:35:49",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c, c*x_1, c*x_2, c*x_2], [c*x_0, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*(x_2 + x_3), c*(x_2 + x_3)], [c*x_0, c, c*x_2, c*x_2], [c*x_3, c*x_1, c*x_2, c*x_2]]"
+    },
+    {
+        "timestamp": "13/07/2025 01:35:49",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:40:51",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, so I need to generate five sets of synthetic ODEs for the calcium dynamics problem with four variables x0, x1, x2, x3. Let me start by understanding the requirements.\n\nFirst, the domain is calcium dynamics, and the variables are V (membrane potential), n (a gate variable for potassium current), Ca_i (intracellular calcium), and Ca_ret (reticular calcium). The time series data provided shows that x0 (V) is decreasing gradually, x1 (n) is decreasing, x2 (Ca_i) is decreasing, and x3 (Ca_ret) is increasing. That's interesting. So maybe there's a coupling where Ca_i is being taken up into Ca_ret, causing x2 to decrease and x3 to increase. Also, the membrane potential x0 might be influenced by the calcium concentrations, and the gate variable x1 could be a function of V or Ca.\n\nThe ODEs need to use only x0-x3 and constants c. No actual values, just c. They can be single equations or coupled, but each sample should have dim=4. The equations must be algebraic expressions involving the variables and c, using basic math operations, trig functions, etc. Also, the generated equations should fit the time series data well and be as simple as possible.\n\nLooking at the time series for x0, it's a linear decrease. So maybe x0's ODE is something like a linear function, perhaps a constant times a negative term? Like dx0/dt = -c, but that would be a simple constant rate. However, looking at the data, x0 starts at -76 and decreases by about 0.03 each time step. But the ODEs need to be in terms of the variables. If x0 is decreasing linearly, maybe it's a simple negative constant, but that might not involve other variables. Alternatively, if x0 is influenced by calcium concentrations, perhaps something like dx0/dt = -c*(x2 - x3), since x2 is decreasing and x3 increasing, their difference would be negative, leading to a negative derivative for x0, but the actual data shows x0 decreasing. Hmm.\n\nFor x1, it's decreasing as well. Maybe it's a function of x0. For example, a gate variable like in the Hodgkin-Huxley model, which has n as a gate variable that depends on V. So maybe dx1/dt = c*(V - some function of x0), but since the data is decreasing, perhaps a term that's negative when V is above a certain value. Alternatively, if x1 is a gate variable that activates in response to voltage, but in this case, since V is decreasing, maybe x1 is decreasing as the voltage decreases. Maybe dx1/dt = c*(x0 - x1), which would drive x1 towards x0, but since x0 is decreasing, maybe x1 follows that.\n\nFor x2 (Ca_i), it's decreasing, so maybe it's being transported into Ca_ret. So dx2/dt could be proportional to -c*(x2 - x3) or something like that. That would make sense if Ca_i is leaking into Ca_ret, so the rate depends on the difference between them. Similarly, dx3/dt would be +c*(x2 - x3). But that's a simple . However, the problem requires that the equations can be more complex but with low complexity. So maybe that's acceptable for one sample.\n\nAnother possibility is using logarithmic terms. For example, if the calcium concentrations are involved in a logarithmic process, maybe involving log(x2) or something. But the time series for x2 is linearly decreasing, so maybe a linear term is better.\n\nLet me think of some equations for each variable:\n\nSample 1:\ndx0/dt = -c (since V is linearly decreasing)\ndx1/dt = -c * x1 (exponential decay)\ndx2/dt = -c * x2 (exponential decay)\ndx3/dt = c * x3 (exponential growth)\nBut the data for x2 is not exponential, but linear. So maybe not the best fit. Alternatively, dx2/dt = -c*(x2 - x3), dx3/dt = c*(x2 - x3). That would make x2 and x3 approach each other. But the data shows x2 decreasing and x3 increasing, which would be the case if x2 is losing to x3. But then their difference would be decreasing, leading to dx2/dt being negative and dx3/dt positive, which matches the data.\n\nSample 2:\ndx0/dt = -c * x0\ndx1/dt = -c * x1\ndx2/dt = -c * x2\ndx3/dt = c * x3\nThis would be exponential decay for x0, x1, x2 and exponential growth for x3. However, the data for x0 is linear, not exponential. So this might not fit well. Maybe a better fit is if x0's derivative is a constant, not depending on x0 itself. But how to represent that? If x0 is being driven by a constant negative current, then dx0/dt = -c. Similarly for x1, but the data for x1 is decreasing linearly as well. Maybe that's the case.\n\nSample 3:\ndx0/dt = -c\ndx1/dt = -c\ndx2/dt = -c\ndx3/dt = c\nBut this would make all variables (except x3) decrease at the same rate. However, looking at the data, x1 and x2 are decreasing at similar rates, but x0 is decreasing more slowly (the steps are smaller). So maybe not. Alternatively, maybe each has a different constant, but the problem says constants are denoted only by c, not numerical values. So all constants are the same c. So that might not be the case.\n\nAlternatively, maybe x0 is influenced by x2 and x3. For example, dx0/dt = -c*(x2 - x3). Since x2 is decreasing and x3 increasing, x2 - x3 is negative, so dx0/dt would be positive, which contradicts the data (x0 is decreasing). So that's not right.\n\nHmm. Maybe the time series for x0 is decreasing because of some other mechanism. For instance, if x0 is being depolarized, but in the data it's hyperpolarizing. Maybe it's a simple linear decay with a constant, dx0/dt = -c. That would make sense if there's a steady depolarizing current, but the data shows it's going from -76 to -73. So maybe that's possible.\n\nFor x1, if it's a gate variable that inactivates as voltage decreases, maybe dx1/dt = -c * x1. So it decays exponentially, but the data shows a linear decrease. So perhaps a linear model is better, but how to represent that with ODEs. Maybe dx1/dt = -c. If all variables are being driven by a constant rate, that might fit the data better. But I need to make sure that the equations are simple and fit the data.\n\nLet me think of the first sample. If I use:\n\n{\n  \"eq\": \"-c | -c | -c | c\",\n  \"dim\": 4\n}\n\nThis would mean dx0/dt = -c, dx1/dt = -c, dx2/dt = -c, dx3/dt = c. This would cause x0, x1, x2 to decrease linearly (since their derivatives are constants) and x3 to increase linearly. Looking at the data:\n\nx0 starts at -76 and ends at around -73. The time series has about 100 data points. If the derivative is -c, then over time, the decrease is linear. Similarly for x1, which starts at 0.1 and ends around 0.01, decreasing by 0.09 over time. x2 starts at 0.52 and ends at 0.074, so a decrease of ~0.45. x3 starts at 0.7 and ends at ~1.14, an increase of ~0.44. If each has a constant derivative, the total change would be c * time. But since the time steps are not given, maybe the constants can be adjusted. However, the problem says that the constants are denoted only by c, and we can't use actual values. So this might be a valid approach.\n\nBut the  wants the equations to fit the data well. However, since the actual values aren't provided, and we are generating synthetic ODEs, this is acceptable. But the equations need to be as simple as possible. This seems very simple, but perhaps the first sample could be that.\n\nSample 1: All derivatives are constants: -c, -c, -c, c.\n\nSample 2: Maybe some interaction between variables. For example, dx0/dt = -c*x0, dx1/dt = -c*x1, dx2/dt = -c*(x2 - x3), dx3/dt = c*(x2 - x3). This couples x2 and x3, while x0 and x1 have exponential decay. The data for x0 and x1 might fit exponential decay if they decrease rapidly, but the data shows more linear trends. So this might not be the best fit.\n\nSample 3: Maybe use a square root or exponential terms. For example, dx0/dt = -c*sqrt(x2), but that might complicate things. Alternatively, use a term that combines variables. For example, dx0/dt = -c*(x2 - x3). Since x2 decreases and x3 increases, this would be negative, leading to x0 decreasing. That's a good fit. Then dx1/dt could be -c*(x0 - x1), as a gate variable depending on voltage. dx2/dt could be -c*x2, and dx3/dt = c*x3. So:\n\n{\n  \"eq\": \"-c*(x_2 - x_3) | -c*(x_0 - x_1) | -c*x_2 | c*x_3\",\n  \"dim\": 4\n}\n\nThis would make x0 decrease based on the difference between x2 and x3 (which is negative, so x0 decreases), x1 follows a gate equation, x2 decays exponentially, x3 grows exponentially. This might be a better fit for the data.\n\nSample 4: Another possibility is including trigonometric functions. For example, if the membrane potential x0 affects the gate variable x1 with a sine or cosine function. But the data for x1 is decreasing linearly, so that might not be necessary. Maybe just a linear term.\n\nSample 5: Perhaps another coupling. For example, dx0/dt = -c, dx1/dt = -c*x1, dx2/dt = -c*x2, dx3/dt = c*x3. This combines some exponential terms with others being constants.\n\nSo compiling these ideas into five samples, ensuring that each has four equations, uses only x0-x3 and c, and is as simple as possible.\n</think>\n\n{\"eq\": \"-c | -c | -c | c\", \"dim\": 4}, {\"eq\": \"-c*(x_2 - x_3) | -c*(x_0 - x_1) | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 + c | -c*x_1 + c | -c*x_2 + c | c*x_3 - c\", \"dim\": 4}, {\"eq\": \"c*(x_3 - x_2) | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 01:40:51",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c, c, c, c], [c*(x_2 - x_3), c*(x_0 - x_1), c*x_2, c*x_3], [c, c, c, c], [c*(x_2 - x_3), c*(x_0 - x_1), c*x_2, c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0 + c, c*x_1 + c, c*x_2 + c, c*x_3 - c], [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3]]"
+    },
+    {
+        "timestamp": "13/07/2025 01:40:51",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:50:32",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, so I need to generate five sets of synthetic ODEs for the calcium_dynamics domain. The variables are x0, x1, x2, x3, which correspond to V, n, Ca_i, and Ca_ret. The time series data provided shows that x0 is decreasing linearly, x1 is decreasing gradually, x2 is decreasing as well, and x3 is increasing. \n\nFirst, I need to make sure that the ODEs fit the given time series. Let me think about the dynamics. For x0 (V), the data shows a steady decrease, which might suggest a simple linear decay or some negative feedback. But the data seems to be linear, so maybe a constant rate. However, the ODEs need to involve variables and constants. Since x0 is decreasing, perhaps its derivative is a negative constant or a function involving x1 or other variables.\n\nLooking at x1, it's decreasing but more slowly than x0. Maybe it's a function of x0, like a negative slope. For example, dx1/dt = -c * x0 or something similar. But since x1 is dimensionless, maybe it's related to some activation or inactivation gate. \n\nx2 (Ca_i) is decreasing, while x3 (Ca_ret) is increasing. This suggests a transfer between Ca_i and Ca_ret. Maybe there's a term where Ca_i decreases and Ca_ret increases, perhaps with some rate constant. For example, dx2/dt = -c * x2 and dx3/dt = c * x2. But I need to check if that would fit the data.\n\nAlternatively, there might be a balance between the two. Let me see the data: x2 starts at 0.52 and decreases to around 0.07, while x3 increases from 0.7 to about 1.14. So, the total Ca (x2 + x3) might be roughly constant? Let me check: 0.52 + 0.7 = 1.22, and the end values are 0.07 + 1.14 = 1.21. So approximately constant. That's interesting. So maybe x2 and x3 are inversely related. Therefore, dx2/dt = -c * (x2 - x3) or some similar equation. But since x2 is decreasing and x3 is increasing, maybe dx2/dt = -c * (x2 - x3) and dx3/dt = c * (x2 - x3). But if that's the case, then the rate of change of x2 would be negative when x2 > x3 and positive otherwise, which might fit the data if the total is constant. But I need to see the time series. Wait, the data for x2 starts at 0.52 and x3 starts at 0.7, so x2 < x3 initially. So if x2 is decreasing, maybe the equation is dx2/dt = -c * x2 + c * x3. Wait, that would mean x2 decreases as x3 increases, but how does that work? If x3 is increasing, then maybe the term is negative. Alternatively, maybe a simple linear relation. \n\nAlternatively, think about the data for x3 increasing, which could be due to some inflow from x2. So maybe dx3/dt = c * x2, and dx2/dt = -c * x2. Then x3 would accumulate as x2 decreases. Let's see: if x2 starts at 0.52, and dx2/dt = -c * x2, that would be exponential decay, but the data shows a linear decrease. So maybe a first-order linear decay. Hmm. But the time series for x2 is almost linear, so maybe dx2/dt is a constant negative value. But that would not involve x2 or other variables. However, the problem allows equations that don't involve all variables. For example, dx2/dt could be -c, which would fit the linear decrease. Similarly, dx3/dt could be c, which would make it linear increase. That seems simple. Let me check the data. The x2 values start at 0.52 and decrease by about 0.007 each time step. So maybe a small constant. Similarly, x3 increases by about 0.007 each step. So maybe dx2/dt = -c and dx3/dt = c. That would fit. Then x0 and x1 need their own equations.\n\nFor x0, the data decreases linearly from -76 to about -73. So dx0/dt could be a constant, say -c. Then for x1, which decreases from 0.1 to 0.006, but in a more gradual manner. If x1 is decreasing, maybe dx1/dt = -c * x0 or some other function. For example, maybe dx1/dt = -c * x0. If x0 is decreasing linearly, then dx1/dt would be increasing? Wait, no. If x0 is decreasing (negative derivative), then -c * x0 would be positive if x0 is negative. That would make dx1/dt positive, which would increase x1, which contradicts the data. Hmm. Alternatively, dx1/dt = -c * x1, which would be exponential decay. But the data for x1 is roughly linear, so maybe that's not it. Alternatively, dx1/dt = -c * x0. If x0 is negative (which it is, as the data starts at -76), then -c * x0 would be positive, leading to dx1/dt positive, which would increase x1, which is the opposite of the data. So that's not right. \n\nAlternatively, maybe dx1/dt = -c * (x1 - x0), but I need to think. Let me look at the time series. x0 is decreasing, but x1 is also decreasing. Suppose x1 is following x0. If x0 is decreasing, then x1 would decrease as well. But how? Maybe a simple relation like dx1/dt = -c * x0. But again, since x0 is negative, that would be positive, increasing x1. Which isn't the case. Alternatively, maybe dx1/dt = -c * (x1 - k), but without constants, I can't use k. Wait, the only constant allowed is c. So maybe dx1/dt = -c * (x1 - x0). But this is getting complicated. Let's think again.\n\nIf x1 is decreasing linearly, then maybe dx1/dt = -c. That's the simplest. Similarly for x0, dx0/dt = -c. Then for x2 and x3, dx2/dt = -c and dx3/dt = c. But the problem says that the equations must be algebraic expressions involving x variables and c. So, if I can use just constants, that's allowed. The requirement says that you don't necessarily need to involve all variables. So, for example, dx0/dt could be -c, dx1/dt could be -c, dx2/dt could be -c, dx3/dt could be c. Then, this would model all variables with simple linear equations. But would that fit the data?\n\nLooking at x0's data: the values decrease by approximately 0.03 per time step. If dx0/dt is -c, then c would be approximately 0.03 per unit time. Similarly, for x1, the data decreases by about 0.002 per step. So if dx1/dt = -c, then c would be 0.002. But then, the same c is used in all equations. But the problem allows different constants, but all are denoted by c. Wait, the requirement says that constants should be denoted only by c. So, each equation can use its own c? Or is c a single constant? Wait, the instructions say \"No actual values allowed and the constants should be denoted ONLY by c.\" So each equation can have its own c? Or is c a single parameter? Hmm. The examples given in the problem use c in each term, but it's unclear whether each term uses the same c or different c's. However, in the example provided, the  wrote \"c*x_0*x_1 + c*x_2 - c*x_3 + c | c*x_1/x_0 + c*x_3 | c*x_2 - c*x_0*x_3 | c*x_3 + c*x_0 - c*x_1\", which uses multiple c's, each possibly being the same or different. However, the 's instructions don't specify whether the same c is used across equations or different c's. But the problem says to use constants denoted by c, so maybe each equation can have its own c, but they're all called c. However, this is a bit ambiguous. But the key point is that the equations can use multiple instances of c, each representing a different constant. However, in the generated equations, the same c could be used multiple times, but that would imply that all equations share the same c. But the problem doesn't clarify this. Given that the example uses multiple c's, it's possible that each term can use its own c, but in the context of the problem, maybe all equations share the same c. But the  might not care as long as each term uses c, even if it's different. However, the generated equations need to be plausible for the domain.\n\nAlternatively, maybe the  expects each equation to use the same c. But without specific instructions, perhaps the safest way is to use different c's for different equations, but in the JSON format, they are all denoted as c. However, in the example provided, the  uses \"c\" in each term, so it's possible that each term can have its own c. Therefore, for the equations, each equation can have its own c, but they are all named as c.\n\nAssuming that, then the simplest ODEs that fit the data would be:\n\ndx0/dt = -c\ndx1/dt = -c\ndx2/dt = -c\ndx3/dt = c\n\nBut does this fit the data? Let's check. For x0, the data decreases linearly. So yes, if dx0/dt is constant negative. Similarly, x3 increases linearly, so dx3/dt is positive. However, x1 and x2 are also decreasing, but their rates are different. So in this case, if all equations use the same c, then x0, x1, x2 would all decrease at the same rate, but the data for x1 and x2 have different rates. Therefore, this approach may not be good. \n\nTo better fit the data, maybe assign different c's for each equation. For example, dx0/dt = -c0, dx1/dt = -c1, dx2/dt = -c2, dx3/dt = c3. But in the problem's constraints, constants should be denoted only by c. Therefore, perhaps each equation can have a different c, but all named c. However, this is unclear. The 's example uses multiple c's in the same equation, so perhaps each term can have its own c. However, the problem states that the constants should be denoted only by c, which might mean that each equation can have its own c, but they are all referred to as c. \n\nBut in this case, to fit the data, the equations would need to have different rates. However, with the current instructions, it's not possible to use different constants. Therefore, perhaps the best approach is to use equations that don't involve all variables but still capture the trends. \n\nFor example, x0 is decreasing linearly, so dx0/dt = -c. Similarly, x3 is increasing linearly, dx3/dt = c. For x1 and x2, perhaps their equations involve a combination of x0 and x3. \n\nLooking at x1: the data decreases from 0.1 to 0.006, which is a linear decrease if we approximate. However, the rate is different from x0's. But if we can't use different constants, maybe use a relation that involves x0. For example, dx1/dt = -c * x0. Since x0 is negative, this would make dx1/dt positive, which would increase x1, which is the opposite of the data. Not good. Alternatively, dx1/dt = -c * x1. That would be exponential decay. The data for x1 shows a roughly linear decrease, which would be inconsistent with exponential decay. However, maybe the data is sampled at a small time interval, making the exponential decay appear linear. For example, if x1 starts at 0.1 and decreases by 0.002 each time step, then dx1/dt = -c * x1 would imply that the rate is proportional to x1, which would be exponential. But maybe the data is approximating that. However, the data for x1 is not exponential; it's linear. So this is conflicting.\n\nAlternatively, maybe x1 is related to x0 in a way that their rates are connected. For example, dx1/dt = -c * (x1 - x0). But without knowing the relationship, it's hard to say. \n\nAlternatively, think about the calcium dynamics. x2 is intracellular calcium, x3 is calcium in the reticulum. So, maybe there's a leak or pump between them. For example, the rate of change of x2 could be proportional to the difference between x3 and x2, so dx2/dt = -c*(x2 - x3). Similarly, dx3/dt = c*(x2 - x3). This would make x2 and x3 approach each other over time. However, in the data, x2 starts below x3 and decreases further, while x3 increases. If the equations were dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3), then initially x2 < x3, so dx2/dt would be negative (since x2 - x3 is negative), and dx3/dt would be positive. So x2 decreases and x3 increases, which matches the data. However, this would lead to a steady state when x2 = x3. But in the data, x2 is decreasing and x3 is increasing, so this might be plausible. \n\nIf this is the case, then for dx2/dt and dx3/dt, those equations would work. But then what about x0 and x1? \n\nFor x0, which is membrane potential, it's decreasing. Maybe it's related to the calcium dynamics. For example, the change in membrane potential could be related to the calcium concentration. Maybe dx0/dt = -c * x2. Since x2 is decreasing, this would make dx0/dt increase (become less negative), which contradicts the data where x0 is decreasing linearly. Alternatively, dx0/dt = -c * x0. That would be exponential decay, but the data shows linear decay. Hmm. \n\nAlternatively, maybe x0 is affected by x1. For example, dx0/dt = -c * x1. If x1 is decreasing, then this rate would decrease, leading to x0 decreasing more slowly over time. However, in the data, x0 is decreasing at a nearly constant rate. So this might not fit. \n\nThis is getting complicated. Maybe the simplest approach is to use the equations that directly match the observed trends, even if they don't involve all variables. For example:\n\nFor x0: dx0/dt = -c (constant rate)\nFor x1: dx1/dt = -c (constant rate)\nFor x2: dx2/dt = -c (constant rate)\nFor x3: dx3/dt = c (constant rate)\n\nThis would mean that x0, x1, x2 are all decreasing at the same rate, and x3 is increasing. However, the data for x0, x1, and x2 have different rates. For example, x0 decreases by ~0.03 per step, x1 by ~0.002, and x2 by ~0.007. So this would not be accurate. \n\nAlternatively, assign different constants for each equation, even though the problem says to use only 'c' for constants. But if that's not allowed, then perhaps the best is to use equations that involve combinations of variables to achieve the desired behavior. For example, for x2 and x3, use the exchange terms as discussed earlier. \n\nSo, for dx2/dt = -c * (x2 - x3), and dx3/dt = c * (x2 - x3). Then, for x0 and x1, perhaps simple equations. For x0, dx0/dt = -c * x0, which is exponential decay, but if the data is approximately linear, it could be approximated if the decay is slow. For example, if x0 starts at -76, and c is small, the exponential decay would look linear over a short time. Similarly, for x1, dx1/dt = -c * x1. \n\nSo, putting this together:\n\ndx0/dt = -c * x0\ndx1/dt = -c * x1\ndx2/dt = -c * (x2 - x3)\ndx3/dt = c * (x2 - x3)\n\nThis  would have x0 and x1 decaying exponentially, and x2 and x3 moving towards each other. However, the data for x0 and x1 are decreasing linearly, so this might not be a perfect fit, but it's a plausible model for calcium dynamics where membrane potential and n gate decay exponentially, while calcium ions are exchanged between intracellular and reticulum.\n\nAnother possibility: the ODE for x0 could be influenced by x2, like dx0/dt = -c * x2, since calcium concentration might affect the membrane potential. If x2 is decreasing, this would make dx0/dt less negative, which contradicts the data where x0 is decreasing. Not sure.\n\nAlternatively, for x0, maybe dx0/dt = -c * (x0 + x1), combining both variables. But without knowing the exact model, it's hard to be precise.\n\nGiven the time constraints, I think using the exchange terms for x2 and x3 and simple exponential decay for x0 and x1 is a plausible approach. This would satisfy the requirement of involving variables and constants, and the equations are simple. \n\nSo, one possible set of equations would be:\n\ndx0/dt = -c * x0\ndx1/dt = -c * x1\ndx2/dt = -c * (x2 - x3)\ndx3/dt = c * (x2 - x3)\n\nThis would be a valid . However, the  requires five different samples, each with dim=4. So I need to generate five variations. \n\nFor the first sample, I'll use the above equations. For the second sample, maybe involve other operations. For example, dx0/dt could be -c * x0^2, but that would be more complex. Alternatively, dx2/dt = -c * x2 + c * x3, which is similar to the exchange terms. \n\nAnother variation could be:\n\ndx0/dt = -c * x0\ndx1/dt = -c * (x1 - x0)\ndx2/dt = -c * x2\ndx3/dt = c * x2\n\nThis way, x1 is related to x0, and x2 and x3 are linked through x2's decay and x3's increase. \n\nAnother idea: for x3, dx3/dt = c * (x2 - x3) + c * x1. This adds another term, but it increases complexity. However, the requirement says to aim for low complexity, so maybe better to keep it simple.\n\nAnother sample could be:\n\ndx0/dt = -c * (x0 + x2)\ndx1/dt = -c * x1\ndx2/dt = -c * (x2 - x3)\ndx3/dt = c * (x2 - x3)\n\nThis adds a term for x0 involving x2, which could represent a feedback mechanism.\n\nAnother sample might have:\n\ndx0/dt = -c\ndx1/dt = -c * x0\ndx2/dt = -c * (x2 - x3)\ndx3/dt = c * (x2 - x3)\n\nHere, x0 has a constant rate, x1 is related to x0, and the others are the same as before.\n\nEach of these would be different samples, and they would use the variables and constants as required. I need to generate five of these, ensuring that each is a JSON object with \"eq\" and \"dim\":4.\n</think>\n\n{\"eq\": \"-c*x_0 | -c*x_1 | -c*(x_2 - x_3) | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | -c*x_1 | -c*x_2 + c*x_3 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | -c*(x_1 - x_0) | -c*(x_2 - x_3) | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_2 - c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 01:50:32",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0, c*(-x_0 + x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "13/07/2025 01:50:32",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem step by step. The  wants me to generate five sets of synthetic ODEs for calcium dynamics, using variables x0 to x3. Each equation should be in the specified JSON format with dim=4. The time series data provided shows x0 decreasing linearly, x1 decreasing exponentially, x2 decreasing exponentially, and x3 increasing exponentially. \n\nFirst, I need to model these behaviors with ODEs. Since x0 is a membrane potential decreasing linearly, maybe a simple linear equation for dx0/dt. But looking at the data, it's a gradual decrease, so maybe something like dx0/dt = -c, which would give a linear decrease. That's simple and fits the data.\n\nFor x1, which is decreasing exponentially, a good ODE would involve an exponential decay term. Perhaps dx1/dt = -c*x1. That would model exponential decay, which matches the given time series.\n\nx2 is also decreasing, but maybe with a different rate. Maybe dx2/dt = -c*x2. However, since x2 starts higher than x1 and decreases more slowly, perhaps a different coefficient or a different term. But to keep it simple, same structure as x1.\n\nx3 is increasing exponentially. So dx3/dt = c*x3. That would model exponential growth, matching the data.\n\nPutting it all together, the equations could be:\n\ndx0/dt = -c\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nThis would be a set of four ODEs, each involving only one variable and the constant c. The simplicity would help in fitting the data well with low complexity. However, the  mentioned that the equations should be algebraic expressions, and each equation is separate. \n\nWait, but the example in the prompt has four equations separated by |. So each equation is for each variable. The dim is 4. So each of the four variables has its own equation.\n\nBut the  also mentioned that the  should model a plausible real-world process. Calcium dynamics often involve interactions between membrane potential and ion concentrations. However, the given time series shows x0 decreasing, x1 and x2 decreasing, and x3 increasing. So maybe there's a coupling between them. But the  says that the equations don't need to involve all variables. \n\nBut the first sample I thought of uses only each variable individually. However, maybe to have a better fit, some coupling could be considered. However, the  emphasizes low complexity, so maybe keeping them simple is better. \n\nLooking at the time series again: x0 is linear, x1 is exponential decay, x2 is exponential decay, x3 is exponential growth. So the simple ODEs as I thought would fit each of these. \n\nBut maybe for x0, a linear decrease is correct. For x1, exponential decay. Same for x2. For x3, exponential growth. That's four equations. Let me check if these would produce the given data when integrated. \n\nFor example, integrating dx0/dt = -c would give x0(t) = x0_0 - c*t. Looking at the data, x0 starts at -76 and decreases by about 0.03 per step. If the time steps are small, say dt=1, then c would be 0.03. That would fit the data. Similarly, x1 is exponential decay, so x1(t) = x1_0 * exp(-c*t). The data shows x1 decreasing from 0.1 to around 0.007 over time, which is exponential decay. So that would work with a proper c. Same for x2 and x3. \n\nTherefore, the equations could be:\n\neq: \"-c | -c*x_1 | -c*x_2 | c*x_3\"\n\nBut the  requires that the equations be algebraic expressions involving only x_* and c. This set satisfies that. Each equation is simple and uses only one variable. \n\nHowever, the  might prefer some coupling for the calcium dynamics. For example, maybe the rate of change of Ca_i (x2) depends on Ca_ret (x3), or vice versa. But given the time series, x2 is decreasing and x3 is increasing. So maybe there's a transfer from x2 to x3. For example, dx2/dt = -c*x2 and dx3/dt = c*x2. Then, the equations would be coupled. \n\nBut the given x3 data is increasing exponentially, which would be the case if dx3/dt = c*x3. Alternatively, if x3 is increasing due to x2 decreasing, then dx3/dt = k*x2, and dx2/dt = -k*x2. However, in that case, integrating dx2/dt would give x2(t) = x2_0 * exp(-k t), and x3(t) = x3_0 + (x2_0 /k) (1 - exp(-k t)). But in the data, x3 is increasing exponentially, which would require dx3/dt = c*x3, implying x3(t) = x3_0 * exp(c t). \n\nThis suggests that maybe x3 is not directly dependent on x2, but has its own growth term. So the initial idea of independent equations might be acceptable. \n\nHowever, the 's example includes equations with more complex expressions. For example, the example has terms like c*x0*x1 + c*x2 - c*x3, which are more complex. But the  says that the simplest case is just a constant. \n\nTo ensure the equations fit the data well, maybe each variable's rate is determined by its own dynamics. \n\nSo, the first sample could be:\n\n{\"eq\": \"-c | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}\n\nAnother sample might involve coupling between variables. For example, x1 might influence x0, or x2 and x3 might have a relationship. \n\nLooking at the data again, x0 is decreasing, which might be due to some activation (like x1) or calcium dynamics. However, without more context, it's hard to model. To keep it simple, maybe another sample could have:\n\ndx0/dt = -c*x1 (assuming x1 is a gate variable affecting the membrane potential)\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nThis couples x0 with x1, but since x1 is decreasing, this would make x0 decrease faster when x1 is higher. However, the data shows x0 decreasing linearly. If x1 is also decreasing, the product c*x1 would decrease over time, leading to x0's decrease slowing down, which might not match the data. So maybe this isn't the best fit.\n\nAlternatively, if x0 is driven by a linear term and x1 is an independent variable, maybe that's better. \n\nAlternatively, considering calcium dynamics, there's often a flux between intracellular Ca (x2) and the reticulum (x3). So maybe dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3). This would model a transfer between x2 and x3. However, the given data shows x2 decreasing and x3 increasing, which is consistent with such a model. \n\nIf that's the case, then dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3). But this would make their rates depend on the difference between them. \n\nLet's test this. Suppose initially x2 > x3, so dx2/dt is negative (x2 decreases) and dx3/dt is positive (x3 increases). Which matches the data. This would be a plausible model. So this could be part of the equations. \n\nThen, for x0 and x1, maybe:\n\ndx0/dt = -c (linear decrease)\ndx1/dt = -c*x1 (exponential decay)\n\nThus, the equations would be:\n\neq: \"-c | -c*x_1 | -c*(x_2 - x_3) | c*(x_2 - x_3)\"\n\nThis would model the calcium exchange between x2 and x3, while x0 and x1 follow their own simple dynamics. \n\nThis seems more plausible and would fit the data better for x2 and x3. \n\nSo another sample could be:\n\n{\"eq\": \"-c | -c*x_1 | -c*(x_2 - x_3) | c*(x_2 - x_3)\", \"dim\": 4}\n\nAnother sample might have x0 depending on x3. For example, if the membrane potential is influenced by calcium concentration, maybe dx0/dt = -c*x3. But the data shows x0 decreasing linearly, so if x3 is increasing exponentially, then this would cause x0 to decrease with an increasing rate, which doesn't match the data. So that might not be a good fit. \n\nAlternatively, maybe a simple linear term for x0, and for x1, maybe a term involving x3. For example, dx1/dt = -c*(x1 + x3), but that might complicate things and not fit the data. \n\nAlternatively, for x1, since it's decreasing exponentially, the previous simple equation is better. \n\nAnother possible variation is to include a logarithmic term for x0, but the data is linear, so that might not fit. \n\nSo, for the five samples, I can generate equations with different levels of coupling while keeping them simple. \n\nSample 1: All variables have their own independent equations.\nSample 2: Coupled x2 and x3.\nSample 3: x0 dependent on x3, but that might not fit.\nSample 4: Maybe x1 and x0 are coupled, but again, need to check.\n\nWait, for sample 3, perhaps x0 is influenced by x1. For example, dx0/dt = -c*x1, which would make x0 decrease as x1 decreases. But in the data, x0 is decreasing linearly and x1 is decreasing exponentially. So if x1 is decreasing exponentially, then x0's rate would be decreasing over time, leading to a curve that becomes less steep, which is not the case in the data. The data shows x0 decreasing linearly. So that might not fit well. \n\nThus, the best approach is to have the simplest equations that match the data trends. So, the first sample with each variable's own simple equation, and the second with coupling between x2 and x3. \n\nAnother sample could involve x0 and x1 being coupled. For example, dx0/dt = -c*x1, dx1/dt = -c*x1. This would make x0 decrease based on x1's value. If x1 is decreasing exponentially, then x0's rate is also decreasing, leading to a concave decrease in x0. But the data shows x0 as linear, which would require a constant rate. So this might not be a good fit. \n\nAlternatively, maybe dx0/dt = -c, dx1/dt = -c*x1, dx2/dt = -c*x2, dx3/dt = c*x3. That's the first sample. \n\nAnother sample could involve a term like x0 influencing x2, but again, without more context, it's hard. \n\nSo, generating five samples, maybe the first two are as I mentioned, and others with different combinations. \n\nSample 3: Maybe x1 and x0 have a simple relationship. For example, dx1/dt = -c*x0. If x0 is decreasing linearly, then x1's rate would be decreasing linearly, which would make x1's decrease slow down over time. But the data shows x1 decreasing exponentially. So that might not fit. \n\nSample 4: Perhaps x2 and x3 have a more complex relationship, like dx2/dt = -c*x2^2 and dx3/dt = c*x2^2. This would model a quadratic relationship, but the data for x2 and x3 seems to follow exponential decay and growth, not quadratic. So maybe not. \n\nAlternatively, dx2/dt = -c*x2*x3. If x3 is increasing, then x2's rate of decrease would accelerate. The data shows x2 decreasing more slowly than x1, but without knowing the exact dynamics, it's hard to say. \n\nGiven the time constraints, perhaps the safest approach is to create a few samples with different couplings, ensuring they are algebraically correct and fit the data as much as possible. \n\nSo here are five possible samples:\n\n1. All independent equations.\n2. Coupling x2 and x3.\n3. x0 dependent on x3 (but might not fit).\nWait, no, better to stick with what fits.\n\nSample 1: \"-c | -c*x_1 | -c*x_2 | c*x_3\"\nSample 2: \"-c | -c*x_1 | -c*(x_2 - x_3) | c*(x_2 - x_3)\"\nSample 3: \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_3\" (but this might not fit x3's data)\nWait, x3 is increasing exponentially. If dx3/dt = c*x3, that's fine. But the third equation would be for x2: -c*x2 + c*x3. If x3 is increasing, then this would make x2 decrease if x3 is increasing. That might model some exchange between x2 and x3. \n\nSample 4: \"-c | -c*x_1 | -c*x_2 + c*x_3 | -c*x_3\" (but x3 is increasing, so this would make it decrease, conflicting with the data. So that's not good.)\n\nAlternatively, for x2: -c*x2 and for x3: c*x2, so that x3's rate depends on x2. \n\nSo sample 3: \"-c | -c*x_1 | -c*x_2 | c*x_2\"\n\nThis would make x3 increase based on x2's value. However, x2 is decreasing, so x3 would increase but at a decreasing rate. The data shows x3 increasing exponentially, which requires dx3/dt = c*x3. If x2 is decreasing, then c*x2 would make x3 increase more slowly. So this might not fit as well as the simple exponential growth. \n\nBut if the data shows x3 increasing exponentially, then the simple model for x3 is better. \n\nSo maybe the first two samples are better. \n\nSample 3 could be something like dx0/dt = -c*x0, which is exponential decay, but the data shows linear. So not a good fit. \n\nAlternatively, dx0/dt = -c*x0^2. That's a different behavior, but again, the data is linear. \n\nGiven this, perhaps the first two samples are the best. For the remaining three samples, I can generate variations that are still simple. \n\nSample 3: \"-c | -c*x_1 | -c*x_2 + c | c*x_3\" (but this includes a constant term, which might not be necessary.)\n\nWait, the requirement says that constants should be denoted only by c, and no actual values. So equations can have terms like c. \n\nSo another possibility is:\n\nSample 3: \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_3\" \n\nThis way, x2's rate is affected by x3, and x3's rate is exponential. This could be a plausible model where x3 is increasing due to both a self-growth term and a transfer from x2. \n\nSample 4: \"-c | -c*x_1 | -c*x_2 | c*x_3 + c\" (adding a constant term to x3's equation, which might not fit the data, but it's allowed.)\n\nSample 5: \"-c | -c*x_1 + c*x_3 | -c*x_2 | c*x_3\" (coupling x1 with x3, but again, need to see if that fits the data. x1 is decreasing, so if x3 is increasing, this would make dx1/dt less negative over time, which might slow down the decrease. But the data shows x1 decreasing exponentially, which is a constant rate of decay. So this might not fit.)\n\nHmm, this is getting complex. Let me focus on creating five samples with varying degrees of coupling but keeping them simple. Here's my final list:\n\n1. All independent equations.\n2. Coupled x2 and x3.\n3. x2 depends on x3 and x2 itself, x3 depends on x3.\n4. x3 depends on x2, and x2 depends on x3.\n5. Some other coupling.\n\nBut given the time, I think the first two samples are safe. The rest can be variations. For example:\n\nSample 3: \"-c | -c*x_1 | -c*(x_2 + x_3) | c*x_3\" \u2013 this might not make sense, but it's allowed.\n\nAlternatively, perhaps sample 3: \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_3\" as mentioned earlier.\n\nSample 4: \"-c | -c*x_1 | -c*x_2 | c*x_3 - c*x_2\" \u2013 this would make x3 increase but also lose some to x2.\n\nBut without more data analysis, it's challenging. Given the 's emphasis on fitting the data well and low complexity, the first two samples are the best bets. For the remaining three, I'll create similar ones with minor changes.\n</think>\n\n{\"eq\": \"-c | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*(x_2 - x_3) | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*x_2 + c*x_3 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*x_2 | c*x_3 + c*x_1\", \"dim\": 4}, {\"eq\": \"-c | -c*x_1 | -c*x_2 | c*x_3 - c*x_1\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c, c*x_1, c*x_2, c*x_3], [c, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2, c*x_3], [c, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_3], [c, c*x_1, c*x_2, c*x_1 + c*x_3], [c, c*x_1, c*x_2, -c*x_1 + c*x_3]]"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "INFO",
+        "message": "Generated 24 functions: [[c, c*x_1, c*x_2, c*x_2], [c*x_0, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*(x_2 + x_3), c*(x_2 + x_3)], [c*x_0, c, c*x_2, c*x_2], [c*x_3, c*x_1, c*x_2, c*x_2], [c, c, c, c], [c*(x_2 - x_3), c*(x_0 - x_1), c*x_2, c*x_3], [c, c, c, c], [c*(x_2 - x_3), c*(x_0 - x_1), c*x_2, c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0 + c, c*x_1 + c, c*x_2 + c, c*x_3 - c], [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3], [c*x_0, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0, c*(-x_0 + x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c, c*x_1, c*x_2, c*x_3], [c, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2, c*x_3], [c, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)], [c, c*x_1, c*x_2 + c*x_3, c*x_3], [c, c*x_1, c*x_2, c*x_1 + c*x_3], [c, c*x_1, c*x_2, -c*x_1 + c*x_3]]."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:37",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:43",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Num candidate expressions: 18"
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n10       [c*x_0 + c, c*x_1 + c, c*x_2 + c, c*x_3 - c]  ...  [-0.0734*x_0 - 5.2669, 0.0001 - 0.2881*x_1, 0....\n2            [c, c*x_1, c*(x_2 + x_3), c*(x_2 + x_3)]  ...  [0.219800000000000, -0.2858*x_1, -0.2014*x_2 +...\n18           [c, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)]  ...  [0.219800000000000, -0.2858*x_1, -0.2014*x_2 +...\n13           [c, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3]  ...  [0.219800000000000, -0.2858*x_1, -0.2014*x_2 +...\n0                            [c, c*x_1, c*x_2, c*x_2]  ...  [0.219800000000000, -0.2858*x_1, -0.1993*x_2, ...\n22                   [c, c*x_1, c*x_2, c*x_1 + c*x_3]  ...  [0.219800000000000, -0.2858*x_1, -0.1993*x_2, ...\n23                  [c, c*x_1, c*x_2, -c*x_1 + c*x_3]  ...  [0.219800000000000, -0.2858*x_1, -0.1993*x_2, ...\n1        [c*x_0, c*x_1, c*(x_2 - x_3), c*(x_2 - x_3)]  ...  [-0.0029*x_0, -0.2858*x_1, -0.2014*x_2 + 0.000...\n14       [c*x_0, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3]  ...  [-0.0029*x_0, -0.2858*x_1, -0.2014*x_2 + 0.000...\n15  [c*x_0, c*(-x_0 + x_1), c*(x_2 - x_3), c*(x_2 ...  ...  [-0.0029*x_0, -0.2881*x_1, -0.2014*x_2 + 0.000...\n4                        [c*x_3, c*x_1, c*x_2, c*x_2]  ...  [0.2116*x_3, -0.2858*x_1, -0.1993*x_2, 0.1987*...\n3                            [c*x_0, c, c*x_2, c*x_2]  ...  [-0.0029*x_0, -0.00940000000000000, -0.1993*x_...\n11              [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3]  ...  [0.4965*x_2 + 0.1083*x_3, -0.2858*x_1, -0.1993...\n6        [c*(x_2 - x_3), c*(x_0 - x_1), c*x_2, c*x_3]  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.1993...\n21                   [c, c*x_1, c*x_2 + c*x_3, c*x_3]  ...  [0.219800000000000, -0.2858*x_1, -0.2014*x_2 +...\n17                           [c, c*x_1, c*x_2, c*x_3]  ...  [0.219800000000000, -0.2858*x_1, -0.1993*x_2, ...\n9                        [c*x_0, c*x_1, c*x_2, c*x_3]  ...  [-0.0029*x_0, -0.2858*x_1, -0.1993*x_2, 0.0412...\n5                                        [c, c, c, c]  ...  [0.219800000000000, -0.00940000000000000, -0.0...\n\n[18 rows x 5 columns]."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Succesfully generated 24 seed functions in 1755.072839221917 seconds."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Initial proposals already meet the tolerance."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "13/07/2025 01:58:44",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmp3uwgp18g'>"
+    }
+]

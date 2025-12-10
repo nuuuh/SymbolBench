@@ -1,0 +1,1272 @@
+[
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-14B/textual/DE_size_compute_w_thinking/Expr_28/."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Slurm job ID: 317."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1750615048."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 28."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Groundtruth Function:    domain  ...                                          solutions\n27         ...  [[{'success': True, 'message': 'The solver suc...\n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "22/07/2025 01:31:38",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:45",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-14B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "22/07/2025 01:31:47",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 01:44:51",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, so I need to generate five sets of synthetic ODEs for a  involving four variables: x0, x1, x2, x3. These variables represent perception and adaptation of left and right eye stimuli. The time series data shows that x0 decreases over time, x1 increases, x2 starts negative and increases, x3 starts positive and increases. The equations must use only the variables and a constant c, with operations like +, -, *, /, sqrt, exp, log, etc. They should be simple but fit the given time series.\n\nFirst, looking at the time series for x0: it's decreasing exponentially. So maybe an equation that decreases over time. For x1, it's increasing, perhaps a simple linear increase or exponential growth. Similarly, x2 starts negative and becomes positive, maybe a linear or sigmoidal curve. x3 is increasing from a positive value, maybe similar to x1 but with different parameters.\n\nSince the data for x0 and x2 are opposites (one decreasing, one increasing), maybe they are inversely related. Also, x1 and x3 both show increasing trends but different rates. The constants c would control the rates.\n\nLet me think about possible equations. For x0, a decay term: maybe -c*x0. That would make it decrease exponentially. For x1, a growth term: maybe c*x0. But if x1 is increasing, but x0 is decreasing, maybe another relation. Wait, looking at x1's data, it starts at -0.5 and increases. Maybe x1's equation is something like c*(some function that increases). Alternatively, x1 could be influenced by x0's adaptation. But I need to make sure that the equations can fit the data.\n\nAlternatively, maybe the  is symmetric for left and right eyes. So x0 and x2 could be similar equations but with opposite signs, and x1 and x3 as well. For example:\n\ndx0/dt = -c*x0\ndx1/dt = c*x0\ndx2/dt = -c*x2\ndx3/dt = c*x2\n\nBut x2's data starts negative and becomes positive. If dx2/dt is -c*x2, that would make it increase if x2 is negative. Let's check: if x2 is negative, then -c*x2 is positive, so x2 increases towards zero. But in the data, x2 becomes positive and continues increasing. So maybe dx2/dt = c*(something). Wait, if x2 is negative and starts increasing, maybe dx2/dt = c*(x0 - x2). Not sure.\n\nAlternatively, perhaps for x0 and x2, their dynamics are governed by similar equations but with different constants. But the  says only use c as the constant. So all equations must have c in them, maybe multiplied by variables.\n\nAnother approach: look for simple relationships that match the trends. x0 decreases, x1 increases, x2 starts negative and becomes positive, x3 increases. For x0, a simple decay like dx0/dt = -c*x0. For x1, maybe dx1/dt = c*(x0 - x1). That would model adaptation, where x1 increases towards x0's value. Wait, but x0 is decreasing, so x1 would approach a decreasing value. Maybe not. Alternatively, dx1/dt = c*x0. If x0 is decreasing, x1's rate of change would decrease over time. But in the data, x1 is increasing linearly, so maybe a constant rate? But the equations can't have actual values, only c. So maybe dx1/dt = c. But then x1 would be linear. But the data for x1 is roughly linear? Let's see: the data for x1 is increasing, but the rate seems to decrease as time goes on. Because the increase is from -0.5 to around 1. So maybe a logarithmic growth? Or exponential growth with a negative coefficient?\n\nWait, the data for x1 is increasing, but the rate seems to slow down. For example, the first few points increase rapidly, but later on, the increments get smaller. Maybe a logistic-type equation? But with the given operations, perhaps dx1/dt = c*(x0 - x1). Since x0 is decreasing, x0 - x1 would start as a positive number (since x1 starts at -0.5 and x0 is 2.25) and decrease over time. If x1 is adapting to x0, then this could model that.\n\nSimilarly, for x2, which starts negative and increases, maybe dx2/dt = c*(x0 - x2), but x0 is decreasing. So as x0 decreases, the rate of change for x2 would be driven by that. However, x2's data shows a smooth increase. For x3, if it's the adaptation of the right eye, maybe dx3/dt = c*(x2 - x3), similar to x1 and x0.\n\nPutting this together:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nBut let's check if this would fit the data. For x0, the equation would lead to an exponential decay, which matches the time series. For x1, if x0 is decreasing, and x1 is adapting to x0, then x1 would increase towards x0, but since x0 is decreasing, x1 would approach a lower value. However, the data shows x1 increasing up to around 1. Maybe the equation for x1 should be dx1/dt = c*(some positive value). Alternatively, maybe dx1/dt = c*(x0 - x1) with c being a positive constant. Let's see: initial x0 is 2.25, x1 is -0.5, so x0 - x1 is 2.75, so the derivative is positive, leading x1 to increase. As x0 decreases and x1 increases, the term x0 - x1 decreases. So the growth rate of x1 would slow down, which matches the data where the increments of x1 become smaller over time. Similarly for x2: dx2/dt = -c*x2. If x2 is negative, then the derivative is positive, leading it to increase towards zero. But in the data, x2 becomes positive and continues increasing. So that equation would stop once x2 reaches zero, but the data shows x2 increasing beyond zero. Hence, this equation may not be sufficient.\n\nAnother idea: for x2, maybe dx2/dt = c*(x0 - x2). If x0 is decreasing, then x0 - x2 would start high and decrease. But x2 would increase towards x0, which is decreasing. This might lead to a slower increase. For example, if x0 starts at 2.25 and decreases, x2 would approach x0's value, which is also decreasing. But the data shows x2 increasing, not approaching x0. So perhaps this isn't the right relation.\n\nAlternatively, considering that x0 is the perception and x1 is adaptation, maybe the adaptation is driven by perception. So for x0: a decay with adaptation. For example, dx0/dt = -c*x0 - c*x1. But this complicates things.\n\nAlternatively, looking for simple equations that can match the data's trends. For x0 decreasing: -c*x0. For x1 increasing: c. But that's a constant, which would make x1 linear. The data shows x1 increasing but the rate decreasing, so perhaps a logistic equation? But without using more complex functions.\n\nAlternatively, for x1: dx1/dt = c*(x0 - x1), which would model x1 approaching x0. If x0 is decreasing, x1 would approach x0's value, which is also decreasing. However, in the data, x1 increases up to around 1, while x0 is decreasing from 2.25 to 0.64. So maybe this equation would cause x1 to increase but slower than x0's decay. However, the data for x1 ends at around 1, while x0 ends at 0.64, so x1 approaches x0's value? Not exactly, but perhaps this is a plausible model.\n\nFor x2, which starts negative and becomes positive, maybe a similar equation: dx2/dt = c*(x0 - x2). If x0 is decreasing, this would lead x2 to increase towards x0, which is also decreasing. But x2's data ends at around 0.64, similar to x0. However, x2 starts at -1.13 and increases to 0.64, which is similar to x0's end value. So maybe this is a plausible model.\n\nFor x3, if it's the adaptation of the right eye, maybe dx3/dt = c*(x2 - x3). Then, as x2 increases, x3 would adapt to it. This would model x3 approaching x2's value. In the data, x3 starts at 0.4 and increases to around 0.64, which is similar to x2's end value. This seems plausible.\n\nSo putting it all together:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c*(x0 - x2)\ndx3/dt = c*(x2 - x3)\n\nBut I need to check if this would fit the data. Let's see:\n\nx0: exponential decay, which matches the data.\n\nx1: starts at -0.5. The equation would make it increase towards x0. If x0 is decaying from 2.25 to 0.64, x1 would approach that. However, x1's data ends at around 1, which is lower than x0's final value. Hmm, that might not match. Wait, the data for x1 ends at 1. So if x1 approaches x0, which ends at ~0.64, that would be a problem. So maybe the equation for x1 is different. Perhaps dx1/dt = c*x0. Then x1 would increase as x0 decreases. But x0 is decreasing, so the rate of increase for x1 would decrease over time. The data for x1 shows that the increments are decreasing, which matches this. So for x1, maybe dx1/dt = c*x0.\n\nSimilarly, for x2: dx2/dt = c*x0. Then, x2 would increase as x0 decreases. But x0 is decreasing, so x2 would increase more slowly over time. The data for x2 starts at -1.13 and increases to ~0.64, which would be a plausible fit if x0 is the driving force.\n\nFor x3: dx3/dt = c*x2. Then, as x2 increases, x3 would increase, but with a rate that depends on x2's value. However, x3's data starts at 0.4 and increases to ~0.64. If x2 starts negative, then x3 would decrease initially, but in the data, x3 increases from 0.4 to 0.64. That doesn't fit. So maybe x3 is driven by x2 in a different way. Perhaps dx3/dt = c*(x2 - x3). This would mean that x3 approaches x2. If x2 starts negative, x3 would initially decrease, but in the data, x3 increases. So this might not fit. Alternatively, dx3/dt = c*(x2 + x3). Or another combination.\n\nAlternatively, if x3's equation is dx3/dt = c*(x2 + some constant). But constants can't be used except for c. So maybe dx3/dt = c*(x2 - x3). Let's simulate this:\n\nAt t=0, x3=0.4, x2=-1.13. So x2 - x3 = -1.53. If c is positive, then dx3/dt would be negative, making x3 decrease. But the data shows x3 increasing. So that's not matching. Hmm. So maybe x3 is not driven by x2 but by something else.\n\nAlternatively, maybe the adaptation for x3 is similar to x1. For example, dx3/dt = c*x2. If x2 starts negative, x3 would decrease, but in the data, x3 increases. So this is not matching. This suggests that the initial approach may not work for x3.\n\nAnother angle: considering that x1 and x3 are both adaptations, maybe they are driven by their respective perceptions (x0 and x2). So x1 is driven by x0, and x3 is driven by x2. So:\n\ndx1/dt = c*x0\ndx3/dt = c*x2\n\nBut then, for x1, this would lead to increasing x1 as x0 decreases, which matches the data (since x0 is decreasing, but the rate of increase for x1 would slow). For x3, since x2 starts negative and becomes positive, this would first decrease x3, but in the data, x3 starts at 0.4 and increases. So that's a problem. Unless x2 is positive after some time. Let's check the x2 data: yes, it starts negative and becomes positive, reaching around 0.64 at the end. So, if x3 is driven by x2, then initially, x3 would decrease, but then increase. However, the data for x3 starts at 0.4 and increases. So if x2 becomes positive and large enough, x3 could increase. However, the initial decrease might not match the data. But the data for x3 starts at 0.4 and immediately starts increasing. So this suggests that maybe x3 is driven by a different equation.\n\nAlternatively, perhaps x3 is driven by x0. If dx3/dt = c*x0, then x3 would increase as x0 decreases, but the rate would slow. However, the data for x3 starts at 0.4 and increases, which would fit if x0 is positive and decreasing. This might be possible. Then, for x3's equation, it's c*x0. But why would x3 depend on x0? Maybe the right eye's adaptation is influenced by the left eye's perception? That might be a bit of a stretch, but possible in a model.\n\nAlternatively, considering that the  might have symmetry between left and right eyes. For example, if x0 and x2 are perceptions and x1 and x3 are their adaptations, then:\n\ndx0/dt = -c*x0\ndx1/dt = c*x0\ndx2/dt = -c*x2\ndx3/dt = c*x2\n\nThis would mean that x0 decays exponentially, x1 increases with the rate based on x0, x2 decays, and x3 increases based on x2. But x2 starts negative and decreases? No, wait, if dx2/dt = -c*x2, then if x2 is negative, the derivative is positive, so x2 increases. For example, if x2 is -1.13, then dx2/dt = -c*(-1.13) = c*1.13, so x2 increases. As x2 approaches zero, the rate of increase slows. But in the data, x2 becomes positive and continues to increase. So this equation would only make x2 increase up to zero, then start decreasing if x2 becomes positive. However, the data shows x2 increasing beyond zero, which this equation would not do. Hence, this model doesn't fit.\n\nSo maybe for x2, the equation is dx2/dt = c*(x0 - x2). Let's try this. If x0 is decreasing and x2 is starting negative, then x0 - x2 would be large positive, leading x2 to increase. As x2 approaches x0's value, which is decreasing, the rate would slow. For example, if x0 is 2.25 and x2 is -1.13, then x0 - x2 is 3.38, leading x2 to increase. If x0 decreases to 0.64 and x2 increases to 0.64, then x0 - x2 would be 0, and x2 would stop increasing. This matches the data where x2 ends around 0.64, similar to x0's end. This seems plausible.\n\nThen for x3, if it's adapting to x2, maybe dx3/dt = c*(x2 - x3). So x3 approaches x2's value. If x2 is increasing to 0.64, then x3 would increase towards that value. The data shows x3 starting at 0.4 and increasing to 0.64, which matches. So this could work.\n\nSo the equations would be:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c*(x0 - x2)\ndx3/dt = c*(x2 - x3)\n\nThis seems to model the data trends. Let's check each variable:\n\n- x0: exponential decay, matches data.\n- x1: starts at -0.5. The equation makes it increase towards x0. If x0 decreases, x1 would approach x0's value, which is lower than the initial x1's value. Wait, x1 starts at -0.5, and x0 is 2.25. So x1 would increase rapidly towards x0's initial value, but as x0 decreases, x1 approaches it. This would mean x1 would increase, but perhaps not as much as the data shows. Let's see, the data for x1 ends at 1.0, while x0 ends at 0.64. If x1 approaches x0, it would be at 0.64, but the data shows 1.0. Hmm, this suggests a discrepancy. Maybe the equations need adjustment.\n\nAlternatively, perhaps x1 is driven by x0's adaptation. For example, dx1/dt = c*x0. This would make x1 increase as x0 decreases, with the rate slowing down. This might fit the data where x1 increases but the rate decreases. For x0's data, which decreases from 2.25 to 0.64, integrating dx1/dt = c*x0 would give x1 as c*(2.25t - ...). But this is getting complex without actual integration.\n\nAlternatively, considering that the equations must be simple and have low complexity, maybe the best approach is to have:\n\ndx0/dt = -c*x0\ndx1/dt = c\ndx2/dt = -c*x2\ndx3/dt = c\n\nBut then x1 and x3 would increase linearly, which might not match the data. However, the data for x1 and x3 show increasing trends with decreasing increments. So a linear model might not be the best fit, but it's simple.\n\nGiven the requirement for low complexity, maybe the simplest equations that fit the trends are:\n\ndx0/dt = -c*x0\ndx1/dt = c\ndx2/dt = c*x2\ndx3/dt = c\n\nBut for x2, this would cause it to grow exponentially, but the data shows x2 starting negative and increasing to a positive value, which might not fit. If dx2/dt = c*x2, and x2 starts negative, then x2 would decrease (if c is positive), which doesn't match the data.\n\nAnother idea: for x2, maybe dx2/dt = c*(x0 - x2). This was considered earlier, but the problem with x1 approaching x0 was that x1 ends higher than x0. Maybe the equations are correct, and the fitting is just about matching the general trends rather than exact values.\n\nAlternatively, maybe the  is such that x0 and x2 are perceptions, and x1 and x3 are their adaptations, and the adaptations are driven by the perceptions. So:\n\ndx0/dt = -c*x0\ndx1/dt = c*x0\ndx2/dt = -c*x2\ndx3/dt = c*x2\n\nThis would mean:\n\n- x0 decays exponentially.\n- x1 increases with the rate based on x0, which is decreasing, so x1's rate decreases over time, leading to a curve that increases and levels off. This might fit x1's data.\n- x2 decays exponentially, but the data shows x2 increasing from -1.13 to 0.64. So this doesn't fit.\nWait, dx2/dt = -c*x2 would make x2 increase if it's negative, but then as x2 approaches zero, it would start decreasing. The data for x2 increases beyond zero, so this model doesn't fit. Hence, this approach is incorrect.\n\nGiven the time constraints, perhaps the best way is to proceed with the equations that model the general trends, even if they don't perfectly fit the data, as long as they are simple and plausible.\n\nFinal attempt:\n\ndx0/dt = -c*x0\ndx1/dt = c*x0\ndx2/dt = c*x0\ndx3/dt = c*x2\n\nThis would make:\n\n- x0 decreases exponentially.\n- x1 increases with x0, so as x0 decreases, x1's rate decreases, leading to a curve similar to x0's but increasing.\n- x2 increases with x0, so it would increase and then decrease as x0 decreases.\n- x3 increases with x2, which is increasing initially and then decreasing. But the data shows x3 increasing steadily.\n\nThis might not fit well. However, given the time, I'll go with the earlier equations where x1 and x3 adapt to x0 and x2 respectively:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c*(x0 - x2)\ndx3/dt = c*(x2 - x3)\n\nThis  has coupled equations, and it's plausible for adaptation processes. Now, to generate five different samples with these or similar equations, varying the equations slightly while keeping the same structure.\n</think>\n\n{\"eq\": \"-c*x_0 | c*(x_0 - x_1) | c*(x_0 - x_2) | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | c*x_0 | c*x_2\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 + x_1) | c*(x_0 - x_2) | c*(x_2 + x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_1 | c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | c*x_0 | c*x_0\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 01:44:51",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_0, c*x_2], [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 + x_3)], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0, c*x_0, c*x_0, c*x_0]]"
+    },
+    {
+        "timestamp": "22/07/2025 01:44:51",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 02:05:03",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of synthetic ODEs for a  involving four variables: x0, x1, x2, x3. These variables represent perception and adaptation of stimuli in the left and right eyes. The time series data given shows that x0 and x2 are decreasing over time, while x1 and x3 are increasing, which suggests some sort of adaptation process.\n\nFirst, I need to make sure I follow all the requirements. The equations must use only x0 to x3 and constants denoted by 'c'. They can be algebraic expressions with basic operations and functions. Each sample must have dim=4, and the equations should be separated by | for coupled s.\n\nLooking at the time series data: x0 starts high and decreases, x1 starts low and increases. Similarly, x2 starts low and decreases, x3 starts high and increases. Wait, no, x2 is negative and becomes less negative, but x3 is positive and increases. Hmm, maybe the model is about how the perception (x0, x2) decreases over time due to adaptation (x1, x3) which increases. So perhaps x0 and x2 are the perceptions, and x1 and x3 are the adaptations. Maybe the adaptations are inversely related to the perceptions.\n\nSo for the ODEs, I can think of the perception variables (x0, x2) decreasing as adaptation increases. Maybe the rate of change of x0 is proportional to -x0 multiplied by some function of x1, and similarly for x2 with x3. Alternatively, the adaptation variables x1 and x3 might increase in response to the perception variables.\n\nFor example, dx0/dt could be something like -c*x0 - c*x1, indicating that perception decreases due to itself and adaptation. Then dx1/dt might be proportional to x0 minus x1, representing adaptation increasing as perception is present and decreasing when adaptation is high. Similarly for x2 and x3.\n\nBut the  wants the equations to fit the given time series. The data for x0 starts at 2.25 and decreases, x1 starts at -0.5 and increases to around 0.64. So maybe x1 is a negative value increasing towards zero. Similarly for x2, which starts at -1.13 and increases to -0.02, while x3 starts at 0.4 and increases.\n\nWait, looking at the data for x3, it starts at 0.4 and increases up to around 0.64. So maybe the adaptations x1 and x3 are following a pattern where they increase, but for x1, the initial values are negative. So perhaps x1 is modeled with a negative initial condition but increasing.\n\nTo capture the time series, the equations need to model a decreasing perception and increasing adaptation. Let's think of a simple model. For example, the perception variables x0 and x2 might be decreasing exponentially, while the adaptations x1 and x3 increase exponentially. But with the given data, the perception doesn't decrease exponentially; it's more like a linear decrease or something else. However, the time series data for x0 is decreasing more rapidly at first and then slowing down. Maybe a logistic-type decay?\n\nAlternatively, the equations could involve interactions between the variables. For instance, the rate of change of x0 could depend on the adaptation x1, and similarly, x1's rate depends on x0. Maybe something like:\n\ndx0/dt = -c * x0 + c * x1\ndx1/dt = c * x0 - c * x1\ndx2/dt = -c * x2 + c * x3\ndx3/dt = c * x2 - c * x3\n\nThis would create a  where perception decreases and adaptation increases, with them influencing each other. However, in the data, x0 is decreasing, and x1 is increasing, which would fit if x1 is a positive term in the equation for x0. Wait, but the initial x1 is negative. Maybe the equations need to account for that.\n\nAlternatively, perhaps the equations for x0 and x1 are coupled, and similarly for x2 and x3. So that x0's change is influenced by x1 and vice versa. The same for x2 and x3. But given the data, x0 and x2 are separate, and x1 and x3 are separate. Maybe the left eye and right eye processes are similar but independent.\n\nAnother approach: since the data for x0 and x2 are inversely related (x0 starts high, x2 starts low), but x1 starts low and x3 starts high. Maybe the equations for x0 and x1 are separate from x2 and x3. For example:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0 - c * x1\ndx2/dt = -c * x2\ndx3/dt = c * x2 - c * x3\n\nThis would model perception decreasing exponentially and adaptation increasing towards the perception. But in the data, x1 starts negative and increases, which might not fit if x0 is positive. Hmm. Maybe x1 is a different variable. Alternatively, perhaps the adaptation variables are negative when the perception is high, but that might complicate things.\n\nAlternatively, perhaps the perception variables are being adapted by the adaptation variables. For example:\n\ndx0/dt = -c * x1 * x0\ndx1/dt = c * x0 - c * x1\ndx2/dt = -c * x3 * x2\ndx3/dt = c * x2 - c * x3\n\nThis would model the perception decreasing due to adaptation, and adaptation increasing based on perception minus itself. This might fit the data if the adaptation terms are positive.\n\nBut I need to make sure that the equations can fit the time series data. The data shows that x0 decreases and x1 increases. So if dx0/dt is negative (which it is), and dx1/dt is positive, that would work. Similarly for x2 and x3.\n\nAnother possibility is using logistic-like equations. For example:\n\ndx0/dt = -c * x0 * (1 - x1)\ndx1/dt = c * x0 * (1 - x1)\ndx2/dt = -c * x2 * (1 - x3)\ndx3/dt = c * x2 * (1 - x3)\n\nThis would create a  where the perception decreases if the adaptation is not yet high, and adaptation increases as perception is present. But this might be more complex than needed.\n\nAlternatively, using simple linear terms with the constants. The simplest equations would be:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0 - c * x1\ndx2/dt = -c * x2\ndx3/dt = c * x2 - c * x3\n\nThis would model x0 decaying exponentially, x1 increasing towards x0's value, x2 decaying, and x3 increasing towards x2's value. But the data shows that x1 starts negative, which might not align with this if c is positive. However, the constants could be negative, but the  said constants must be denoted by 'c' and no actual values. So perhaps the equations can have different signs based on the constants.\n\nAlternatively, maybe x1 is modeled as -c * x0 + c * x1. But that would be dx1/dt = -c * x0 + c * x1. However, the initial data for x1 is negative. So if x0 is positive and decreasing, maybe the equations can be adjusted to fit.\n\nBut since the  requires the equations to fit the time series, the equations need to be such that when simulated, they produce similar trends. The data shows that x0 and x2 are decreasing, while x1 and x3 are increasing. The simplest equations that would do that are the linear ones where dx0/dt is negative, dx1/dt is positive, and similarly for the others.\n\nGiven that, perhaps the following equations:\n\ndx0/dt = -c * x0\ndx1/dt = c * (x0 - x1)\ndx2/dt = -c * x2\ndx3/dt = c * (x2 - x3)\n\nThis would result in x0 decreasing exponentially, x1 increasing towards x0, x2 decreasing exponentially, and x3 increasing towards x2. The constants would determine the rates.\n\nBut the data for x1 starts negative. So if x0 starts at 2.25 and x1 starts at -0.5, then the equation dx1/dt = c*(x0 - x1) would mean that if c is positive, then x1 would increase towards x0, which starts at 2.25, but since x1 is negative, the initial rate would be positive. So this could model the given data.\n\nSimilarly for x3, which starts at 0.4 and increases, while x2 starts at -1.13 and increases. So the equation dx3/dt = c*(x2 - x3) would mean that x3 increases if x2 is higher than x3. However, x2 is initially much lower than x3. Wait, initial x2 is -1.13 and x3 is 0.4, so x2 - x3 is -1.53. So dx3/dt would be negative, but in the data, x3 increases. That's a problem.\n\nAh, here's an issue. If dx3/dt = c*(x2 - x3), then when x2 is lower than x3, dx3/dt would be negative, which would make x3 decrease, but the data shows x3 increasing. So this model doesn't fit. Therefore, perhaps the equations for x2 and x3 should be different. Maybe:\n\ndx2/dt = -c * x2\ndx3/dt = c * (x2 - x3) * (-1) ?\n\nWait, that might not make sense. Alternatively, dx3/dt = c * (x2 - x3) * something else.\n\nAlternatively, maybe dx3/dt = c * (x3 - x2). Then if x3 is greater than x2, dx3/dt is positive. But in the initial condition, x3 is 0.4 and x2 is -1.13, so x3 - x2 is 1.53, which would make dx3/dt positive, which matches the data. However, as x2 increases (becomes less negative), x3 would start to decrease once x3 becomes greater than x2. But looking at the data, x3 continues to increase. So maybe that's not the case. Alternatively, perhaps the equation is dx3/dt = c * (x2 - x3), but with a negative constant? But constants must be denoted by 'c', not with a sign.\n\nWait, the constants can be positive or negative, but the  didn't specify that. The requirement says \"the constants should be denoted ONLY by c\", but doesn't say they have to be positive. However, in the time series, the values are varying in specific ways. So maybe the equations need to be adjusted.\n\nAlternatively, for x3, the equation could be dx3/dt = c * (x3 - x2). That way, if x3 is greater than x2, dx3/dt is positive. Initially, x3 is 0.4 and x2 is -1.13, so dx3/dt is positive. As x2 increases, when x3 becomes greater than x2, the derivative remains positive. However, in the data, x3 increases up to about 0.64, while x2 increases up to about -0.02. So if x2 is approaching zero, and x3 is approaching 0.64, then the equation would work as long as x3 remains higher than x2. That might be plausible.\n\nSo for x2 and x3, the equations could be:\n\ndx2/dt = -c * x2\ndx3/dt = c * (x3 - x2)\n\nBut then for x3, the derivative is positive when x3 > x2, which is the case initially and for the entire duration as x2 approaches zero and x3 approaches 0.64.\n\nSimilarly for x1 and x0, dx0/dt = -c * x0 and dx1/dt = c * (x0 - x1). This would make x1 increase towards x0, which is decreasing. But x1 starts at a lower value than x0, so it would increase until it reaches x0's value. However, in the data, x0 decreases from 2.25 to 0.64, while x1 increases from -0.5 to 0.64. So if x0 is decreasing and x1 is increasing, this could work if c is a positive constant.\n\nBut wait, the initial value of x1 is negative, so for dx1/dt = c*(x0 - x1), if x0 is positive and x1 is negative, then x0 - x1 is positive, so dx1/dt is positive, which matches the data. As x1 increases, the derivative decreases, leading to x1 approaching x0's value, which is also decreasing. However, x1 ends up at 0.64, which is lower than the final x0 of 0.64? Wait, the final x0 is 0.64, and x1 is 0.64. That's interesting. So if x0 and x1 converge to the same value, that would make sense. But in the data, x0 and x1 end up at the same value (0.64). Similarly, x2 ends at -0.02, and x3 ends at 0.64. Wait, no, looking at the data, x3 ends at around 0.64, x2 ends at around -0.02, so they don't converge. So maybe the equations for x2 and x3 should be different.\n\nThis is getting complicated. Maybe it's better to make each pair (x0, x1) and (x2, x3) independent. So for the left eye, x0 is perception and x1 is adaptation, and for the right eye, x2 and x3.\n\nFor the left eye:\n\ndx0/dt = -c * x0\ndx1/dt = c * (x0 - x1)\n\nThis would make x0 decay exponentially, x1 increase towards x0's value. However, if x0 starts at 2.25 and x1 at -0.5, the solution for x1 would approach 2.25. But in the data, x1 ends at 0.64, which is less than 2.25. That doesn't fit. So maybe the equations need to be adjusted.\n\nAlternatively, perhaps the adaptation is not converging to the perception but is a separate process. Maybe the adaptation increases at a rate proportional to the perception minus the adaptation, but with a different constant. For example:\n\ndx0/dt = -c * x0\ndx1/dt = c * (x0 - x1)\n\nIn this case, the solution for x1 would be x0_initial - (x0_initial - x1_initial) * exp(-c*t). If x0_initial is 2.25 and x1_initial is -0.5, then x1(t) = 2.25 - (2.25 + 0.5) * exp(-c*t). But as t approaches infinity, x1 approaches 2.25. However, in the data, x1 ends at 0.64, which is much lower. This suggests that this model may not fit. So perhaps the equations need to involve more variables or different relationships.\n\nAlternatively, perhaps the adaptation variables are not directly dependent on the perception variables, but there's another factor. But the  wants the equations to be simple and fit the data.\n\nAnother idea: the perception variables decrease linearly, and the adaptation variables increase linearly. For example:\n\ndx0/dt = -c\ndx1/dt = c\ndx2/dt = -c\ndx3/dt = c\n\nBut this would make x0 decrease linearly, x1 increase linearly, etc. The data shows that x0 decreases from 2.25 to 0.64 over time, which is a linear decrease with a slope. Similarly, x1 increases from -0.5 to 0.64, which is also a linear increase. If the equations are dx0/dt = -c and dx1/dt = c, then integrating would give x0(t) = x0_initial - c*t and x1(t) = x1_initial + c*t. This would match the data if the slope c is chosen appropriately. However, the  said that constants must be denoted by 'c' and no actual values, so this could be a valid equation. But this is very simple and may not capture the complexity of the , but the  wants low complexity.\n\nBut the problem says the equations should have a good fitting score, and secondly, low complexity. So maybe this is acceptable.\n\nFor example, for the first sample:\n\n{\n  \"eq\": \"-c | c | -c | c\",\n  \"dim\": 4\n}\n\nBut the  wants each equation to be an algebraic expression. However, this is valid as each equation is a constant. But the problem says that the equations can be as simple as a constant c. So this could be a valid sample.\n\nBut looking at the time series data for x0, it's decreasing from 2.25 to 0.64 over 100 points, so the slope is negative. Similarly, x1 is increasing. So equations like dx0/dt = -c and dx1/dt = c would produce linear trends. The same for x2 and x3. However, the data for x2 starts at -1.13 and increases to -0.02, which is a linear increase, and x3 starts at 0.4 and increases to 0.64, which is also linear.\n\nSo this suggests that the equations could be:\n\ndx0/dt = -c\ndx1/dt = c\ndx2/dt = -c\ndx3/dt = c\n\nWhich would give each variable a linear change. However, the  might expect that the equations involve the variables themselves, not just constants. But the problem says that the equations don't necessarily need to involve all variables. So this is allowed.\n\nBut perhaps the  wants more complex equations. However, the requirement states that the simplest case is just a constant c. So this is acceptable.\n\nBut I need to generate five different samples. Let's think of variations. For example, including the variables in the equations but keeping it simple.\n\nAnother approach: the rate of change for x0 is proportional to -x0, and similarly for x2, and for x1 and x3 it's proportional to x0 and x2, respectively. For example:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0\ndx2/dt = -c * x2\ndx3/dt = c * x2\n\nThis would model x0 decreasing exponentially, x1 increasing proportionally to x0, x2 decreasing exponentially, and x3 increasing proportionally to x2. This could produce the data trends where x0 and x2 decrease and x1 and x3 increase.\n\nLet me check this. For x0, if it starts at 2.25 and decreases exponentially, and x1 increases proportionally to x0, then x1 would also decrease in slope as x0 decreases. In the data, x1 starts at -0.5 and increases, which might be possible if c is negative. Wait, if dx1/dt = c * x0, then with x0 decreasing, the derivative of x1 would decrease. But the data shows x1 increasing at a decreasing rate, which matches.\n\nHowever, the initial value of x1 is -0.5. If x0 is positive and decreasing, and c is positive, then dx1/dt is positive, so x1 increases. That fits. Similarly, dx2/dt = -c * x2, so x2 decreases, and dx3/dt = c * x2, so if x2 is negative, then dx3/dt is negative, but the data shows x3 increasing. So that would be a problem. Because if x2 is negative, dx3/dt = c * x2 would be negative, meaning x3 decreases, but the data shows x3 increasing. This contradicts.\n\nAh, this is a problem. So for x3, the equation dx3/dt = c * x2 would not produce an increase if x2 is negative. Therefore, this model is invalid for x3.\n\nAlternative idea: for x3, the equation could be dx3/dt = c * (-x2), which would make dx3/dt positive if x2 is negative. Then as x2 becomes less negative, the rate of increase of x3 decreases, which matches the data where x3 increases from 0.4 to 0.64. Similarly, for x1, the equation dx1/dt = c * x0 would make it increase as x0 is positive and decreasing.\n\nSo adjusting the equations:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0\ndx2/dt = -c * x2\ndx3/dt = c * (-x2) = -c * x2\n\nBut wait, that would make dx3/dt = -c * x2. If x2 is negative, then dx3/dt is positive, which matches the data. And as x2 approaches zero, the rate of increase of x3 slows down. That seems plausible.\n\nLet me test this with initial conditions:\n\nx0 starts at 2.25, decreases exponentially.\nx1 starts at -0.5, and dx1/dt = c * x0 (positive), so x1 increases.\nx2 starts at -1.13, decreases exponentially (dx2/dt = -c * x2, so if x2 is negative, -c*x2 is positive, which would make x2 increase. Wait, that's a contradiction. Because dx2/dt = -c * x2, so if x2 is negative, dx2/dt is positive, meaning x2 increases. But the data shows x2 increasing from -1.13 to -0.02, which is an increase, which fits. So this is correct.\n\nSo for x2, the equation is dx2/dt = -c * x2, which when x2 is negative, dx2/dt is positive, causing x2 to increase towards zero. That matches the data.\n\nFor x3, dx3/dt = -c * x2. If x2 is negative, then dx3/dt is positive, so x3 increases. As x2 becomes less negative, dx3/dt decreases, leading to x3 approaching a value. For example, if x2 approaches zero, dx3/dt approaches zero, and x3 would asymptotically approach its initial value plus the integral of -c*x2 over time. However, with the data, x3 increases from 0.4 to 0.64, which might be possible with the right choice of c.\n\nSo this seems like a plausible model. The equations would be:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0\ndx2/dt = -c * x2\ndx3/dt = -c * x2\n\nThis  has coupled equations where x0 and x1 are related, and x2 and x3 are related. The equations are simple and involve the variables. This would fit the data trends.\n\nAnother sample could be similar but with different couplings. For example, dx0/dt = -c * x1, and dx1/dt = c * (x0 - x1), etc. But I need to generate five different samples.\n\nLet me think of other variations. Maybe for the first sample, the equations are:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0\ndx2/dt = -c * x2\ndx3/dt = c * x2\n\nBut this would make dx3/dt = c * x2. If x2 is negative, then dx3/dt is negative, which would make x3 decrease, but in the data x3 increases. So that's invalid. Hence, the previous adjustment with -c * x2 is better.\n\nSo for the first sample:\n\n{\n  \"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | -c*x_2\",\n  \"dim\": 4\n}\n\nThis models the described .\n\nFor the second sample, maybe involve the adaptation variables in the perception equations. For example:\n\ndx0/dt = -c * x0 - c * x1\ndx1/dt = c * (x0 - x1)\ndx2/dt = -c * x2 - c * x3\ndx3/dt = c * (x2 - x3)\n\nThis couples the perception and adaptation variables. The first equation says the rate of change of x0 is decreased by both itself and the adaptation x1. The adaptation x1 increases as the difference between x0 and x1. Similarly for x2 and x3. This would make a more complex  but might still fit the data if the constants are chosen appropriately.\n\nAnother sample could be:\n\ndx0/dt = -c * x0 + c * x1\ndx1/dt = c * (x0 - x1)\ndx2/dt = -c * x2 + c * x3\ndx3/dt = c * (x2 - x3)\n\nBut I need to ensure that the equations are plausible. This is getting a bit complex, but perhaps acceptable.\n\nAnother variation is to include exponential terms. For example:\n\ndx0/dt = -c * exp(-x1) * x0\ndx1/dt = c * x0\ndx2/dt = -c * exp(-x3) * x2\ndx3/dt = c * x2\n\nBut this might be more complex than needed.\n\nAlternatively, use trigonometric functions, but given the data is monotonic, that might not be necessary.\n\nTo keep it simple, the first sample I thought of is good. Now, I need to generate five different samples, each with dim=4, using the allowed variables and operations.\n\nLet's list five different possible sets:\n\n1. As discussed: \n   dx0/dt = -c * x0\n   dx1/dt = c * x0\n   dx2/dt = -c * x2\n   dx3/dt = -c * x2\n\n2. Coupled equations for each pair:\n   dx0/dt = -c * x0 - c * x1\n   dx1/dt = c * (x0 - x1)\n   dx2/dt = -c * x2 - c * x3\n   dx3/dt = c * (x2 - x3)\n\n3. dx0/dt = -c * x0\n   dx1/dt = c * (x0 - x1)\n   dx2/dt = -c * x2\n   dx3/dt = c * (x2 - x3)\n\n4. dx0/dt = -c * (x0 + x1)\n   dx1/dt = c * (x0 - x1)\n   dx2/dt = -c * (x2 + x3)\n   dx3/dt = c * (x2 - x3)\n\n5. dx0/dt = -c * x0\n   dx1/dt = c * x0\n   dx2/dt = -c * x2\n   dx3/dt = c * (-x2)\n\nWait, sample 5 is similar to sample 1 but with a negative sign in the last equation. But that's the same as sample 1.\n\nAlternatively, sample 5 could be:\n\ndx0/dt = -c * x0\ndx1/dt = c * x0\ndx2/dt = -c * x2\ndx3/dt = c * (x0 + x2)\n\nBut this couples x3 with x0 and x2. However, the data for x3 is increasing independently of x0 and x2. Maybe not ideal, but it's a possibility.\n\nAnother option is to have some equations involve both variables. For example:\n\nSample 3 could be:\n\ndx0/dt = -c * x0 * x1\ndx1/dt = c * x0\ndx2/dt = -c * x2 * x3\ndx3/dt = c * x2\n\nBut this introduces nonlinearity, which might complicate things, but it's allowed.\n\nHowever, the  wants low complexity, so linear terms are better.\n\nConsidering the time series data and the need for low complexity, the first sample is the simplest and most likely to fit. Let's proceed with generating five different samples, each with different forms but all plausible.\n</think>\n\n{\"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | -c*x_2\", \"dim\": 4}, {\"eq\": \"-c*x_0 - c*x_1 | c*(x_0 - x_1) | -c*x_2 - c*x_3 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | c*x_2\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | -c*x_2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 02:05:03",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c, c, c, c], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*x_0, c*x_2, c*x_2]]"
+    },
+    {
+        "timestamp": "22/07/2025 02:05:03",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 02:21:54",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, so I need to generate five sets of synthetic ODEs for a  with four variables: x0, x1, x2, x3. The domain is about perception and adaptation of left and right eye stimuli. The time series data provided shows that x0 and x2 are decreasing over time, while x1 and x3 are increasing. That suggests that maybe the perceptions are decaying and the adaptations are increasing, which makes sense if the  is adapting to a constant stimulus.\n\nFirst, the equations need to involve the variables x0 to x3 and a constant c. They can be simple or coupled. The goal is to have equations that fit the time series data well, with low complexity. Let me think about possible models.\n\nLooking at the data, x0 starts high and decreases. Maybe x0's rate of change is negative, perhaps a decay term. For example, dx0/dt = -c*x0. But looking at the data, x0 is decreasing but not exponentially, maybe with some adaptation term. However, the data might be linear? Wait, looking at x0's values, they decrease by roughly 0.09 each step. Hmm, but that's a linear trend, but ODEs usually model non-linear behavior. Alternatively, maybe a combination of decay and adaptation.\n\nSimilarly, x1 starts negative and increases towards a positive value. Maybe it's an adaptation process. Like dx1/dt = c*(some term involving x0 or x1). For example, if adaptation is increasing as perception decreases, maybe dx1/dt = c*(x0 - x1), which would model the adaptation trying to reach x0's value.\n\nBut let me think about the variables. Since x0 is perception of left eye and x1 is adaptation, maybe they influence each other. For instance, perception might decrease over time, and adaptation increases to counteract that. Similarly for x2 and x3 for the right eye.\n\nLet me try to model each pair. Suppose for the left eye:\n\ndx0/dt = -c*x0 (exponential decay)\ndx1/dt = c*(x0 - x1) (adaptation towards x0)\n\nBut looking at x0's data, it's decreasing but maybe not exactly exponential. However, if the time series is generated by such an ODE, it might fit. Similarly, for the right eye:\n\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nBut then, the problem says that the  should be plausible. However, the 's time series might have some coupling between left and right eyes. But in the given data, the left and right eyes' variables don't seem to directly influence each other. Maybe they are independent.\n\nSo, maybe each pair (x0, x1) and (x2, x3) are independent. Then the ODEs would be:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nThis is a  of four equations. Let me check if that would fit the data.\n\nFor x0: if dx0/dt = -c*x0, then x0(t) would be exponential decay. But the data for x0 is decreasing linearly? Wait, the first few points are 2.25, 2.164, 2.083... The differences between consecutive terms are roughly -0.086, -0.081, etc., which is decreasing, suggesting maybe a decelerating decrease. Exponential decay would have the derivative proportional to the current value, which would mean the decrease rate slows over time. That matches the data. So maybe this is a good fit.\n\nSimilarly, for x1, which starts at -0.5 and increases to around 1.0. If dx1/dt = c*(x0 - x1), then as x0 decreases and x1 increases, the derivative would be positive (since x0 is larger than x1 initially), leading x1 to approach x0. But in the data, x1 starts at -0.5 and increases to about 1.0, which could be a case where x0 is decaying from 2.25 to 0.64, and x1 is approaching that value. But if the equations are dx0/dt = -c*x0 and dx1/dt = c*(x0 - x1), then solving this  would give x0(t) = x0_0 * e^{-c t}, and x1(t) would approach x0(t) as t increases. However, the data for x1 starts at -0.5 and increases, but x0 starts at 2.25. So if x1 starts at -0.5, then the initial derivative would be c*(2.25 - (-0.5)) = c*2.75, so x1 increases rapidly, which matches the data's initial increase. But as x0 decreases, the rate of change of x1 would decrease. This seems plausible.\n\nBut the problem requires that the equations be algebraic expressions using only x variables and c. So the above would be valid.\n\nSimilarly for x2 and x3. The x2 data starts at -1.13 and increases to 0.64, which is similar to x0's trend but mirrored. So perhaps dx2/dt = -c*x2, and dx3/dt = c*(x2 - x3). However, the data for x2 starts at -1.13 and increases, so if dx2/dt = -c*x2, then x2 would increase exponentially towards zero. But in the data, x2 increases to about 0.64, which is not zero. Hmm, that might not match. Wait, but maybe there's a different model. Alternatively, maybe the ODE for x2 is dx2/dt = c*(some function). Wait, the data for x2 starts at -1.13 and increases, but the time series shows that it approaches a positive value. So maybe the model is different. For example, dx2/dt = c*(x2_target - x2), but that would be a linear approach to a target. However, without knowing the target, perhaps it's modeled as a simple decay with a negative coefficient. Wait, if dx2/dt = -c*x2, then x2 would decay towards zero, but the data shows it increasing from -1.13 to 0.64. That doesn't fit. So maybe there's an error in my initial model.\n\nWait, the data for x2 is starting negative and increasing to positive, which suggests that dx2/dt is positive initially. If dx2/dt = -c*x2, then when x2 is negative, the derivative is positive, causing x2 to increase towards zero. Once x2 becomes positive, the derivative becomes negative, causing it to decrease towards zero. But the data shows x2 increasing all the way to 0.64, which is not matching that. So maybe the ODE for x2 is different. Maybe dx2/dt = c*(some positive constant - x2), but without a constant term, perhaps there's a different approach.\n\nAlternatively, maybe the model is similar to x0 and x1, but with a different sign. For example, if x2 is a perception that's increasing over time, but that contradicts the data. Wait, the data for x2 starts at -1.13 and increases to 0.64, which is an increasing trend. If the ODE is dx2/dt = c, a constant, then x2 would be linear. However, the  wants equations that use x variables and c, not constants. But the  said that constants should be denoted only by c. So if I use dx2/dt = c, that's allowed, as c is a constant.\n\nBut the data for x2 is increasing by approximately 0.09 each step (from -1.13 to -1.035, etc.), which is a linear trend. So if dx2/dt = c, then integrating gives x2(t) = c*t + x2_0. But the data's x2 starts at -1.13 and increases to 0.64. So if that's a linear model, then that would fit. However, the problem requires that equations involve x variables and constants. But if the equation is just dx2/dt = c, that uses only c and no x variables. Is that allowed? The  said that you don't necessarily need to involve all variables, so yes. However, maybe the  wants equations that involve the variables in some way.\n\nAlternatively, maybe x2 is being adapted by x3. For example, dx2/dt = c*(x3 - x2), which would model x2 approaching x3. But if x3 starts at 0.4 and increases, then this could make x2 increase. But this would require coupling between x2 and x3. However, in the data, x3 starts at 0.4 and increases to 0.64, which is similar to x2's trend. So if x3 is an adaptation variable for x2, then maybe dx2/dt = -c*(x2 - x3). Wait, that would be dx2/dt = -c*(x2 - x3) => x2 approaches x3. If x3 is increasing, then x2 would approach it, but that might not fit the data. Alternatively, if x3 is the adaptation variable for x2, then dx3/dt = c*(x2 - x3). That would make x3 approach x2. But in the data, x2 starts at -1.13 and x3 at 0.4, so x3 would decrease to approach x2, which is not what the data shows. So that's not matching.\n\nAlternatively, maybe x2 is a perception that is increasing due to some external input, but that would require a constant term. However, the problem says that constants must be denoted only by c. If I use dx2/dt = c, that's acceptable. But maybe the  wants a  where the variables interact, but given the data, perhaps x0 and x2 are independent, and x1 and x3 are their adaptations.\n\nAlternatively, perhaps the ODEs for x2 and x3 are similar to those of x0 and x1 but with different signs. For example:\n\ndx2/dt = c*x2\ndx3/dt = -c*(x2 - x3)\n\nBut that would make x2 increase exponentially (if c is positive), but the data shows x2 increasing but eventually leveling off. However, if the time series is finite, maybe it's not modeled to approach a steady state. But the 's data shows that x2 ends at 0.64, which might be an asymptote. If dx2/dt = c*x2, that would grow exponentially, which doesn't match. So that's not good.\n\nHmm, this is tricky. Let me go back. For x2, the data starts at -1.13 and increases to 0.64. So if I assume that dx2/dt is a constant (c), then integrating would give x2 = x2_0 + c*t. If that's the case, then the slope is constant, which matches the linear increase. However, the 's data seems to have a roughly linear increase, but with small variations. However, the  wants equations that are algebraic expressions using x variables and c. The equation dx2/dt = c would be valid, as it uses only c and no x variables. But maybe that's too simple, and the  might want some coupling.\n\nAlternatively, perhaps the adaptation of the right eye (x3) is affecting x2. But how? If x3 is an adaptation variable, maybe x2 is being adjusted by x3. For example, dx2/dt = -c*x2 + c*x3. That way, x2 decreases when x3 is low and increases when x3 is high. But since x3 is increasing, this could lead x2 to increase. Let's see: if x3 starts at 0.4 and increases, then initially dx2/dt would be -c*(-1.13) + c*(0.4) = c*(1.13 + 0.4) = c*1.53, which would make x2 increase rapidly. As x3 increases, this term would decrease. But this is a coupled equation, which may fit the data better. However, I need to check if this would match the data.\n\nBut this is getting complicated. Maybe the  is okay with some equations being simple. For example, dx0/dt = -c*x0, dx1/dt = c*(x0 - x1), dx2/dt = c, dx3/dt = c*(x2 - x3). Wait, but then dx2/dt = c is simple and matches the linear trend in the data. However, the data for x2 doesn't show a linear trend exactly. Let me check the first few points of x2: -1.13, -1.035, -0.945, -0.859, etc. The differences between consecutive terms are approximately 0.095, 0.09, 0.086, which are decreasing, suggesting a decelerating increase, which would be more like a logistic or exponential approach. But if dx2/dt = c, that would be linear. Maybe that's not a perfect fit, but the  wants a low complexity equation.\n\nAlternatively, if I use dx2/dt = c*(some expression involving x variables). For example, dx2/dt = c*(x0 - x2). Then x2 would approach x0. Since x0 is decreasing, x2 would approach that. However, x2 starts at -1.13 and x0 starts at 2.25, so initially dx2/dt would be large positive, making x2 increase rapidly. As x0 decreases, the rate of increase of x2 would decrease. That might fit the data better. Similarly for x3: dx3/dt = c*(x2 - x3), so x3 approaches x2, which is increasing. Then x3 would increase towards x2's value. But in the data, x3 starts at 0.4 and increases to 0.64, which is less than x2's final value of 0.64. Wait, x2 ends at 0.64, and x3 ends at 0.64. So if x3 approaches x2, then that would make sense. But in this case, the equations would be:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c*(x0 - x2)\ndx3/dt = c*(x2 - x3)\n\nBut this couples x0 with x2 and x2 with x3. However, this might be more complex than needed. However, the  wants low complexity. The previous equations were simpler.\n\nAlternatively, maybe x2 and x3 have similar equations to x0 and x1 but with a different sign. For example:\n\ndx2/dt = c*x2\ndx3/dt = -c*(x2 - x3)\n\nBut if x2 starts at -1.13 and dx2/dt = c*x2, then x2 would decrease if c is positive, which contradicts the data. So that's not good.\n\nHmm, maybe I should stick with the initial model for x0 and x1, and for x2 and x3, use equations that model their own decay and adaptation. For x2, if dx2/dt = -c*x2, then it would increase towards zero. But in the data, x2 increases past zero to 0.64. So that's not matching. However, if the time series data is only up to a certain point, maybe the model is that x2 approaches zero, but in the given data, it hasn't reached that yet. However, the data for x2 ends at 0.64, which is higher than zero. So that's conflicting.\n\nAlternatively, maybe there's a different model for x2. Suppose dx2/dt = c*(x2_target - x2), where x2_target is a constant. But since we can't use constants other than c, maybe x2_target is represented by c. For example, dx2/dt = c*(c - x2). That would make x2 approach c. But without knowing what c is, it's hard to say. However, the 's time series data ends at x2=0.64, so if c is around 0.64, that might fit. However, this introduces a constant term, which is allowed as c. But this equation would be dx2/dt = c*(c - x2). But that uses c squared. However, the  allows using c in any way, so that's acceptable.\n\nBut this seems more complex. The  wants low complexity. So maybe I should stick with simpler equations even if they aren't perfect. For example, for x2, dx2/dt = c, and for x3, dx3/dt = c*(x2 - x3). That way, x2 increases linearly, and x3 increases towards x2's value. But this requires assuming that x2 is linear, which might not perfectly fit the data, but it's simple.\n\nPutting this all together, the  could be:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c\ndx3/dt = c*(x2 - x3)\n\nThis would be a  of four equations with varying complexity. The first two equations are coupled between x0 and x1, and the last two are for x2 and x3 with dx2/dt being a constant. However, the  wants equations to involve only x variables and c, which this does. Also, the equations are simple.\n\nNow, checking if this fits the data. For x0, exponential decay, which matches the data's decreasing trend. For x1, the equation is c*(x0 - x1), which would make x1 approach x0 over time. Since x0 is decreasing from 2.25 to 0.64, x1 would approach that value, which matches the data's x1 increasing from -0.5 to 1.0 (but wait, x0 ends at 0.64, so x1 would approach that, but in the data, x1 ends at 1.0. Hmm, that doesn't match. So there's a problem here. The model predicts x1 approaching x0, which is 0.64, but in the data, x1 ends at 1.0. That's a discrepancy.\n\nThis suggests that the model is not accurate. So perhaps the equations need to be adjusted. Maybe for x1, the equation is dx1/dt = c*(x0 - x1), but with x0 starting higher than x1 and x0 decreasing, so x1 approaches x0, which is decreasing. However, the data shows x1 approaching 1.0, but x0 ends at 0.64, which is lower than 1.0. That doesn't align. So there's a contradiction here.\n\nThis indicates that the initial model is incorrect. Maybe the equations should have x1 approaching a different value. Alternatively, maybe the adaptation term is different. Perhaps dx1/dt = c*(x1 - x0), but that would make x1 decrease if x0 is higher. Not sure.\n\nAlternatively, maybe the model is dx0/dt = -c*x0 + c*x1, and dx1/dt = c*x0 - c*x1. That would be a  where x0 and x1 are coupled. However, without knowing the dynamics, it's hard to say.\n\nGiven the time constraints, perhaps I should proceed with the equations that fit the data's trends even if they are not perfect. For x0 and x1, using dx0/dt = -c*x0 and dx1/dt = c*(x0 - x1) might not fit x1's final value, but perhaps the time series is only part of the full trajectory, and the model is correct.\n\nAlternatively, maybe x1 is being adapted to a different value, like a constant. For example, dx1/dt = c*(k - x1), where k is a constant. But since we can't use other constants, maybe k is represented by c. But that would be dx1/dt = c*(c - x1). However, this would make x1 approach c, which might fit the data's x1 ending at 1.0 if c is around 1.0. However, without knowing the value of c, it's hard to say. But the  allows using c as a constant, so this is acceptable.\n\nBut this adds complexity. To keep it simple, perhaps for x1, dx1/dt = c*x0 - c*x1. This would mean that x1's rate of change depends on both x0 and x1. If x0 is decreasing, and x1 is increasing, then the rate of change would depend on their difference. However, this is a more complex equation.\n\nThis is getting too complicated. Given the time I have, perhaps I should generate five samples with the equations I thought of earlier, even if they don't perfectly fit the data, but follow the structure required. For example:\n\nSample 1:\n{\n  \"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\nSample 2:\n{\n  \"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\",\n  \"dim\": 4\n}\n\nSample 3:\n{\n  \"eq\": \"c*x_0 - c*x_1 | -c*x_1 | c*x_2 - c*x_3 | -c*x_3\",\n  \"dim\": 4\n}\n\nWait, but these need to be in the format where each equation is separated by |, and each equation is an expression involving x_0 to x_3 and c. Also, for the given variables, they need to be x0, x1, x2, x3.\n\nAlternatively, maybe for some samples, have x0 and x2 be driven by adaptation terms, and others with different couplings.\n\nAnother approach is to generate equations that are similar but vary in the coupling terms. For example:\n\nSample 1:\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nSample 2:\ndx0/dt = c*(x1 - x0)\ndx1/dt = -c*x1\ndx2/dt = c*(x3 - x2)\ndx3/dt = -c*x3\n\nBut these are different structures.\n\nSample 3:\ndx0/dt = -c*x0\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = -c*x3\n\nBut this is too simple and doesn't involve coupling.\n\nAlternatively, mixing terms. For example:\n\nSample 1:\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nSample 2:\ndx0/dt = c*(x1 - x0)\ndx1/dt = -c*x1\ndx2/dt = c*(x3 - x2)\ndx3/dt = -c*x3\n\nSample 3:\ndx0/dt = -c*x0\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = -c*x3\n\nSample 4:\ndx0/dt = c*x0 - c*x1\ndx1/dt = c*x1 - c*x0\ndx2/dt = c*x2 - c*x3\ndx3/dt = c*x3 - c*x2\n\nSample 5:\ndx0/dt = c*(x0 - x1)\ndx1/dt = c*(x1 - x2)\ndx2/dt = c*(x2 - x3)\ndx3/dt = c*(x3 - x0)\n\nBut some of these might not fit the data, but they meet the structural requirements. The key is to ensure that each equation uses x variables and c, and the  has four equations.\n</think>\n\n{\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 | -c*x_1 | c*x_2 - c*x_3 | -c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | -c*x_1 | -c*x_2 | -c*x_3\", \"dim\": 4}, {\"eq\": \"c*(x_0 - x_1) | -c*x_1 | c*(x_2 - x_3) | -c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_0 - x_3)\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 02:21:54",
+        "level": "INFO",
+        "message": "Skipping block as no 'eq' found: {-c t}"
+    },
+    {
+        "timestamp": "22/07/2025 02:21:54",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0 - c*x_1, c*x_1, c*x_2 - c*x_3, c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*x_1, c*x_2 - c*x_3, c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*(x_0 - x_1), c*x_1, c*(x_2 - x_3), c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_0 - x_3)]]"
+    },
+    {
+        "timestamp": "22/07/2025 02:21:54",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five sets of coupled ODEs for the given variables. The domain is about perception and adaptation in the left and right eyes. The variables are x0 (perception of left eye), x1 (adaptation of left eye), x2 (perception of right eye), x3 (adaptation of right eye). \n\nFirst, looking at the time series data. For x0, the values start high and decrease over time. x1 starts low and increases, which might suggest that adaptation is increasing as perception decreases. Similarly, x2 starts negative and becomes less negative, increasing, while x3 starts positive and decreases, maybe indicating different adaptation dynamics.\n\nI need to create equations using x0, x1, x2, x3 and constant c. The equations should model the observed behavior. Since the time series shows decaying perception and increasing adaptation for x0 and x1, maybe the ODEs involve terms that decrease x0 and increase x1. Similarly for x2 and x3.\n\nLet me think of possible ODE structures. For x0, maybe a negative feedback term involving x0 itself and some adaptation term. For x1, perhaps a term that increases with x0 or some interaction. Let's see:\n\nFor x0, maybe dx0/dt = -c*x0 - c*x1. This would decrease x0 over time, and if x1 is increasing, that could contribute to the decrease. But wait, the data for x0 is decreasing, and x1 is increasing. If dx0/dt is negative, that fits. However, the x1 term might need to be part of the equation. But the data for x1 is increasing, so maybe x0's change is influenced by its own value and the adaptation x1.\n\nAlternatively, maybe x0's rate is dependent on the difference between perception and adaptation. For example, dx0/dt = -c*(x0 - x1). If x0 starts higher than x1, this would decrease x0 and increase x1? Not sure. Maybe a more straightforward approach.\n\nLooking at the data, x0 is decreasing monotonically, and x1 is increasing monotonically. So for x0, maybe a negative exponential decay, like dx0/dt = -c*x0. That would fit the decreasing trend. For x1, maybe dx1/dt = c*(some term that leads to increasing). But the time series for x1 starts low and increases, so maybe dx1/dt = c*(x0 - x1), which would mean that x1 approaches x0 over time. But since x0 is decreasing, this might not be the best fit. Alternatively, dx1/dt = c*x0 - c*x1. That would mean that the rate of change of x1 is proportional to the current value of x0 minus x1. Since x0 is decreasing, this might lead x1 to increase but then plateau. Hmm.\n\nSimilarly for x2 and x3. x2 is increasing from a negative value towards zero, and x3 starts positive and decreases. So for x2, maybe dx2/dt = c*(some term) and for x3, maybe a negative rate. For example, dx2/dt = c*(x2 - x3) and dx3/dt = -c*x3. But need to check if that would fit.\n\nAlternatively, think of the adaptation variables (x1 and x3) as being driven by the perception variables (x0 and x2). For instance, x1's rate could be proportional to x0, and x3's rate proportional to x2. But given that x1 starts at -0.5 and increases, perhaps dx1/dt = c*x0 - c*x1. Similarly for x3: dx3/dt = c*x2 - c*x3. But need to check if that would lead to the observed behavior.\n\nBut the problem requires that the equations should first achieve a good fitting score and second have low complexity. So maybe the simplest equations that can fit the data.\n\nLooking at x0's time series: starts at 2.25 and decreases. Maybe dx0/dt = -c*x0. That would be exponential decay. Let's check. If x0(0) = 2.25, then x0(t) = 2.25*exp(-c*t). If we fit this to the given data, it might work, but the data is discrete, not sure. However, the given data seems to decrease linearly, but perhaps it's a logarithmic or exponential curve.\n\nBut the data for x0 is decreasing, and x1 is increasing. So if dx0/dt is -c*x0, and dx1/dt is c*x0 - c*x1. That would mean x1 is being driven by x0's current value minus itself. That might lead to x1 approaching x0's value over time, but since x0 is decreasing, x1 would approach a lower value. However, the given x1 is increasing from -0.5 up to 0.64, which is increasing. So maybe that's not the right model.\n\nAlternatively, if x1 is an adaptation variable that increases with time, perhaps dx1/dt = c*(1 - x1). But that would be a saturating function. But if we have x1 increasing towards 1, but the data for x1 peaks at around 0.64. Hmm.\n\nAlternatively, maybe the perception variables x0 and x2 are decaying, while the adaptation variables x1 and x3 are increasing. For example, dx0/dt = -c*x0, dx1/dt = c*x0, dx2/dt = -c*x2, dx3/dt = c*x2. Let's check:\n\nIf dx0/dt = -c*x0, then x0 decreases exponentially. For dx1/dt = c*x0, then x1 is the integral of x0, which would be a decreasing function if x0 is decreasing. But the data for x1 is increasing. So that's a problem. Maybe the sign is different: dx1/dt = -c*x0? Then x1 would decrease if x0 decreases, but x1 is increasing in the data. That doesn't fit.\n\nAlternatively, perhaps the adaptation variables are inversely related. For example, if the perception decreases, adaptation increases. Maybe dx1/dt = c*(some function that increases as x0 decreases). But I need to think of a mathematical expression that would capture this.\n\nWait, the given data for x1 is increasing. Suppose x1 is being driven by the negative of x0. So dx1/dt = c*(-x0 - x1). If x0 is decreasing and x1 is increasing, this might balance. For example, if x0 is positive and decreasing, then -x0 is negative, and if x1 is increasing, then the term -x0 -x1 would be negative, leading to dx1/dt being negative? That doesn't make sense. Maybe I need to think of a different approach.\n\nAlternatively, perhaps the  is symmetric for left and right eyes. So the equations for x0 and x1 are similar to those for x2 and x3. For example, dx0/dt = -c*x0 + something involving x1, and similarly for x2 and x3. But without knowing the exact mechanism, it's challenging.\n\nAnother approach: the given time series for x0 and x1 look like they might be approaching a certain value. For x0, it's decreasing and approaching around 0.64. For x1, increasing towards 0.64. So maybe they are converging to the same value. Similarly for x2 and x3. If that's the case, the equations could be something like dx0/dt = -c*(x0 - x1), and dx1/dt = -c*(x1 - x0). But this would make them oscillate, which isn't the case here. Alternatively, dx0/dt = -c*(x0 - x1) and dx1/dt = -c*(x1 - x0), leading to x0 and x1 being equal. But in the data, they are not exactly equal but approaching similar values.\n\nAlternatively, for x0 and x1, dx0/dt = -c*x0 - c*x1 and dx1/dt = c*x0 - c*x1. But this might not capture the data accurately.\n\nAlternatively, considering the data, x0 is decreasing, x1 is increasing, and x0 and x1 seem to approach each other. So maybe dx0/dt = -c*(x0 - x1) and dx1/dt = -c*(x1 - x0). That would make their derivatives opposite, leading to x0 and x1 approaching each other. However, this would result in them moving towards each other. But in the data, x0 is decreasing and x1 is increasing. So if x0 starts higher than x1, this would cause x0 to decrease and x1 to increase, which matches the data. That could be a possible model.\n\nSimilarly for x2 and x3. x2 starts at -1.13 and increases towards 0.64, while x3 starts at 0.4 and decreases towards 0.64. Wait, x3 starts at 0.4 and increases to 0.64? Wait, looking at the data for x3: it starts at 0.4, then 0.304, 0.22, etc., decreasing initially? Wait no, looking at the data:\n\nWait for x3: the first value is 0.4, then 0.304, then 0.22, which is decreasing. But later, it goes to 0.64, which is higher. Wait that can't be right. Wait looking at the x3 data provided:\n\nThe  input for x3 is [0.4, 0.304, 0.22, 0.147, 0.085, 0.031, -0.014, -0.051, -0.082, -0.106, -0.125, -0.138, -0.147, -0.152, -0.154, -0.152, -0.148, -0.141, -0.132, -0.121, -0.108, -0.094, -0.079, -0.063, -0.046, -0.028, -0.01, 0.009, 0.027, 0.046, 0.065, 0.085, 0.103, 0.122, 0.141, 0.159, 0.177, 0.195, 0.213, 0.23, 0.246, 0.263, 0.278, 0.294, 0.309, 0.323, 0.337, 0.351, 0.364, 0.376, 0.389, 0.4, 0.412, 0.423, 0.433, 0.443, 0.453, 0.462, 0.471, 0.487, 0.495, 0.503, 0.51, 0.517, 0.523, 0.529, 0.535, 0.541, 0.546, 0.551, 0.556, 0.561, 0.565, 0.569, 0.573, 0.577, 0.58, 0.584, 0.587, 0.59, 0.593, 0.596, 0.598, 0.601, 0.603, 0.605, 0.607, 0.609, 0.611, 0.613, 0.614, 0.616, 0.617, 0.619, 0.62, 0.621, 0.623, 0.624, 0.625, 0.626, 0.627, 0.627, 0.628, 0.629, 0.63, 0.63, 0.631, 0.632, 0.632, 0.633, 0.633, 0.634, 0.634, 0.634, 0.635, 0.635, 0.636, 0.636, 0.636, 0.636, 0.637, 0.637, 0.637, 0.637, 0.637, 0.638, 0.638, 0.638, 0.638, 0.638, 0.638, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.639, 0.64, 0.64, 0.64];\n\nSo x3 starts at 0.4, decreases to -0.154, then increases back up to 0.64. So it's a U-shaped curve. That's more complex. So maybe x3 is decreasing initially and then increasing. That suggests that the ODE for x3 might have a term that first decreases and then increases, like a negative feedback with some delay or a quadratic term. But given the requirement for low complexity, maybe using a simple differential equation that can capture this behavior.\n\nFor x3, perhaps dx3/dt = -c*x3 + something that changes over time. But since we can't use time-dependent terms, we need to use variables. Alternatively, if x3 is influenced by x2, which is increasing from -1.13 to 0.64. So maybe dx3/dt = c*(x2 - x3). That would mean that x3 approaches x2 over time. If x2 is increasing, then x3 would start low, increase to match x2, which is also increasing. That could result in x3 following x2, which might explain the U-shape if x2 is also changing.\n\nSimilarly for x0 and x1, dx0/dt = -c*x0 + c*x1 and dx1/dt = c*x0 - c*x1. But earlier thought that dx0/dt = -c*x0 -c*x1 might not fit. Alternatively, for x0 and x1, dx0/dt = -c*x0 and dx1/dt = c*x0 - c*x1. This would mean x1 is driven by x0's value. If x0 is decreasing, then initially, x1 would increase because c*x0 is positive, but as x0 decreases, the rate of increase for x1 would slow down. However, the data for x1 is increasing monotonically. Let's see:\n\nIf dx1/dt = c*x0 - c*x1, and x0 is decreasing, then the first term (c*x0) decreases over time, while the second term (-c*x1) depends on x1. If x1 starts low, then initially, the rate of change of x1 is positive. But as x1 increases, the term -c*x1 would reduce the rate. However, in the data, x1 is increasing but the rate might be slowing down. But the data for x1 shows that the increase is slowing down. For example, the first few steps increase by 0.126 (from -0.5 to -0.324), then 0.16 (from -0.324 to -0.166), then 0.144, then 0.129, etc., so the increments are decreasing. So this model might fit.\n\nSimilarly for x2 and x3, if dx2/dt = -c*x2 and dx3/dt = c*x2 - c*x3. Then x2 would decrease exponentially, and x3 would increase as it approaches x2. However, in the data, x2 starts at -1.13 and increases, so the model dx2/dt = -c*x2 would cause x2 to increase towards zero, which matches the data. x3 would then be driven by x2. Since x2 starts negative and increases, x3 would first decrease (since c*x2 is negative) and then start increasing once x2 becomes positive. This would explain the U-shape of x3. So this seems promising.\n\nSo the equations could be:\n\ndx0/dt = -c*x0\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2\n\ndx3/dt = c*x2 - c*x3\n\nThis  would have each perception variable decaying exponentially (x0, x2) and each adaptation variable (x1, x3) being driven by their respective perception variables. This seems simple and might fit the data well.\n\nBut need to check if the equations are allowed. The variables are only x0, x1, x2, x3, and the constant is c. The operations are allowed (multiplication, subtraction). So this is acceptable.\n\nNow, generating five different samples. The  wants five sets of samples with dim=4. Each sample is a JSON object with the equations. The equations should be algebraic expressions.\n\nBut the  said that the equations don't need to involve all variables. However, in this case, the equations involve all variables. But maybe variations can be made. For example, in one sample, maybe the equations are dx0/dt = -c*x0, dx1/dt = c*x0 - c*x1, dx2/dt = -c*x2, dx3/dt = c*x2 - c*x3. In another sample, maybe dx0/dt = -c*x0, dx1/dt = c*x0, dx2/dt = -c*x2, dx3/dt = c*x2. But then x1 and x3 would be the integral of x0 and x2, respectively. But in the data, x1 and x3 are not just the integral of x0 and x2, but also have some decay. However, since the data for x1 is increasing and x0 is decreasing, integrating x0 would give x1 as a decreasing function, but in the data x1 is increasing. So that model would not fit. Therefore, the previous equations are better.\n\nAnother possible variation is to have terms with x1 and x3 in the equations for x0 and x2. For example, dx0/dt = -c*x0 -c*x1, dx1/dt = c*x0 -c*x1, dx2/dt = -c*x2 -c*x3, dx3/dt = c*x2 -c*x3. This adds more coupling but might still fit.\n\nBut the  wants low complexity, so maybe sticking to the simplest case where each equation involves only the corresponding perception and adaptation variables.\n\nThus, five samples could be variations with different coupling terms. For example:\n\nSample 1:\n\ndx0/dt = -c*x0\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2\n\ndx3/dt = c*x2 - c*x3\n\nSample 2:\n\ndx0/dt = -c*x0 - c*x1\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 - c*x3\n\ndx3/dt = c*x2 - c*x3\n\nSample 3:\n\ndx0/dt = -c*x0\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 - c*x1\n\ndx3/dt = c*x2 - c*x3\n\nWait, but the variables are only x0, x1, x2, x3. The third sample might not make sense for dx2. Maybe another approach.\n\nAlternatively, for some samples, maybe use different signs or include x0 in the equation for x2 or vice versa. But need to ensure that the equations are plausible.\n\nAnother sample could be:\n\ndx0/dt = -c*x0 + c*x1\n\ndx1/dt = -c*x0 + c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = -c*x2 + c*x3\n\nBut this would have symmetric equations for x0/x1 and x2/x3. However, the data for x0 and x1 are different from x2 and x3. For example, x0 is decreasing while x1 is increasing, and x2 is decreasing while x3 is increasing. So the equations for x0 and x1 are similar to those for x2 and x3. This might be acceptable.\n\nAnother sample might have:\n\ndx0/dt = -c*x0\n\ndx1/dt = c*(x0 - x1)\n\ndx2/dt = -c*x2\n\ndx3/dt = c*(x2 - x3)\n\nThis is similar to the first sample but using different notation.\n\nBut the  requires that the equations are algebraic expressions. So using the | symbol to separate equations.\n\nNow, compiling five samples with different variations but keeping the core structure.\n</think>\n\n{\"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 - c*x_1 | c*x_0 - c*x_1 | -c*x_2 - c*x_3 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0 - c*x_1, c*x_0 - c*x_1, c*x_2 - c*x_3, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "INFO",
+        "message": "Generated 25 functions: [[c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_0, c*x_2], [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 + x_3)], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0, c*x_0, c*x_0, c*x_0], [c, c, c, c], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0 - c*x_1, c*x_1, c*x_2 - c*x_3, c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*x_1, c*x_2 - c*x_3, c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*(x_0 - x_1), c*x_1, c*(x_2 - x_3), c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_0 - x_3)], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0 - c*x_1, c*x_0 - c*x_1, c*x_2 - c*x_3, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3]]."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:32",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:34",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:34",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:37",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:38",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:39",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:40",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:40",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:40",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:41",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:41",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:41",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:42",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:43",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:43",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:43",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:44",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:45",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:45",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:45",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:46",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:46",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:46",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:47",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:47",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:47",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:48",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:48",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:48",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "INFO",
+        "message": "Num candidate expressions: 14"
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n0   [c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 -...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n2   [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 +...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n1                        [c*x_0, c*x_0, c*x_0, c*x_2]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, 0.2451*x_2]\n4                        [c*x_0, c*x_0, c*x_0, c*x_0]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, -0.0645*...\n5                                        [c, c, c, c]  ...  [-0.164500000000000, 0.122800000000000, 0.1808...\n8   [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, ...  ...  [-0.577*x_0 + 0.4179*x_1, 1.0007*x_0 - 1.0005*...\n21  [c*x_0 - c*x_1, c*x_0 - c*x_1, c*x_2 - c*x_3, ...  ...  [-0.577*x_0 + 0.4179*x_1, 1.0007*x_0 - 1.0005*...\n9        [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)]  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, -0.1417...\n13       [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3]  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, -0.1417...\n19       [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_0 - x_3)]  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, -0.1417...\n18       [c*(x_0 - x_1), c*x_1, c*(x_2 - x_3), c*x_3]  ...  [-0.577*x_0 + 0.4179*x_1, 0.0057*x_1, -0.7958*...\n14       [c*x_0 - c*x_1, c*x_1, c*x_2 - c*x_3, c*x_3]  ...  [-0.577*x_0 + 0.4179*x_1, 0.0057*x_1, -0.7958*...\n6                        [c*x_0, c*x_0, c*x_2, c*x_2]  ...  [-0.2944*x_0, 0.3242*x_0, -0.1417*x_2, 0.2451*...\n3                        [c*x_0, c*x_1, c*x_2, c*x_3]  ...  [-0.2944*x_0, 0.0057*x_1, -0.1417*x_2, 0.041*x_3]\n\n[14 rows x 5 columns]."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "INFO",
+        "message": "Succesfully generated 25 seed functions in 3825.12860327604 seconds."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:49",
+        "level": "INFO",
+        "message": "Round 1."
+    },
+    {
+        "timestamp": "22/07/2025 02:35:50",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:07",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's see. The  wants me to generate five sets of ODEs for a  with four variables: x0, x1, x2, x3. The context is about perception and adaptation of left and right eye stimuli. The time series data shows that x0 is decreasing over time, while x1 is increasing, and similarly, x2 is increasing and x3 is also increasing. \n\nFirst, I need to model the dynamics of perception and adaptation. Maybe the perception variables (x0 and x2) are decreasing or increasing based on some adaptation process. The adaptation variables (x1 and x3) might be increasing as the  adapts.\n\nLooking at the previous generated results, they used expressions like c*x0, c*(x0 - x1), etc. The goal is to create equations that fit the data well with low complexity. Since the time series for x0 is decreasing, perhaps there's a negative feedback mechanism. For example, x0 could be decreasing due to adaptation x1. Similarly, x1 might be increasing as a function of x0 minus some adaptation.\n\nWait, the data for x0 starts high and decreases, while x1 starts low and increases. So maybe dx0/dt = -c*x0 - something involving x1. But the previous examples had terms like c*(x0 - x1). Let me think about the relationships.\n\nIf x1 is the adaptation of the left eye, maybe x0 (perception) decreases over time as the adaptation increases. So maybe dx0/dt = -c*x0 - k*x1, but since constants can only be denoted as 'c', perhaps dx0/dt = -c*(x0 + x1). That would make sense if both perception and adaptation contribute to the decrease in x0. Similarly for x2 and x3. But since the previous results had some equations with subtraction and addition, I need to find a simple form that can capture the trends.\n\nLooking at the time series data again, x0 decreases exponentially, x1 increases but then plateaus. Maybe a simple exponential decay for x0 and a logistic growth for x1. But since the ODEs need to be algebraic expressions with x variables and c, maybe something like dx0/dt = -c*x0 (which would be exponential decay), and dx1/dt = c*(x0 - x1) (so that x1 approaches x0 as a first-order ). Similarly for x2 and x3. \n\nWait, the previous examples had equations like [c*x0, c*(x0 - x1), ...]. So maybe that's a direction. Let me check the fit scores. The  mentioned that the generated samples should have a good fit and low complexity. So perhaps keeping the equations simple, with each derivative being a linear combination of variables and constants.\n\nAnother approach: since x0 and x2 are perception variables decreasing and increasing respectively, maybe their derivatives are opposite. For example, dx0/dt = -c*x0 (decay) and dx2/dt = c*x2 (growth), but that might not account for the adaptation variables. Alternatively, dx0/dt = -c*x1 (adaptation causing perception decrease) and dx1/dt = c*(x0 - x1) (adaptation increasing as the difference between perception and adaptation). Similarly for x2 and x3. That seems plausible. \n\nSo for the left eye, the equations could be:\ndx0/dt = -c*x1\ndx1/dt = c*(x0 - x1)\nSimilarly for the right eye:\ndx2/dt = -c*x3\ndx3/dt = c*(x2 - x3)\n\nBut this would make each pair (x0 and x1, x2 and x3) independent. However, maybe there's some cross-talk between eyes. But the data for x0 and x2 are mirror images (x0 decreasing, x2 increasing), so maybe they are separate processes. \n\nAlternatively, perhaps x0 and x2 are coupled through some interaction. But the problem says to use variables only from x0 to x3. Let's stick with the per-eye models first. \n\nLet me test this idea. If dx0/dt = -c*x1 and dx1/dt = c*(x0 - x1), then solving these would give x0 decreasing over time as x1 increases. That seems to match the data for x0 and x1. Similarly for x2 and x3, but x2 is increasing and x3 is increasing, so maybe dx2/dt = c*(x2 - x3) and dx3/dt = -c*x3? Wait, no. If x2 is increasing, then its derivative should be positive. If dx2/dt = c*(x2 - x3), then if x3 is increasing, initially x2 might be higher, leading to dx2 positive. But the data for x2 starts low and increases. Maybe that's not the right approach.\n\nAlternatively, for x2, which is increasing, maybe dx2/dt = c*(x2 - x3) and dx3/dt = c*(x2 - x3). But that would make both x2 and x3 depend on the same term. Hmm, not sure. Let's think again.\n\nLooking at the data for x3, it starts low and increases, similar to x1. So perhaps the same model applies to x2 and x3 as x0 and x1. So:\n\ndx2/dt = -c*x3\ndx3/dt = c*(x2 - x3)\n\nBut in this case, if x2 starts low and increases, then x3 would start low and increase. However, the derivative of x2 would be negative of x3. So initially, if x3 is small, dx2/dt would be negative, making x2 decrease. But in the data, x2 is increasing. That contradicts. So maybe that's not the right model. \n\nWait, the data for x2 starts at -1.13 and increases towards 0.64. So it's increasing. So dx2/dt is positive. If we model dx2/dt = c*(x2 - x3), then if x2 starts low and x3 starts low, but x2 is increasing faster, that might work. But this is getting complicated. Let's think of simpler equations.\n\nAnother idea: since x0 decreases and x1 increases, maybe they are inversely related. For example, dx0/dt = -c*x0 and dx1/dt = c*x0. But then x1 would be increasing as x0 decreases. However, in the data, x1 starts low and increases, which would match. Similarly, for x2 and x3, maybe dx2/dt = -c*x2 and dx3/dt = c*x2. But the data for x2 starts at -1.13 and increases, so if x2 is negative and dx2/dt = -c*x2 (which would make dx2/dt positive), that would cause x2 to increase towards zero. Then x3 would be increasing as c*x2, but x2 is negative, so x3 would start negative and increase towards zero. However, in the data, x3 starts at 0.4 and increases to 0.64. So this model doesn't fit x3. \n\nHmm. Maybe the previous examples used equations like c*x0, c*(x0 -x1), etc. Let's look at the previous generated results. For example, one of them was [c*x0, c*x0, c*x0, c*x2]. The fit expression was [-0.2944*x0, 0.3242*x0, 0.3276*x0, 0.2451*x2]. That seems to suggest that x0's derivative is a negative constant times x0, which would cause exponential decay. Similarly, x1's derivative is positive constant times x0, so x1 would increase as x0 decreases. \n\nThat model would be:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\ndx2/dt = -c * x2\n\ndx3/dt = c * x2\n\nBut wait, x2 is increasing, so dx2/dt should be positive. If dx2/dt = -c * x2, then x2 would decrease if it's positive. But in the data, x2 starts negative and increases (becomes less negative) to positive values. So if x2 is negative, -c*x2 would be positive, causing x2 to increase, which matches the data. Then x3's derivative would be c*x2, which would be negative initially, but as x2 becomes positive, x3 would increase. However, in the data, x3 starts at 0.4 and increases to 0.64. So this model might work if x2 is increasing through zero. \n\nSo this model would have:\n\ndx0/dt = -c*x0\n\ndx1/dt = c*x0\n\ndx2/dt = -c*x2\n\ndx3/dt = c*x2\n\nThis is a simple  where each perception variable (x0, x2) decays exponentially, while the adaptation variables (x1, x3) are driven by the perception variables. \n\nThis seems plausible and simple. Let's check if this fits the data. For x0: decreasing exponentially, which matches the data. For x1: integral of x0 over time, which would start low and increase, matching the data. For x2: decreasing (but since x2 starts negative, it becomes less negative and eventually positive), which matches the data. For x3: integral of x2, which would start negative but as x2 crosses zero, x3 would start increasing. But the data for x3 starts at 0.4 and increases, which might not align if x2 starts negative. Wait, x2 starts at -1.13 and increases. If dx3/dt = c*x2, then initially, x3 would decrease (since x2 is negative), but in the data, x3 starts at 0.4 and increases. That contradicts. So this model isn't correct for x3.\n\nHmm, so maybe I need to adjust the equations for x2 and x3. Perhaps dx2/dt = c*(some function) and dx3/dt = similar. Let me think again.\n\nLooking at x3's data: starts at 0.4 and increases. So dx3/dt is positive. If dx3/dt = c*(x3 - something), but not sure. Alternatively, maybe x3 is a delayed adaptation, similar to x1. If the model for x2 is similar to x0, and x3 is similar to x1, but for the right eye. Wait, but the data for x2 is decreasing initially and then increasing. \n\nAnother approach: since x0 and x2 are perception variables for left and right eyes, and x1 and x3 are their adaptations, perhaps they are similar. But the data for x0 and x2 are opposites. So maybe the left eye's perception is decreasing, and right eye's perception is increasing. That might be due to different initial conditions or different parameters. \n\nAlternatively, maybe the equations for x0 and x2 are the same, but with different constants. However, the  requires that constants are denoted only by 'c', so we can't have different constants. So the equations must use the same 'c' for all terms.\n\nGiven the constraints, perhaps the simplest approach is to have:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\ndx2/dt = c * x2\n\ndx3/dt = -c * x2\n\nBut then x2 would grow exponentially if dx2/dt = c*x2, which would make x2 increase, matching the data. Then x3 would be -c*x2, which would start negative (since x2 is negative initially) and become more negative as x2 increases. But the data for x3 starts at 0.4 and increases, so this doesn't fit. \n\nHmm. Maybe I need to think of a different structure. Let me think about the previous generated examples. One of them had fit expressions with terms like [-0.2944*x0, 0.3242*x0, 0.3276*x0, 0.2451*x2]. That seems to suggest that x0's derivative is proportional to -x0, x1's derivative is proportional to x0, x2's derivative is proportional to x0, and x3's derivative is proportional to x2. But that would mean that x1 and x2 are both driven by x0, which might not make sense. \n\nAlternatively, maybe the equations are:\n\ndx0/dt = -c * x0 - c * x1\n\ndx1/dt = c * x0 - c * x1\n\ndx2/dt = -c * x2 - c * x3\n\ndx3/dt = c * x2 - c * x3\n\nThis would create a  where each perception and adaptation variable interact. But this might be more complex than needed. \n\nAlternatively, for simplicity, take the previous model where x0 and x2 are each governed by their own adaptation, and x1 and x3 are the adaptations. But adjust the signs for x3.\n\nIf x2 is increasing, maybe dx2/dt = c * x2, which would make it grow, and dx3/dt = c * (x2 - x3), which would make x3 approach x2. However, in the data, x3 starts at 0.4 and increases to 0.64, while x2 starts at -1.13 and increases to 0.64. So if x3 approaches x2, that would match. \n\nSo for x2 and x3:\n\ndx2/dt = c * x2\n\ndx3/dt = c * (x2 - x3)\n\nThis would make x2 grow exponentially, and x3 approach x2. But initially, x3 is higher than x2 (since x3 starts at 0.4 and x2 starts at -1.13). So x3 - x2 would be positive, making dx3/dt = c*(x2 - x3) negative, causing x3 to decrease. But in the data, x3 increases. So that doesn't fit. \n\nThis is tricky. Maybe the equations for x2 and x3 are the same as for x0 and x1, but with different signs. For example:\n\ndx0/dt = -c * x0 - c * x1\n\ndx1/dt = c * x0 - c * x1\n\ndx2/dt = c * x2 - c * x3\n\ndx3/dt = -c * x2 + c * x3\n\nBut this is getting complicated and might not be the best fit. \n\nAlternatively, maybe there's a symmetry. The left eye perception (x0) decreases, and adaptation (x1) increases. The right eye perception (x2) increases, and adaptation (x3) increases as well. So maybe x1 is driven by x0, and x3 is driven by x2, but in a different way. \n\nFor x1: if x0 decreases, x1 increases. So dx1/dt = c*(x0 - x1), which is a first-order . Similarly, for x3, if x2 increases, maybe dx3/dt = c*(x2 - x3). This would mean x3 approaches x2, which is increasing. So x3 would increase but lag behind x2. That might fit the data. \n\nSo for x0 and x1:\n\ndx0/dt = -c * x1\n\ndx1/dt = c * (x0 - x1)\n\nFor x2 and x3:\n\ndx2/dt = c * x3\n\ndx3/dt = c * (x2 - x3)\n\nLet me see. For x0, the derivative is -c*x1. If x1 increases, then x0 decreases, which matches the data. For x1, the derivative is c*(x0 - x1), which would cause x1 to increase until it equals x0. \n\nFor x2, the derivative is c*x3. Initially, x3 is positive, so x2 would increase. For x3, the derivative is c*(x2 - x3), so if x2 is increasing, x3 would increase but lag behind. This seems plausible. \n\nLet's test this. Assume x2 starts low and x3 starts at 0.4. dx2/dt = c*x3, so x2 increases as x3 increases. dx3/dt = c*(x2 - x3). If x2 starts low, then x2 - x3 is negative, so dx3/dt is negative, making x3 decrease. But in the data, x3 increases. So this might not fit. \n\nHmm. Maybe I need to flip the signs for x2 and x3. \n\nFor example:\n\ndx2/dt = -c * x3\n\ndx3/dt = c * (x2 - x3)\n\nThen, if x3 is positive, dx2/dt is negative, causing x2 to decrease. But in the data, x2 increases. Not good. \n\nAlternatively:\n\ndx2/dt = c * (x2 - x3)\n\ndx3/dt = c * x2\n\nBut then dx3/dt is c*x2. If x2 is increasing, x3 would increase as well. Initially, x2 is negative, so x3 would decrease, but in the data, x3 starts at 0.4 and increases. So this doesn't fit. \n\nI think I need to find a simple model that fits the data's trends. Since x0 decreases and x1 increases, and x2 increases and x3 increases, maybe the following:\n\nFor the left eye:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\nFor the right eye:\n\ndx2/dt = c * x2\n\ndx3/dt = c * x2\n\nThis way, x0 decreases exponentially, x1 increases as the integral of x0. For x2, since it starts negative and increases, dx2/dt = c*x2 would make it grow if x2 is negative (since c is positive?), but wait, if c is a constant, the sign would matter. However, the problem says constants are denoted by 'c', but it doesn't specify if they are positive or negative. However, in the data, x2 starts negative and increases, so if dx2/dt = c*x2, then c must be negative for x2 to increase. But the  said to use 'c' as the only constant, and I can't use negative signs. Wait, the constants can be positive or negative, but they are all denoted as 'c'. So maybe the model is:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\ndx2/dt = -c * x2\n\ndx3/dt = c * x2\n\nBut this would mean that x2 decreases if c is positive. But in the data, x2 increases. So perhaps c is negative? But the problem says that the constants should be denoted only by 'c', and the  didn't specify if c can be positive or negative. However, the time series data shows that x0 is decreasing, which would be consistent with dx0/dt = -c * x0 if c is positive. For x2, if dx2/dt = -c * x2, and c is positive, then x2 would decrease if it's positive. But x2 starts negative and increases, so dx2/dt must be positive when x2 is negative. Therefore, dx2/dt = -c * x2 would be positive if x2 is negative, leading x2 to increase. That works! \n\nLet me clarify:\n\nIf x2 is negative, then dx2/dt = -c * x2 would be positive (since -c * negative = positive). This makes x2 increase, which matches the data. As x2 approaches zero, dx2/dt approaches zero. Then, if x2 becomes positive, dx2/dt would be negative, causing x2 to decrease. But in the data, x2 increases from -1.13 to 0.64, which would require that c is positive. So this model seems to fit. \n\nFor x3, dx3/dt = c * x2. Initially, x2 is negative, so dx3/dt is negative, causing x3 to decrease. But in the data, x3 starts at 0.4 and increases. So this is a problem. \n\nSo this model doesn't fit x3. Maybe I need to adjust dx3/dt. What if dx3/dt = -c * x2? Then, initially, x2 is negative, so dx3/dt = -c * x2 would be positive, causing x3 to increase, which matches the data. As x2 becomes positive, dx3/dt would be negative, causing x3 to decrease after a certain point. But in the data, x3 increases monotonically. However, x2 eventually reaches a positive value, so the derivative of x3 would change. But the data shows x3 increases all the way to 0.64. So perhaps this model is acceptable. \n\nSo the equations would be:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\ndx2/dt = -c * x2\n\ndx3/dt = -c * x2\n\nBut then, x3 would be the integral of -c*x2 over time. If x2 starts negative and increases, then -c*x2 would start positive and decrease to zero, causing x3 to increase and then stop increasing. This could fit the data where x3 increases up to 0.64. \n\nLet me check the data for x3: it starts at 0.4 and increases to 0.64. So if x3 is increasing, the model dx3/dt = -c * x2 would work if x2 is negative and increasing. As x2 becomes less negative and eventually positive, the rate of increase of x3 would slow down and then decrease. But in the data, x3 keeps increasing. This suggests that the model might not perfectly fit, but it's simple and plausible. \n\nAlternatively, maybe dx3/dt = c * (x2 - x3). This would make x3 approach x2, but with x2 increasing. If x3 starts at 0.4 and x2 starts at -1.13, then x2 - x3 is negative, so dx3/dt is negative, causing x3 to decrease, which contradicts the data. \n\nAnother idea: since x3 starts at 0.4 and increases, and x2 starts at -1.13 and increases, maybe x3 is driven by the integral of x2's absolute value or something. But I can't use absolute value in the equations. \n\nPerhaps the previous model is the best bet despite the x3 issue. Let's proceed with:\n\ndx0/dt = -c * x0\n\ndx1/dt = c * x0\n\ndx2/dt = -c * x2\n\ndx3/dt = -c * x2\n\nThis would make x0 decrease, x1 increase, x2 increase, and x3 increase (initially). Even though x3's derivative changes sign later, the data might show a monotonic increase, so this could be a reasonable approximation. \n\nNow, let's generate five sets of equations based on this model and some variations. For example, adding other terms, but keeping them simple. \n\nFirst sample: as above.\n\nSecond sample: Maybe dx0/dt = -c * x0 - c * x1, dx1/dt = c * (x0 - x1), dx2/dt = -c * x2 - c * x3, dx3/dt = c * (x2 - x3). This is a more coupled .\n\nThird sample: Maybe dx0/dt = -c * (x0 + x1), dx1/dt = c * (x0 - x1), dx2/dt = c * (x2 + x3), dx3/dt = c * (x2 - x3). \n\nFourth sample: dx0/dt = -c * x0, dx1/dt = c * x1, dx2/dt = c * x2, dx3/dt = c * x3. But this would make x0 decrease and x1 increase, x2 and x3 increase, but the data for x1 starts low and increases, which might fit.\n\nFifth sample: dx0/dt = -c * x0 * x1, dx1/dt = c * x0, dx2/dt = c * x2, dx3/dt = -c * x3. But this introduces a product term which might complicate things.\n\nHowever, the  wants low complexity. So simpler terms are better. Let's go with the first model and variations with minimal terms.\n</think>\n\n{\"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | -c*x_2\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | c*x_2 | -c*x_2\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 + x_1) | -c*x_2 | c*(x_2 + x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:07",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 + x_1), c*x_2, c*(x_2 + x_3)], [c*x_0, c*x_1, c*x_2, c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:07",
+        "level": "INFO",
+        "message": "Generated 5 functions: [[c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 + x_1), c*x_2, c*(x_2 + x_3)], [c*x_0, c*x_1, c*x_2, c*x_3]]."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:07",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Num candidate expressions: 15"
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Current functions:                                                 expr  ...                                          fit_exprs\n0  [c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 -...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n1  [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 +...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n2                       [c*x_0, c*x_0, c*x_0, c*x_2]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, 0.2451*x_2]\n3                       [c*x_0, c*x_0, c*x_0, c*x_0]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, -0.0645*...\n4                                       [c, c, c, c]  ...  [-0.164500000000000, 0.122800000000000, 0.1808...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Succesfully generated 5 functions in 857.8972738310113 seconds."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Checkpoint 0. Saving results."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Checkpoint 0 saved."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Round 2."
+    },
+    {
+        "timestamp": "22/07/2025 02:50:10",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:55",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five sets of improved ODEs for the given variables x0, x1, x2, x3, which represent perception and adaptation of left and right eye stimuli. The previous results have fit expressions with coefficients like -0.2944*x0, etc. My goal is to create equations that fit the time series data better while keeping complexity low.\n\nFirst, looking at the time series data:\n- x0 starts high and decreases over time, approaching around 0.64.\n- x1 starts negative and increases, stabilizing around 0.64.\n- x2 starts negative and increases to around 0.64.\n- x3 starts positive and decreases to around 0.64.\n\nThis suggests that each variable might be approaching a steady state, possibly with adaptation terms. For example, x0 (perception) might decrease due to adaptation (x1), while x1 increases as adaptation occurs. Similarly for x2 and x3.\n\nPrevious equations had terms like c*x0, c*(x0 - x1), etc. To improve, maybe introduce a decay term for perception and a growth term for adaptation. Also, considering that x0 and x2 are perceptions (decreasing), and x1 and x3 are adaptations (increasing), maybe their ODEs are related.\n\nFor x0, perhaps a rate of change proportional to a constant minus the adaptation. Like dx0/dt = c*(k - x0 - x1). But since constants can only be denoted as 'c', need to use that. Maybe dx0/dt = c*(x0 - x1), but that might not capture the decreasing trend. Alternatively, dx0/dt = -c*(x0 - x1), but previous examples have similar terms.\n\nWait, looking at the data, x0 decreases over time, so maybe its derivative is negative. If x0's derivative is proportional to a negative value, like -c*x0, but that's a simple exponential decay. But maybe combining with x1 (adaptation) which increases. So maybe dx0/dt = -c*x0 - c*x1? Or something like that.\n\nSimilarly, for x1 (adaptation of left eye), which increases over time, maybe dx1/dt = c*(x0 - x1). That would mean that adaptation increases based on the perception minus the current adaptation. That's a plausible model.\n\nSame for x2 and x3: dx2/dt = -c*x2 - c*x3, and dx3/dt = c*(x2 - x3).\n\nBut need to make sure that all variables are used appropriately. Also, the previous examples had terms like c*x0, so maybe similar structures but adjusted for better fit.\n\nAnother thought: the time series for x0 starts high and decreases, x1 starts low and increases. So maybe x0's rate is negative, and x1's rate is positive. So for x0: dx0/dt = -c*x0; for x1: dx1/dt = c*x0 - c*x1. Similarly for x2 and x3. But need to check if this would fit the data.\n\nTesting with x0: if dx0/dt = -c*x0, then x0 would decay exponentially. The given data for x0 does decay, but maybe with some adaptation from x1. So perhaps combining both terms.\n\nLooking at the previous fit expressions, like for the first sample, the fit expressions were [-0.2944*x0, 1.0007*x0 - 1.0005*x1, ...]. The coefficients for x0 in x1's equation is positive, which would mean x1 increases with x0, which makes sense.\n\nSo maybe for each pair (x0 and x1, x2 and x3), we can model them as:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\n\nSimilarly for x2 and x3:\n\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nThis would create a  where perception decreases over time, and adaptation increases, approaching a steady state. The constants here would be the same 'c' for each equation.\n\nBut the problem says to use variable names only in x0-x3 and constants as 'c'. So equations would be:\n\nFor x0: -c*x0\nFor x1: c*(x0 - x1)\nFor x2: -c*x2\nFor x3: c*(x2 - x3)\n\nThis is a  of four ODEs, each with their own equations. The previous examples had some combinations, but this seems more straightforward and lower in complexity. Let me check if this would fit the data better.\n\nLooking at the time series, x0 decreases, so dx0/dt is negative, which matches -c*x0. For x1, which increases, the derivative would be c*(x0 - x1). Initially, x0 is higher than x1, so x1 increases until x0 and x1 reach equilibrium. That seems plausible. Same for x2 and x3.\n\nThis  would have equations:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nWhich translates to the JSON format:\n\n{\n  \"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\nThis is simple and uses all variables. Let me check if this would fit the data better than previous models. The previous fit expressions had coefficients like -0.2944*x0 for x0, which would correspond to a similar structure but with different constants. However, in the previous examples, the equations had different coefficients, which might not have been as straightforward.\n\nAnother possible improvement is to allow different constants for different equations, but the problem states that constants should be denoted only by 'c', so each equation uses the same 'c'. However, the previous examples had different coefficients (like -0.2944, 1.0007, etc.), which might imply that different 'c's are used, but the problem says constants should be denoted as 'c', so perhaps the same 'c' is used for all equations, and the fit expressions are linear combinations with coefficients determined during fitting. Wait, the 's previous examples show fit_exprs with coefficients, but the generated equations must use only 'c' as constants. So the equations are symbolic, and the fit_exprs are the actual fitted coefficients, which are numerical. But the  wants to generate symbolic equations that would, when fitted, have better scores. However, the current task is to generate the symbolic equations, not the fitted numerical coefficients.\n\nSo the equations should be in terms of 'c', variables, and operations. So the above equations are valid. Let me create five variations, perhaps with different structures but keeping the same logic.\n\nAnother variation could be:\n\nFor x0: -c*(x0 - x1)\nFor x1: c*(x0 - x1)\nFor x2: -c*(x2 - x3)\nFor x3: c*(x2 - x3)\n\nBut this would make x0 and x1 have equations that are negatives of each other. But maybe not. Alternatively, for x0 and x2, use the same structure, and for x1 and x3, use similar.\n\nAnother possibility is to have interactions between left and right eyes. For example, maybe x0 affects x2 and vice versa. But the variables are per eye, so perhaps the equations are separate.\n\nAlternatively, maybe x0's derivative is influenced by both x1 and x3? Not sure, but the problem states that the equations must be algebraic expressions involving only the x variables and c. So maybe include cross terms, but that would increase complexity.\n\nAlternatively, for x0: dx0/dt = -c*x0 - c*x1\nFor x1: dx1/dt = c*x0 - c*x1\nSimilarly for x2 and x3. But that would be a different structure. Let me think: if x0 is perception and x1 is adaptation, maybe the rate of change of perception is affected by both current perception and adaptation. But this might complicate the equations.\n\nBut the previous examples had equations like c*(x0 - x1), which is a standard differential equation model. The current idea of dx0/dt = -c*x0 and dx1/dt = c*(x0 - x1) seems plausible and simple.\n\nAnother variation could be:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nWhich is the same as the first one. To create five different sets, maybe vary the structure slightly. For example:\n\n1. dx0/dt = -c*x0 | dx1/dt = c*(x0 - x1) | dx2/dt = -c*x2 | dx3/dt = c*(x2 - x3)\n2. dx0/dt = c*(x0 - x1) | dx1/dt = c*(x0 - x1) | dx2/dt = c*(x2 - x3) | dx3/dt = c*(x2 - x3)\n3. dx0/dt = -c*x0 | dx1/dt = c*x1 | dx2/dt = -c*x2 | dx3/dt = c*x3\n4. dx0/dt = -c*x0 - c*x1 | dx1/dt = c*x0 - c*x1 | dx2/dt = -c*x2 - c*x3 | dx3/dt = c*x2 - c*x3\n5. dx0/dt = c*(x0 - x1) | dx1/dt = -c*(x0 - x1) | dx2/dt = c*(x2 - x3) | dx3/dt = -c*(x2 - x3)\n\nBut need to check if these make sense. For example, in variation 2, x0 and x1 have the same derivative. If x0 decreases and x1 increases, then their derivatives should be opposite. But in variation 2, both have dx/dt = c*(x0 - x1). If x0 is decreasing and x1 is increasing, then x0 - x1 would be decreasing, so the derivative would be negative if c is positive, which might not align. Not sure.\n\nVariation 3 has x0's derivative as -c*x0 (decreasing) and x1's as c*x1 (increasing). That seems plausible. For x2 and x3 same.\n\nVariation 4: dx0/dt = -c*x0 - c*x1. If x0 is decreasing and x1 is increasing, this would mean the rate of x0 is more negative as x1 increases, which might not fit the data. The time series shows x1 increases, but x0's decrease seems exponential. Not sure.\n\nVariation 5: for x0 and x1, their derivatives are negatives of each other. So if dx0/dt = c*(x0 - x1), then dx1/dt = -c*(x0 - x1) = c*(x1 - x0). That would mean x0 and x1 are changing in opposite directions, which aligns with the data (x0 decreases, x1 increases). So that's a valid model.\n\nSo, generating five different sets with these variations. Each set would be a different combination of equations, but keeping the dim at 4.\n\nAnother idea: use sqrt or other functions. For example, dx0/dt = -c*sqrt(x0). But the previous data shows a linear decrease, so maybe linear terms are better for fit.\n\nGiven the complexity requirement, simpler equations are better. So the first variation (dx0/dt = -c*x0, dx1/dt = c*(x0 - x1), etc.) is probably the best.\n\nNow, creating five different JSON objects:\n\n1. As discussed.\n2. Maybe swap some terms, like for x0 and x2, use similar structures but with x3 in x1's equation. But that might not make sense. Alternatively, for x1 and x3, use similar terms.\n\nAlternatively, for variation 2: dx0/dt = c*(x0 - x1), dx1/dt = -c*(x0 - x1), dx2/dt = c*(x2 - x3), dx3/dt = -c*(x2 - x3). This would be similar to variation 5.\n\nAnother variation could be: for x0 and x1, dx0/dt = -c*x0, dx1/dt = c*x0, and similarly for x2 and x3. This would mean that x1 increases with x0, which aligns with the data. So:\n\ndx0/dt = -c*x0\ndx1/dt = c*x0\ndx2/dt = -c*x2\ndx3/dt = c*x2\n\nThis would make x1 increase based on x0, and x3 increase based on x2. But in the data, x1 and x3 both increase over time, but x1 starts from -0.5 and increases to 0.64, while x3 starts from 0.4 and increases to 0.64. However, if x1's derivative is c*x0, then x1 would increase as long as x0 is positive, which it is. But when x0 decreases, x1's growth rate would decrease. This might fit the data where x1 increases but at a decreasing rate. Similarly for x3.\n\nThis is another possible model. Let me see:\n\nx0: decreasing exponentially, so dx0/dt = -c*x0.\nx1: derivative is c*x0. As x0 decreases, the growth rate of x1 decreases, leading to an increasing x1 but at a slower rate. This might fit the data where x1 increases but the increments are smaller over time.\n\nSimilarly for x2 and x3: dx2/dt = -c*x2, dx3/dt = c*x2. So x3 increases as x2 decreases, but again, x2's rate is negative.\n\nThis could be another valid model. So another sample would be:\n\n{\n  \"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | c*x_2\",\n  \"dim\": 4\n}\n\nBut I need to make sure that all five samples are different and have a good fit.\n\nPutting it all together, here are five possible samples:\n\n1. The original idea with x1 and x3 depending on x0 - x1 and x2 - x3.\n2. x1 and x3 depending on x0 and x2 respectively.\n3. x0 and x2's equations with adaptation terms, and x1 and x3 with similar terms.\n4. Introduce sqrt or other functions but keep it simple.\n5. Another variation with different combinations.\n\nBut need to ensure they are distinct and plausible.\n\nSo, generating five samples:\n\n1. {\n  \"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\n2. {\n  \"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | c*x_2\",\n  \"dim\": 4\n}\n\n3. {\n  \"eq\": \"c*(x_0 - x_1) | -c*(x_0 - x_1) | c*(x_2 - x_3) | -c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\n4. {\n  \"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\",\n  \"dim\": 4\n}\n\n5. {\n  \"eq\": \"-c*x_0 | c*x_1 | -c*x_2 | c*x_3\",\n  \"dim\": 4\n}\n\nEach of these samples uses different structures, some of which have interactions between variables, others have separate terms. They all involve the variables x0-x3 and constant c, with different algebraic expressions. This should meet the requirements and possibly provide better fitting scores compared to the previous examples.\n</think>\n\n{\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 | -c*x_2 | c*x_2\", \"dim\": 4}, {\"eq\": \"c*(x_0 - x_1) | -c*(x_0 - x_1) | c*(x_2 - x_3) | -c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*x_0 - c*x_1 | -c*x_2 | c*x_2 - c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:55",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*(x_0 - x_1), c*(x_0 - x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*(x_0 - x_1), c*(x_0 - x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:55",
+        "level": "INFO",
+        "message": "Generated 12 functions: [[c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*(x_0 - x_1), c*(x_0 - x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3], [c*x_0, c*x_1, c*x_2, c*x_3], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0, c*x_0, c*x_2, c*x_2], [c*(x_0 - x_1), c*(x_0 - x_1), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*x_3], [c*x_0, c*x_0 - c*x_1, c*x_2, c*x_2 - c*x_3]]."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:56",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:59",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:59",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:00:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:00:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:00",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:04",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:04",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:04",
+        "level": "INFO",
+        "message": "Num candidate expressions: 17"
+    },
+    {
+        "timestamp": "22/07/2025 03:01:05",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n0   [c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 -...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n1   [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 +...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n25               [c*x_0, c*(x_0 - x_1), c*x_2, c*x_3]  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, -0.1417...\n2                        [c*x_0, c*x_0, c*x_0, c*x_2]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, 0.2451*x_2]\n3                        [c*x_0, c*x_0, c*x_0, c*x_0]  ...  [-0.2944*x_0, 0.3242*x_0, 0.3276*x_0, -0.0645*...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:05",
+        "level": "INFO",
+        "message": "Succesfully generated 12 functions in 644.9977760600159 seconds."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:05",
+        "level": "INFO",
+        "message": "Round 3."
+    },
+    {
+        "timestamp": "22/07/2025 03:01:05",
+        "level": "INFO",
+        "message": "Attempt 1 of 5 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's see. The  wants me to generate five sets of ODEs that model the perception and adaptation of left and right eye stimuli. The variables are x0 (left perception), x1 (left adaptation), x2 (right perception), x3 (right adaptation). The previous attempts had equations like c*x0, c*(x0 - x1), etc., and the fit scores. The goal is to create better ones with lower complexity.\n\nFirst, looking at the time series data. For x0, the values start high and decrease, so maybe a decay process. x1 increases over time, which could be an adaptation process that builds up. Similarly, x2 starts low and increases, and x3 starts high and decreases. So maybe x0 and x2 are opposites, as are x1 and x3? Or maybe they are symmetric.\n\nThe previous equations had terms like c*x0, which might be simple decay. But maybe combining them with the adaptation terms. For example, x0 could decrease as x1 increases, so maybe dx0/dt = -c*x0 + something related to x1? Wait, but the equations need to be in terms of x variables and constants c.\n\nThe 's example used expressions with combinations like c*x0*x1 or c*(x0 - x1). Let's think about plausible dynamics. Maybe the perception decreases over time, influenced by adaptation. For instance, dx0/dt = -c*x0 - c*x1 (perception decreases with time and adaptation). Similarly, adaptation could be a function of perception. For x1, maybe it increases as perception increases, so dx1/dt = c*(x0 - x1) \u2013 a difference equation that drives adaptation towards perception.\n\nSimilarly for x2 and x3. Since x2 starts low and increases, maybe dx2/dt = c*(x2 - x3) or something like that. But need to check the time series. Wait, x2 starts at -1.13 and increases to 0.64, so it's increasing. x3 starts at 0.4 and decreases to 0.64? Wait, no, x3's data starts at 0.4, then decreases to -0.15, then increases again. Wait, the x3 time series starts at 0.4, then goes down to -0.15, then back up. Hmm, that's more complex. Maybe it's an adaptation that first suppresses and then builds up? Not sure.\n\nAlternatively, considering that the previous fit expressions had coefficients around -0.2944*x0, 1.0007*x0 - 1.0005*x1, etc. So maybe the equations are linear combinations. But the  wants more diverse expressions with operations like sqrt, exp, etc., but keeping it low complexity.\n\nLet me think of a simple . Maybe:\n\ndx0/dt = -c*x0 - c*x1 (perception decreases with its own value and adaptation)\ndx1/dt = c*(x0 - x1) (adaptation increases as perception increases, but slows down)\ndx2/dt = -c*x2 - c*x3 (similar to left eye)\ndx3/dt = c*(x2 - x3) (same as x1)\n\nBut that's symmetric. Let's check if that makes sense. For x0 starting high, decreasing, and x1 increasing. Similarly, x2 starting low and x3 starting high. So that would match the data. But does this model fit the time series? Maybe. However, the previous results had equations like c*x0, so maybe that's too simple. But the  wants lower complexity. Wait, the  said \"secondly have a low complexity as much as possible,\" so maybe linear equations are better. But previous attempts already have linear ones. So perhaps adding a negative sign or combining variables.\n\nAlternatively, for x0, maybe dx0/dt = -c*x0, and x1's derivative is c*(x0 - x1). That's similar to a  where perception decays exponentially and adaptation follows. But the previous results had similar structures. However, the  wants improved samples compared to the previous ones. So maybe introduce some coupling between left and right eyes? Like, maybe x0 and x2 influence each other, or x1 and x3?\n\nWait, the variables are x0 (left perception), x1 (left adaptation), x2 (right perception), x3 (right adaptation). So perhaps the left and right s are independent. But the data for x0 and x2 are inverses. x0 decreases from 2.25 to 0.64, while x2 increases from -1.13 to 0.64. Maybe they are inversely related. If that's the case, maybe dx0/dt = -c*x0 - c*x2 (some coupling between left perception and right perception), but that might complicate things.\n\nAlternatively, perhaps each eye has its own dynamics. So for left eye:\n\ndx0/dt = -c*x0 - c*x1 (perception decreases and adaptation suppresses it)\ndx1/dt = c*(x0 - x1) (adaptation approaches perception)\n\nFor right eye:\n\ndx2/dt = -c*x2 - c*x3\ndx3/dt = c*(x2 - x3)\n\nThat's symmetric. But the data for x2 starts negative. If the equation is dx2/dt = -c*x2, then if x2 is negative, it would become less negative, which matches the data (x2 increases). Similarly, x3 starts positive and decreases to a minimum then increases again. Hmm, maybe that's more complex. But the equation I proposed would have x3 decreasing when x2 is negative. Maybe that's not matching. Let me think.\n\nWait, if x2 is negative and x3 is positive, then dx3/dt = c*(x2 - x3) would be negative (since x2 is negative and x3 positive), so x3 would decrease, which matches the data where x3 starts high and decreases to a minimum. Then, when x2 becomes positive, x3 might start increasing. So maybe that's plausible.\n\nSo the equations would be:\n\ndx0/dt = -c*x0 - c*x1\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2 - c*x3\ndx3/dt = c*(x2 - x3)\n\nThis  is symmetric and might fit the data. Let me check the fit. For x0, which starts at 2.25 and decreases, the equation dx0/dt = -c*x0 - c*x1 would have x1 starting at -0.5, so initially, -c*(2.25) - c*(-0.5) = -c*(2.25) + 0.5c. That would be a negative rate, causing x0 to decrease, which matches the data. As x1 increases (from -0.5 to 1.0), the term -c*x1 becomes less negative, so the rate of decrease of x0 slows down. This seems plausible.\n\nSimilarly, x2 starts at -1.13, and dx2/dt = -c*x2 - c*x3. x3 starts at 0.4, so initial rate is -c*(-1.13) - c*(0.4) = 1.13c - 0.4c = 0.73c, which is positive, so x2 increases, matching the data. As x2 increases, the term -c*x2 becomes negative, and x3 might start decreasing (if x2 is increasing and x3 is decreasing initially), so the rate of change of x2 might slow down and eventually turn negative once x3 becomes large enough. But according to the data, x2 increases throughout. Wait, in the time series, x2 increases up to 0.64. If the equations are dx2/dt = -c*x2 - c*x3, then when x2 increases and x3 decreases, the rate would be -c*x2 - c*x3. If x2 increases, then -c*x2 becomes more negative, but x3 is decreasing (from 0.4 to -0.15, then increasing again). So initially, x3 is decreasing, so -c*x3 becomes positive. Let's say at t=0, x3=0.4, so -c*x3 = -0.4c. Then as x3 decreases, that term becomes less negative. For example, if x3 is -0.15, then -c*x3 = 0.15c. So the total dx2/dt would be -c*x2 + 0.15c. If x2 is increasing, say from -1.13 to -0.2, then -c*x2 is positive (since x2 is negative), so overall, dx2/dt is positive. Then, once x2 becomes positive, the term -c*x2 becomes negative, but if x3 is also increasing (after a certain point), then maybe dx2/dt becomes negative. But in the data, x2 continues to increase up to 0.64. Hmm, perhaps this model isn't perfect, but it's a starting point.\n\nAlternatively, maybe the equations for x2 and x3 are similar to x0 and x1 but with different signs. For example:\n\ndx2/dt = -c*x2 + c*x3\ndx3/dt = -c*x3 + c*x2\n\nBut that would create oscillations. Not sure.\n\nAnother approach: Since x1 and x3 seem to be adaptation variables that increase and then level off. For x1, the data shows it increases from -0.5 to 1.0, then plateaus. Similarly for x3, it decreases from 0.4 to -0.15, then increases to 0.64. Maybe their equations are similar to x0 and x2 but with different signs.\n\nWait, maybe the left eye perception x0 is modeled by a simple decay, and the adaptation x1 is driven by x0 minus itself. Similarly for the right eye, but with different signs. For example:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2\ndx3/dt = c*(x2 - x3)\n\nBut this would make x2 decay, but in the data, x2 increases. So that's not matching. Therefore, maybe:\n\ndx0/dt = -c*x0\ndx1/dt = c*(x0 - x1)\ndx2/dt = c*x2\ndx3/dt = c*(x2 - x3)\n\nBut then dx2/dt = c*x2 would make x2 grow exponentially, which starts from -1.13. If x2 is negative, c*x2 would be negative, leading to more negative values, which contradicts the data where x2 increases. So not good.\n\nAlternatively, dx2/dt = -c*x2 + c*x3? Not sure.\n\nAlternatively, considering the symmetry between left and right eyes, perhaps the equations for x0 and x2 are opposites. For example, dx0/dt = -c*x0 - c*x1, dx2/dt = c*x2 - c*x3. Then x2 would increase if c*x2 is positive when x2 is negative, but that depends on the value of x2.\n\nThis is getting complicated. Let me look back at the previous generated equations. The first example in the previous results had [c*x0, c*(x0 - x1), c*x2, c*x3], which for the fit_exprs were [-0.2944*x0, 1.0007*x0 - 1.0005*x1, -0.1417*x2, 0.1556*x3]. So maybe the equations are linear combinations of variables, and the coefficients are adjusted to fit.\n\nThe  wants improved samples. The previous samples had some with coefficients like 0.3242*x0, which might be better fits. But the  wants equations with algebraic expressions, not just linear terms. However, the  mentioned that the equations can use basic operations. So perhaps using non-linear terms could improve the fit, but they need to be simple.\n\nLet me try a few examples. For the first sample:\n\n{\n  \"eq\": \"-c*x_0 - c*x_1 | c*(x_0 - x_1) | -c*x_2 - c*x_3 | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\nThis is the symmetric  I thought of earlier. Let's check the fit. For x0, the equation is -c*x0 -c*x1. Since x1 starts at -0.5, this would be -c*(2.25) -c*(-0.5) = -c*(2.25) +0.5c = -1.75c. If the derivative is negative, x0 decreases, which matches. As x1 increases, the -c*x1 term becomes less negative, slowing the decrease. This might fit the x0 data well.\n\nFor x1, dx1/dt = c*(x0 -x1). Initially, x0=2.25, x1=-0.5, so derivative is c*(2.25 +0.5)=c*2.75. Positive, so x1 increases. Then as x1 approaches x0, the rate slows down. This matches the x1 data, which increases from -0.5 to 1.0.\n\nFor x2, dx2/dt = -c*x2 -c*x3. Initially, x2=-1.13, x3=0.4. So derivative is -c*(-1.13) -c*(0.4) = 1.13c -0.4c = 0.73c. Positive, so x2 increases. As x2 increases and x3 decreases (initially), the term -c*x3 becomes less negative. For example, when x3 reaches -0.15, derivative is -c*x2 -c*(-0.15) = -c*x2 +0.15c. If x2 is around 0.5, then -0.5c +0.15c = -0.35c, which is negative. But the data for x2 continues increasing beyond that. Hmm, this might not fit well. Maybe this model isn't perfect, but it's a starting point.\n\nAnother idea: Maybe the equations are similar but for the right eye, x2 and x3 have different signs. Like:\n\ndx0/dt = -c*x0 -c*x1\ndx1/dt = c*(x0 -x1)\ndx2/dt = c*x2 -c*x3\ndx3/dt = c*(x2 -x3)\n\nBut for x2, if dx2/dt = c*x2 -c*x3, then when x2 is negative and x3 is positive, this would be negative minus positive, leading to negative, which doesn't match the increasing x2. Not good.\n\nAlternatively, dx2/dt = -c*x2 +c*x3. If x2 is negative and x3 is positive, this would be positive, causing x2 to increase. Then, as x3 decreases and x2 increases, maybe it stabilizes. Let's see. Initially, x2=-1.13, x3=0.4: dx2/dt = -c*(-1.13) +c*0.4 = 1.13c +0.4c = 1.53c, which is positive. So x2 increases. Then as x2 increases and x3 decreases, dx2/dt becomes -c*x2 +c*x3. If x2 becomes positive and x3 is negative, then this would be negative, causing x2 to decrease. But in the data, x2 increases up to 0.64, so maybe this model works. For dx3/dt = c*(x2 -x3). If x2 increases and x3 decreases, then x2 -x3 is large positive, leading x3 to increase. But in the data, x3 starts high, decreases, then increases. So maybe this model can capture that. Let's try:\n\n{\n  \"eq\": \"-c*x_0 - c*x_1 | c*(x_0 - x_1) | -c*x_2 + c*x_3 | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\nThis might be better for x2 and x3. Let me think about the fit. For x2: initial rate is 1.53c, which would make it increase. Then as x3 starts to decrease (x3's derivative is c*(x2 -x3), which initially would be c*(x2 - x3) = c*(-1.13 -0.4) = -1.53c, leading x3 to decrease. So x3 decreases, which makes the term +c*x3 in x2's equation less positive, but if x2 is increasing, then -c*x2 becomes more negative. Hmm, this is getting complicated. But the data for x2 does increase, so maybe this is a better model.\n\nBut this is just one possibility. The  wants five sets, so I need to generate five different equations, each with dim=4, and in JSON format.\n\nAnother example: Maybe include a term with x0 -x2 for the right eye's perception. Like:\n\ndx0/dt = -c*x0 - c*x1\ndx1/dt = c*(x0 -x1)\ndx2/dt = -c*x2 + c*(x0 -x2)\ndx3/dt = c*(x2 -x3)\n\nBut this might add unnecessary complexity. Alternatively, using simple linear terms but with different coefficients.\n\nAlternatively, for x0 and x2, maybe they are coupled. For example:\n\ndx0/dt = -c*x0 -c*x1 + c*x2\ndx1/dt = c*(x0 -x1)\ndx2/dt = -c*x2 -c*x3 + c*x0\ndx3/dt = c*(x2 -x3)\n\nThis couples the left and right perceptions. But this might not be necessary if the data shows they are independent.\n\nConsidering the 's previous examples had equations with terms like c*x0, c*(x0 -x1), etc., and the fit scores, the best approach might be to stick to simple linear terms with coupling between perception and adaptation for each eye.\n\nThus, generating five variations of the symmetric :\n\n1. The symmetric  with dx0/dt = -c*x0 -c*x1, dx1/dt = c*(x0 -x1), dx2/dt = -c*x2 -c*x3, dx3/dt = c*(x2 -x3)\n\n2. Maybe swap signs for x2 and x3: dx2/dt = -c*x2 +c*x3, dx3/dt = c*(x2 -x3)\n\n3. Add a cross-term between left and right: dx0/dt = -c*x0 -c*x1 +c*x2, dx2/dt = -c*x2 -c*x3 +c*x0\n\n4. Use different coefficients, like dx0/dt = -c*x0, dx1/dt = c*(x0 -x1), dx2/dt = -c*x2, dx3/dt = c*(x2 -x3)\n\nBut wait, dx2/dt = -c*x2 would make x2 decay from -1.13 to zero, but in the data x2 increases. So that's not good.\n\nAnother idea: Use a leaky integrator model for perception and adaptation. For example:\n\ndx0/dt = -c*x0 + c*x2 (perception decreases but influenced by right perception)\ndx1/dt = c*(x0 -x1) (adaptation)\ndx2/dt = -c*x2 + c*x0 (right perception influenced by left)\ndx3/dt = c*(x2 -x3)\n\nBut this introduces coupling between left and right. However, the data for x0 and x2 are inverses, so this might make sense. Let's check:\n\nIf x0 starts high and x2 starts low, then dx0/dt would be -c*x0 + c*x2. Initially, this would be -c*(2.25) +c*(-1.13) = -c*(3.38), leading x0 to decrease. As x0 decreases and x2 increases, the term -c*x0 +c*x2 might slow down the decrease of x0. For x2, dx2/dt = -c*x2 +c*x0, so initially, this would be -c*(-1.13) +c*(2.25) = 1.13c +2.25c = 3.38c, causing x2 to increase. As x2 increases and x0 decreases, the rate of change of x2 might slow down and eventually turn negative when x0 < x2. This could explain the data where x2 increases and x0 decreases. This might be a better model.\n\nSo the equations would be:\n\ndx0/dt = -c*x0 + c*x2\ndx1/dt = c*(x0 - x1)\ndx2/dt = -c*x2 + c*x0\ndx3/dt = c*(x2 -x3)\n\nThis couples the left and right perceptions. It might fit the data better, especially since x0 and x2 are inverses.\n\nAnother variation could be:\n\ndx0/dt = -c*x0 -c*x1 + c*x2\ndx1/dt = c*(x0 -x1)\ndx2/dt = -c*x2 -c*x3 + c*x0\ndx3/dt = c*(x2 -x3)\n\nThis adds more coupling between the eyes.\n\nNow, considering all this, I can generate five different JSON objects with these equations.\n</think>\n\n{\"eq\": \"-c*x_0 - c*x_1 | c*(x_0 - x_1) | -c*x_2 - c*x_3 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 + c*x_2 | c*(x_0 - x_1) | -c*x_2 + c*x_0 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 - c*x_1 | c*(x_0 - x_1) | -c*x_2 + c*x_3 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 | c*(x_0 - x_1) | -c*x_2 | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_0 - c*x_1 + c*x_2 | c*(x_0 - x_1) | -c*x_2 - c*x_3 + c*x_0 | c*(x_2 - x_3)\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0 + c*x_2, c*(x_0 - x_1), c*x_0 + c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1 + c*x_2, c*(x_0 - x_1), c*x_0 + c*x_2 - c*x_3, c*(x_2 - x_3)]]"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "INFO",
+        "message": "Generated 7 functions: [[c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 - c*x_3, c*(x_2 - x_3)], [c*x_0 + c*x_2, c*(x_0 - x_1), c*x_0 + c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*(x_2 - x_3)], [c*x_0, c*(x_0 - x_1), c*x_2, c*(x_2 - x_3)], [c*x_0 - c*x_1 + c*x_2, c*(x_0 - x_1), c*x_0 + c*x_2 - c*x_3, c*(x_2 - x_3)]]."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:30",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:31",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:31",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:31",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:31",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:32",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:32",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:32",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:32",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:33",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:33",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:33",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:34",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:34",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:34",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:35",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:35",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:35",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:36",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:36",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:36",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "INFO",
+        "message": "Num candidate expressions: 20"
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n23  [c*x_0 - c*x_1 + c*x_2, c*(x_0 - x_1), c*x_0 +...  ...  [-0.3681*x_0 - 0.0666*x_1 + 0.43*x_2, 1.0007*x...\n20  [c*x_0 + c*x_2, c*(x_0 - x_1), c*x_0 + c*x_2, ...  ...  [-0.4001*x_0 + 0.3829*x_2, 1.0007*x_0 - 1.0005...\n0   [c*x_0, c*(x_0 - x_1), c*(x_0 - x_2), c*(x_2 -...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n1   [c*x_0, c*(x_0 + x_1), c*(x_0 - x_2), c*(x_2 +...  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, 0.4481*...\n2                [c*x_0, c*(x_0 - x_1), c*x_2, c*x_3]  ...  [-0.2944*x_0, 1.0007*x_0 - 1.0005*x_1, -0.1417...\n\n[5 rows x 5 columns]."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "INFO",
+        "message": "Succesfully generated 7 functions in 865.208705461002 seconds."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "22/07/2025 03:15:37",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmph1yc7tt7'>"
+    }
+]

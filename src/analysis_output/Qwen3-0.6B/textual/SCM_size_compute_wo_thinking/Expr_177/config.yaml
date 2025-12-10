@@ -1,0 +1,84 @@
+model:
+  name: Qwen/Qwen3-0.6B
+  tokenizer_pad: \\[PAD\\]
+  tokenizer_padding_side: left
+  visual: false
+  time_series: false
+  cache_dir: /opt/dlami/nvme/models
+  max_new_tokens: 10000
+  top_p: 0.9
+  top_k: 60
+  num_beams: 1
+  temperature: 1.0
+  temperature_schedule: false
+  temperature_schedule_gamma: 0.995
+experiment:
+  symbolic_expression:
+    name: SCM_size_compute_wo_thinking
+    type: SCM
+    idx: 177
+    data_path: data/SCM_science_small.npy
+    judge:
+      enabled: false
+      gpt_model: gpt-4.1-nano
+      prompt_path: prompts/SCM/judge.json
+    use_context: true
+    reasoning: false
+    additional_prompt: none
+    context:
+      time_series: true
+      var_description: true
+      consts_description: true
+      image: false
+      ts_encoder: false
+    train_points:
+      min_points: 0
+      max_points: 10
+      num_points: 50
+    test_points:
+      min_points: 0
+      max_points: 10
+      num_points: 100
+    tolerance: 0.95
+    iterations: 100
+  verifier:
+    name: SCM_verifier
+    data_save_path: data/save_scm.json
+  input_type: textual
+  min_seed_functions: 1
+  max_output_tokens: 4096
+  max_retries: 5
+  interval_save: 5
+  OOD: false
+  textual_input: prompts/SCM/SCM_textual_context.json
+  visual_input: false
+  time_series_input: false
+dataset:
+  name: SCM_dataset
+logger:
+  loggers:
+  - console
+  - file
+  level: INFO
+  run_id: 20250717-105424
+output_dir: analysis_output
+force_valid: false
+force_unique: false
+prompts_path: prompts
+max_points_in_prompt: 100
+checkpoints:
+- 50
+- 100
+- 200
+- 300
+- 400
+- 500
+- 600
+- 700
+- 800
+- 900
+device: cuda:4
+use_bfloat16: true
+seed: 733685843
+enable_thinking: false
+root: /home/ubuntu/projects/Symbolic_LLMs/

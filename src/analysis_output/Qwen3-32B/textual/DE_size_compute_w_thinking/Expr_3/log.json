@@ -1,0 +1,702 @@
+[
+    {
+        "timestamp": "13/07/2025 01:31:59",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:59",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-32B/textual/DE_size_compute_w_thinking/Expr_3/."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:59",
+        "level": "INFO",
+        "message": "Slurm job ID: 292."
+    },
+    {
+        "timestamp": "13/07/2025 01:31:59",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1137335353."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 3."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Groundtruth Function:              domain             model  ... substituted solutions\n2  calcium_dynamics  gall_susa_1999_c  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "13/07/2025 01:32:00",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:13",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-32B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:15",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "13/07/2025 01:32:16",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpvl70oxx2'>"
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-32B/textual/DE_size_compute_w_thinking/Expr_3/."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Slurm job ID: 325."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1331767005."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:46",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:47",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 3."
+    },
+    {
+        "timestamp": "22/07/2025 06:49:47",
+        "level": "INFO",
+        "message": "Groundtruth Function:              domain             model  ... substituted solutions\n2  calcium_dynamics  gall_susa_1999_c  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "22/07/2025 06:49:47",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "22/07/2025 06:50:00",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-32B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "22/07/2025 06:50:01",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:02:07",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five synthetic ODE s in JSON format for calcium dynamics. The variables are x0 (V), x1 (n), x2 (Ca_i), x3 (Ca_ret). I need to follow all the requirements carefully.\n\nFirst, the variables must be named x0 to x3. No actual values, only constants denoted by 'c'. Each equation should use these variables and 'c', combining them with algebraic operations. The equations are for a coupled , so four equations separated by pipes. The examples given have terms like c*x0*x1, etc.\n\nLooking at the time series data, x0 starts at -76 and gradually increases slightly, suggesting a slow drift. x1 decreases over time, which might indicate a decay or an activation process. x2 (Ca_i) is decreasing, while x3 (Ca_ret) is increasing. This looks like a calcium dynamics model where intracellular calcium is being sequestered into the reticulum.\n\nFor each equation, I need to model how each variable changes. Let's think of possible interactions:\n\n- For x0 (V), maybe it's influenced by the potassium current (x1) and calcium currents. Perhaps a term like -c*x1 (hyperpolarization) and a calcium-related term like x2 or x3.\n- x1 (n) is a gate variable, often modeled with a differential equation involving activation/deactivation. Maybe a term like c*(1 - x1) - c*x1, leading to a decay if n is decreasing.\n- x2 (Ca_i) is decreasing. Could be due to a leak or pump. Maybe a term involving x2 (like -c*x2) and a transfer to x3 (like +c*(x3 - x2)).\n- x3 (Ca_ret) is increasing, possibly from x2. Maybe a term like c*x2 - c*x3, representing transfer from x2 to x3.\n\nEach equation should be as simple as possible but still capture the dynamics. Let me draft equations for the first sample:\n\ndx0/dt: Maybe something like -c*x1 - c*x2 + c*x3. But need to see if that fits the trend. Since x0 is slowly increasing, perhaps a small positive term? Maybe c*(x3 - x2) - c*x1. Not sure, maybe need to adjust.\n\ndx1/dt: If x1 is decreasing, perhaps a term like -c*x1*(1 - x1) or -c*x1 + c*(something). Maybe -c*x1 + c*x0? Wait, but x1 is decreasing, so maybe a negative feedback. Like -c*x1*(x0 - threshold). But without using actual values. Maybe -c*x1 + c*(1 - x1)*x0? Not sure.\n\nAlternatively, a standard gate variable equation: dx/dt = alpha*(1 - x) - beta*x. Here, maybe alpha and beta as constants. So c*(1 - x1) - c*x1. Which simplifies to c*(1 - 2x1). If that's positive when x1 < 0.5, negative otherwise. Since x1 starts at 0.1 and decreases, maybe this works. So equation for x1: c*(1 - x1) - c*x1.\n\nFor x2: dx2/dt = -c*x2 + c*(x3 - x2). Wait, but x3 is increasing and x2 is decreasing. So maybe a leak from x2 to x3. So -c*x2 + c*x3? But that would make x2 go to x3. Alternatively, a term like -c*(x2 - x3). So if x3 increases, x2 decreases. That makes sense. So dx2/dt = -c*(x2 - x3) - c*x2? Maybe. Let's say -c*(x2 - x3) - c*x2, combining leakage and pump.\n\nFor x3: dx3/dt = c*(x2 - x3). That would mean x3 increases as x2 increases. But since x2 is decreasing, this might not capture the trend. Maybe also a leak or a pump. So dx3/dt = c*(x2 - x3) + c*x3? No, that would make x3 increase more. Alternatively, maybe dx3/dt = c*(x2 - x3) - c*x3. Hmm.\n\nThis is getting a bit complicated. Let's try to keep the equations simple. For the first sample:\n\ndx0/dt = -c*x1 - c*x2 + c*x3\n\ndx1/dt = -c*x1 + c*(1 - x1)\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x2 - c*x3\n\nWait, let's check the trends. x0 is slowly increasing. The equation for dx0/dt would need to be positive. If x3 > x2 and x1 is small, maybe that works. For x1, the equation would lead to x1 approaching 0.5. But in the data, x1 is decreasing from 0.1, so maybe that's not right. Perhaps the equation for x1 should be -c*x1. For example, dx1/dt = -c*x1. That would give an exponential decay, which matches the data trend.\n\nSo maybe:\n\nx0: c*x3 - c*x2 - c*x1\n\nx1: -c*x1\n\nx2: -c*x2 + c*x3\n\nx3: c*x2 - c*x3\n\nThis would make x2 decrease as it's being pumped to x3, which increases. The x0 equation could be influenced by x3 (reticulum Ca) and x2 (intracellular), maybe affecting membrane potential.\n\nBut the first sample needs to have four equations separated by |. Let's structure it as:\n\n\"eq\": \"c*x3 - c*x2 - c*x1 | -c*x1 | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4\n\nThat's one possible set. Now, I need to generate five different samples. Let me think of variations.\n\nSample 2: Maybe include some non-linear terms. For example, for x1, a term involving x0.\n\nx0: c*x3 - c*x1*x2\n\nx1: -c*x1*x0 + c*(1 - x1)\n\nx2: -c*x2^2 + c*x3\n\nx3: c*x2 - c*x3^2\n\nBut need to ensure all variables are in the correct format. Let's try:\n\n\"eq\": \"c*x3 - c*x0*x1 | -c*x1*x0 + c*(1 - x1) | -c*x2^2 + c*x3 | c*x2 - c*x3^2\", \"dim\":4\n\nSample 3: Maybe include exponential terms.\n\nx0: c*exp(-x1) - c*x2\n\nx1: -c*x1 + c*exp(-x0)\n\nx2: -c*x2 + c*x3\n\nx3: c*x2 - c*x3*exp(x1)\n\nSample 4: Using log terms. But need to be careful with domain (log requires positive arguments).\n\nx0: c*log(x3 + 1) - c*x1\n\nx1: -c*x1 + c*log(1 + x0)\n\nx2: -c*x2 + c*log(x3)\n\nx3: c*x2 - c*x3\n\nSample 5: Maybe trigonometric functions, but they might complicate things. However, the requirements allow them.\n\nx0: c*sin(x1) - c*x2\n\nx1: -c*x1 + c*cos(x0)\n\nx2: -c*x2 + c*x3\n\nx3: c*x2 - c*x3*tan(x1)\n\nWait, but tan might have issues with the domain. Maybe better to use sin or cos for all terms.\n\nBut perhaps the  wants varying complexity. Each sample should have a good fit and low complexity. Let's check if the first sample I thought of would fit.\n\nLooking at the data for x2 decreasing and x3 increasing, the equations for x2 and x3 would be simple linear terms. For x1 decreasing, a simple -c*x1. For x0, the equation depends on x3 and x2. If x3 increases faster than x2, then x0 might have a small positive derivative, leading to the gradual increase in the data.\n\nNow, I need to ensure that each sample is different and follows the rules. Let's outline five different possible equation sets.\n\nSample 1:\n\nEquations:\n\ndx0/dt = c*x3 - c*x2 - c*x1\n\ndx1/dt = -c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x2 - c*x3\n\nSample 2:\n\ndx0/dt = c*x3 - c*x1*x2\n\ndx1/dt = -c*x1 + c*(1 - x1)*x0\n\ndx2/dt = -c*x2^2 + c*x3\n\ndx3/dt = c*x2 - c*x3^2\n\nSample 3:\n\ndx0/dt = c*exp(x3) - c*x1 - c*x2\n\ndx1/dt = -c*x1*x0 + c*(1 - x1)\n\ndx2/dt = -c*x2 + c*x3*log(x3 + 1)\n\ndx3/dt = c*x2 - c*x3\n\nSample 4:\n\ndx0/dt = c*sin(x3) - c*x1\n\ndx1/dt = -c*x1 + c*sqrt(x0)\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x2^2 - c*x3\n\nSample 5:\n\ndx0/dt = c*x3 - c*x1\n\ndx1/dt = -c*x1 + c*(x0 - x1)\n\ndx2/dt = -c*x2 + c*(x3 - x2)\n\ndx3/dt = c*x2 - c*x3 + c*x0\n\nNow, I need to check each equation for validity. Are all terms algebraic expressions with allowed variables and operations? Are constants denoted as 'c'?\n\nYes, each equation uses only x0-x3 and 'c', with allowed operations. Each sample has dim 4. Now, I need to write them in the JSON format as specified.\n</think>\n\n[{\"eq\": \"c*x_3 - c*x_2 - c*x_1 | -c*x_1 | -c*x_2 + c*x_3 | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"c*x_3 - c*x_1*x_2 | -c*x_1*x_0 + c*(1 - x_1) | -c*x_2^2 + c*x_3 | c*x_2 - c*x_3^2\", \"dim\": 4}, {\"eq\": \"c*exp(x_3) - c*x_1 - c*x_2 | -c*x_1*x_0 + c*(1 - x_1) | -c*x_2 + c*x_3*log(x_3 + c) | c*x_2 - c*x_3\", \"dim\": 4}, {\"eq\": \"c*sin(x_3) - c*x_1 | -c*x_1 + c*sqrt(x_0) | -c*x_2 + c*x_3 | c*x_2^2 - c*x_3\", \"dim\": 4}, {\"eq\": \"c*x_3 - c*x_1 | -c*x_1 + c*(x_0 - x_1) | -c*x_2 + c*(x_3 - x_2) | c*x_2 - c*x_3 + c*x_0\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "22/07/2025 07:02:07",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[-c*x_1 - c*x_2 + c*x_3, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [-c*x_1*x_2 + c*x_3, c*x_0*x_1 + c*(c - x_1), c**2*x_2 + c*x_3, -c**2*x_3 + c*x_2], [-c*x_1 - c*x_2 + c*exp(x_3), c*x_0*x_1 + c*(c - x_1), c*x_2 + c*x_3*log(c + x_3), c*x_2 - c*x_3], [-c*x_1 + c*sin(x_3), c*sqrt(x_0) + c*x_1, c*x_2 + c*x_3, c**2*x_2 - c*x_3], [-c*x_1 + c*x_3, c*x_1 + c*(x_0 - x_1), c*x_2 + c*(-x_2 + x_3), c*x_0 + c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 07:02:07",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:07:09",
+        "level": "INFO",
+        "message": "Model output: <think>\nAlright, let's tackle this problem. The  wants me to generate five synthetic ODE s in JSON format for the calcium_dynamics domain. The variables are x0, x1, x2, x3, each with specific descriptions. The ODEs should model plausible dynamics and fit the given time series data.\n\nFirst, I need to understand the variables. x0 is the membrane potential (V), x1 is a gate variable for potassium current, x2 is intracellular calcium concentration, and x3 is reticulum calcium. The time series shows that x0 is gradually decreasing, x1 is decreasing, x2 is decreasing, and x3 is increasing. So, the dynamics likely involve calcium moving from the reticulum to the cytoplasm and affecting the membrane potential through ion channels.\n\nFor each of the five samples, I need four equations, one for each variable. The equations must use algebraic expressions with x0, x1, x2, x3, and the constant c. They should be coupled appropriately.\n\nStarting with x0 (membrane potential), it's common in ion channel models for the voltage to depend on currents. Maybe a leak current term, a potassium current (depending on x1), and a calcium current (depending on x2). So something like c*(x1 - x0) + c*(x2 - x0). That would make sense for a differential equation involving voltage changes.\n\nFor x1 (n gate), it's a gating variable, often modeled with a first-order kinetics: alpha*(1 - n) - beta*n. Here, alpha and beta could be constants, but since we can only use 'c', maybe c*(1 - x1) - c*x1. Alternatively, using the membrane potential x0 as part of the alpha/beta terms. For example, c*(x0 - x1) - c*x1. That could represent the rate of change depending on the voltage.\n\nx2 (Ca_i) is intracellular calcium. The change could be due to influx from the reticulum (x3) and efflux out. Maybe c*(x3 - x2) - c*x2. This represents calcium moving from the reticulum to the cytoplasm and being pumped out.\n\nx3 (Ca_ret) would then have the opposite: as calcium leaves x3, it decreases. So -c*(x3 - x2) - c*x3. This would model the loss of calcium from the reticulum and possibly a leak.\n\nPutting this together for one sample:\n\ndx0/dt = c*(x1 - x0) + c*(x2 - x0)\ndx1/dt = c*(x0 - x1) - c*x1\ndx2/dt = c*(x3 - x2) - c*x2\ndx3/dt = -c*(x3 - x2) - c*x3\n\nThis seems to fit. The variables are coupled, and the time series data aligns with decreasing x2 and increasing x3.\n\nNow, for the other four samples, I can vary the terms slightly. For example, add a quadratic term, use trigonometric functions, or different combinations. However, the  mentioned good fitting and low complexity. So maybe small variations without complicating too much.\n\nSample 1 could use the base model as above. For sample 2, perhaps introduce a term involving x0 in x3's equation. Sample 3 might use an exponential for the calcium terms. Sample 4 could have a sine function for a periodic component. Sample 5 might include a ratio of variables.\n\nEach equation must be algebraic, use only allowed variables and constants. Let me check each sample for that. Also, ensure that all five samples are distinct but plausible in the domain.\n\nAfter drafting, I'll format them into JSON objects with \"eq\" as the combined equations separated by |, and \"dim\" 4. Make sure there are five samples, each separated by commas, and output only the JSON without extra text.\n</think>\n\n{\"eq\": \"c*(x_1 - x_0) + c*(x_2 - x_0) | c*(x_0 - x_1) - c*x_1 | c*(x_3 - x_2) - c*x_2 | -c*(x_3 - x_2) - c*x_3\", \"dim\": 4}, {\"eq\": \"c*x_0 - c*x_1 - c*x_2 | c*x_0*x_1 - c*x_1^2 | c*x_3 - c*x_2^2 | -c*x_3 + c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_1*exp(-x_0) - c*x_0 | c*x_0*sin(x_1) - c*x_1 | c*(x_3 - x_2) | -c*x_3 + c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_2 - c*x_0*x_1 | c*(1 - x_1) - c*x_0*x_1 | c*x_3^2 - c*x_2 | -c*x_3 + c*x_2\", \"dim\": 4}, {\"eq\": \"c*x_0*x_1 - c*x_2 | c*x_0 - c*x_1^2 | c*x_3 - c*x_2^2 | -c*x_3 + c*x_2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 07:07:09",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*(-x_0 + x_1) + c*(-x_0 + x_2), -c*x_1 + c*(x_0 - x_1), -c*x_2 + c*(-x_2 + x_3), -c*x_3 + c*(-x_2 + x_3)], [c*x_0 - c*x_1 - c*x_2, -c**2*x_1 + c*x_0*x_1, -c**2*x_2 + c*x_3, c*x_2 + c*x_3], [-c*x_0 + c*x_1*exp(-x_0), c*x_0*sin(x_1) - c*x_1, c*(-x_2 + x_3), c*x_2 + c*x_3], [-c*x_0*x_1 + c*x_2, -c*x_0*x_1 + c*(c - x_1), c**2*x_3 - c*x_2, c*x_2 + c*x_3], [c*x_0*x_1 - c*x_2, -c**2*x_1 + c*x_0, -c**2*x_2 + c*x_3, c*x_2 + c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 07:07:09",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:16:13",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let me try to figure this out. The  wants me to generate five synthetic ODE s for calcium dynamics, using variables x0 to x3 and constants c. The domain is about membrane potential and ion concentrations. The time series data shows that x0 is decreasing slowly, x1 is decreasing but in a more linear fashion, x2 is decreasing exponentially-like, and x3 is increasing steadily. \n\nFirst, I need to model these variables with ODEs. For x0 (membrane potential), maybe a leak current or something involving potassium channels. Since x1 is a gate variable, perhaps it's governed by a voltage-dependent equation. The calcium ions x2 and x3 in intracellular compartments might involve exchange between internal and external, maybe with some saturation terms.\n\nLooking at the data, x3 increases over time, so maybe a production term with x2 and a leak term. For x2, it's decreasing, so maybe a term that depends on x3 or some other removal mechanism. \n\nFor x0, the change might be related to x1 (like a potassium current) and maybe calcium currents. Since the data shows a slow decrease, maybe a term with a small coefficient. \n\nEach equation needs to use variables and c. Let me start drafting equations for each variable. For example:\n\ndx0/dt = -c * x0 - c * x1 - c * x2. But maybe with more nonlinearity. Since x0 is in millivolts, perhaps a term involving x1 (the gate) and calcium.\n\nFor x1, typical gate equations have voltage dependence, so maybe something like c*(x0 - x1) or using sinh or exponential functions. But the 's example uses algebraic expressions, so maybe a simple alpha and beta rate equation. Like dx1/dt = c*(x0) - c*x1, but since x1 is decreasing, maybe a negative feedback.\n\nx2 is calcium in the cell. It might be influenced by x3, so maybe dx2/dt = -c*x2 + c*x3. Since x2 is decreasing and x3 is increasing, that makes sense. \n\nx3 would then be increasing with x2, but maybe also with some leak or production. For example, dx3/dt = c*x2 - c*x3. That would lead to x3 increasing as x2 decreases.\n\nWait, but looking at the time series, x3 increases more linearly. So maybe a linear term. Alternatively, if the equations are dx2/dt = -c*x2 + c*x3 and dx3/dt = c*x2 - c*x3, then x2 and x3 would tend to equilibrium. But in the data, x3 keeps increasing, so maybe there's a constant influx. But the  said not to use actual values, so maybe a term involving c*x3^2 or something else.\n\nAlternatively, maybe for x3, the equation has a term that's positive and depends on x0 or x1. Let's think again. Maybe dx3/dt = c*(x2 - x3) + c*x0? Not sure. The key is to create a coupled  where the trends match the data.\n\nFor each sample, I need to come up with different equations. Let's try the first sample. Maybe:\n\nx0: some combination of x0, x1, and x2. For example, c*(x0 - x1) - c*x2.\nx1: a gate variable often follows something like (1 - x1) - x1. Maybe c*(1 - x1) - c*x1*x0. But we can't use 1; instead, use variables or constants. Wait, the constants are only denoted by c. So maybe dx1/dt = c*(x0 - x1) - c*x1^2.\n\nx2: Maybe dx2/dt = -c*x2 + c*x3.\nx3: dx3/dt = c*x2 - c*x3. That would create a simple exchange between x2 and x3, leading to x2 decreasing and x3 increasing until equilibrium, but if there's a leak or another term, maybe it's more dynamic.\n\nBut the data shows x3 increasing, so perhaps x2 is being moved to x3, hence the equations for x2 and x3 as above. \n\nAnother sample might involve more complexity, like including x0 in the calcium equations. For example, x2 might have a term with x0 and x1.\n\nAlternatively, using trigonometric functions. For example, dx0/dt = c*sin(x1) - c*x0. But maybe that's more complex. The  mentioned to prefer low complexity. \n\nLet me create five different sets. For each sample, vary the equations slightly.\n\nSample 1:\n- x0: maybe a linear combination with x1 and x2. dx0/dt = c*x0 + c*x1 - c*x2\n- x1: a standard gate equation. dx1/dt = c*(x0 - x1)\n- x2: as before, exchange with x3. dx2/dt = -c*x2 + c*x3\n- x3: opposite. dx3/dt = c*x2 - c*x3\n\nSample 2:\n- x0: maybe involve sinh(x0). dx0/dt = c*sinh(x0) - c*x1\n- x1: maybe dx1/dt = c*x0 - c*x1^2\n- x2: dx2/dt = -c*x2^2 + c*x3\n- x3: dx3/dt = c*x2 - c*x3^2\n\nSample 3:\n- x0: dx0/dt = -c*x0 * x1\n- x1: dx1/dt = c*(x0 - x1) / x0 (but division might complicate)\n- x2: dx2/dt = -c*x2 + c*x3*x0\n- x3: dx3/dt = c*x2 - c*x3\n\nSample 4:\n- x0: dx0/dt = c*x0 - c*x1 * x2\n- x1: dx1/dt = c*(x0^2 - x1)\n- x2: dx2/dt = -c*x2 + c*x3\n- x3: dx3/dt = c*x2 - c*x3\n\nSample 5:\n- x0: dx0/dt = c*x1 - c*x0\n- x1: dx1/dt = c*x0 - c*x1\n- x2: dx2/dt = -c*x2 + c*x3\n- x3: dx3/dt = c*x2 - c*x3\n\nBut I need to make sure that each sample uses the variables appropriately and the equations are algebraic. Also, check that each equation uses variables and constants only. Let me structure each sample as a JSON object with 4 equations separated by pipes. For example:\n\nSample 1:\n{\n  \"eq\": \"c*x0 + c*x1 - c*x2 | c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\",\n  \"dim\": 4\n}\n\nSample 2 might have more complex terms. Let me check for each sample to ensure they fit the criteria. Also, make sure that all variables aren't required to be used. So, for example, in a sample, maybe x3 isn't used in x0's equation.\n\nBut the data shows that x3 is increasing, so the equations for x3 need to have a net positive change. The equations for x2 and x3 in samples should reflect their exchange. \n\nAnother thing: the  mentioned that the equations should fit the time series data well. So the generated ODEs should, when simulated, produce similar trends. Since the  is providing sample data, maybe the ODEs should reflect the observed dynamics. For example, x3 increases linearly, which might be modeled by a constant term plus exchange. But since constants are only c, perhaps c is a positive value leading to the increase.\n\nIn any case, generating five variations with different combinations of terms while adhering to the constraints. Now, let's structure the five JSON samples accordingly.\n</think>\n\n{\"eq\": \"c*x0 + c*x1 - c*x2 | c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4}, {\"eq\": \"c*sin(x0) - c*x1 | c*(x1^2 - x0) | -c*x2^2 + c*x3 | c*x2 - c*x3\", \"dim\": 4}, {\"eq\": \"c*x0/x1 - c*x2 | c*(x1 - x0) | -c*x2 + c*x3*x0 | c*x2 - c*x3\", \"dim\": 4}, {\"eq\": \"c*sqrt(x0) - c*x1*x2 | c*x0^2 - c*x1 | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4}, {\"eq\": \"c*(x1 - x0) | c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "22/07/2025 07:16:13",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_0 + c*x_1 - c*x_2, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0 + c*x_1 - c*x_2, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [-c*x_1 + c*sin(x_0), c*(c*x_1 - x_0), c**2*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0/x_1 - c*x_2, c*(-x_0 + x_1), c*x_0*x_3 + c*x_2, c*x_2 - c*x_3], [c*sqrt(x_0) - c*x_1*x_2, c**2*x_0 - c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_0 + x_1), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3]]"
+    },
+    {
+        "timestamp": "22/07/2025 07:16:13",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:00",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five synthetic ODE s for the calcium dynamics context. The variables are x0 (membrane voltage), x1 (K current gate), x2 (intracellular calcium), and x3 (reticular calcium). The equations should model plausible interactions using algebraic expressions with variables x0-x3 and constants c. Let me start by thinking about the relationships between these variables.\n\nFirst, membrane potential (x0) often affects ion channels. For example, x1 might depend on x0 through a voltage-gated process. Maybe a term like c*(x0 - c) to represent a voltage-dependent activation or inactivation.\n\nFor x1 (n gate), a common model is a first-order differential equation with terms depending on x0. Perhaps something like c*(1 - x1) * (x0 - c) - c*x1, where the first term represents activation and the second inactivation. This would model the gate's voltage dependence.\n\nCalcium dynamics involve the exchange between intracellular (x2) and reticular (x3) stores. Typically, Ca2+ is pumped from the cytoplasm to the reticulum, which could be modeled as a flux term. Maybe c*(x3 - x2) for passive diffusion and c*(x3^2 - x2^2) for active transport, which might depend on the square of concentrations for a saturation effect.\n\nAlternatively, for x2, a leak from the reticulum could be represented by a term like c*x3 - c*x2. Similarly, x3 might have a term that depends on x2, like c*x2 - c*x3, plus another term involving x0, since membrane voltage can affect ion pumps. Maybe something like c*x2 - c*x3 + c*sin(x0) to introduce a periodic component influenced by voltage.\n\nLet me ensure that each equation uses a combination of variables and constants, keeping the expressions as simple as possible. I'll need to create five variations. Each ODE  should have four equations, one for each variable.\n\nFor example:\n\n1. dx0/dt could be a linear combination of x1, x2, and x3. Maybe c*x1 - c*x2 + c*x3.\n2. dx1/dt might involve a product with x0 and a sigmoidal function. Like c*x0*(x1^2) - c*x1.\n3. dx2/dt could involve terms from x3 and a decay term. Maybe c*(x3 - x2) - c*x2^2.\n4. dx3/dt might be a reverse of dx2/dt, with a coupling to x0. Perhaps c*x2 - c*x3 + c*sin(x0).\n\nI need to vary the equations each time, ensuring they are plausible. Let me check for each dimension and ensure that all variables are allowed. Also, make sure the operations are allowed (no exponents beyond basic ones). Let me structure each JSON object with four equations separated by pipes. Now, generate five different s following these ideas.\n</think>\n\n[{\"eq\": \"c*x1 - c*x0*x2 | c*x0*x1 - c*x1^2 | c*(x3 - x2) - c*x2^2 | c*x2 - c*x3 + c*sin(x0)\", \"dim\": 4}, {\"eq\": \"c*x1 - c*x0^2 | c*x0*(1 - x1) - c*x1 | c*(x3^2 - x2^2) | c*x2 - c*x3 + c*exp(-x0/c)\", \"dim\": 4}, {\"eq\": \"c*x1*x2 - c*x0 | c*x0 - c*x1^3 | c*x3 - c*x2 - c*x2*x3 | c*x2 - c*x3 + c*log(1 + x0)\", \"dim\": 4}, {\"eq\": \"c*(x1 - x0) | c*x0 - c*x1^2 | c*x3 - c*x2 + c*x2^2 | c*x2 - c*x3 + c*sqrt(x0^2 + 1)\", \"dim\": 4}, {\"eq\": \"c*x1 - c*x0*x3 | c*x0*(x1 - 1) | c*x3*(1 - x2) - c*x2 | c*x2 - c*x3 + c*tan(x0/c)\", \"dim\": 4}]."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[-c*x_0*x_2 + c*x_1, -c**2*x_1 + c*x_0*x_1, -c**2*x_2 + c*(-x_2 + x_3), c*x_2 - c*x_3 + c*sin(x_0)], [-c**2*x_0 + c*x_1, c*x_0*(c - x_1) - c*x_1, c*(-c*x_2 + c*x_3), c*x_2 - c*x_3 + c*exp(-x_0/c)], [-c*x_0 + c*x_1*x_2, -c**2*x_1 + c*x_0, -c*x_2*x_3 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*log(c + x_0)], [c*(-x_0 + x_1), -c**2*x_1 + c*x_0, c**2*x_2 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*sqrt(c*x_0 + c)], [-c*x_0*x_3 + c*x_1, c*x_0*(-c + x_1), -c*x_2 + c*x_3*(c - x_2), c*x_2 - c*x_3 + c*tan(x_0/c)]]"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "INFO",
+        "message": "Generated 21 functions: [[-c*x_1 - c*x_2 + c*x_3, c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [-c*x_1*x_2 + c*x_3, c*x_0*x_1 + c*(c - x_1), c**2*x_2 + c*x_3, -c**2*x_3 + c*x_2], [-c*x_1 - c*x_2 + c*exp(x_3), c*x_0*x_1 + c*(c - x_1), c*x_2 + c*x_3*log(c + x_3), c*x_2 - c*x_3], [-c*x_1 + c*sin(x_3), c*sqrt(x_0) + c*x_1, c*x_2 + c*x_3, c**2*x_2 - c*x_3], [-c*x_1 + c*x_3, c*x_1 + c*(x_0 - x_1), c*x_2 + c*(-x_2 + x_3), c*x_0 + c*x_2 - c*x_3], [c*(-x_0 + x_1) + c*(-x_0 + x_2), -c*x_1 + c*(x_0 - x_1), -c*x_2 + c*(-x_2 + x_3), -c*x_3 + c*(-x_2 + x_3)], [c*x_0 - c*x_1 - c*x_2, -c**2*x_1 + c*x_0*x_1, -c**2*x_2 + c*x_3, c*x_2 + c*x_3], [-c*x_0 + c*x_1*exp(-x_0), c*x_0*sin(x_1) - c*x_1, c*(-x_2 + x_3), c*x_2 + c*x_3], [-c*x_0*x_1 + c*x_2, -c*x_0*x_1 + c*(c - x_1), c**2*x_3 - c*x_2, c*x_2 + c*x_3], [c*x_0*x_1 - c*x_2, -c**2*x_1 + c*x_0, -c**2*x_2 + c*x_3, c*x_2 + c*x_3], [c*x_0 + c*x_1 - c*x_2, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0 + c*x_1 - c*x_2, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [-c*x_1 + c*sin(x_0), c*(c*x_1 - x_0), c**2*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_0/x_1 - c*x_2, c*(-x_0 + x_1), c*x_0*x_3 + c*x_2, c*x_2 - c*x_3], [c*sqrt(x_0) - c*x_1*x_2, c**2*x_0 - c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_0 + x_1), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [-c*x_0*x_2 + c*x_1, -c**2*x_1 + c*x_0*x_1, -c**2*x_2 + c*(-x_2 + x_3), c*x_2 - c*x_3 + c*sin(x_0)], [-c**2*x_0 + c*x_1, c*x_0*(c - x_1) - c*x_1, c*(-c*x_2 + c*x_3), c*x_2 - c*x_3 + c*exp(-x_0/c)], [-c*x_0 + c*x_1*x_2, -c**2*x_1 + c*x_0, -c*x_2*x_3 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*log(c + x_0)], [c*(-x_0 + x_1), -c**2*x_1 + c*x_0, c**2*x_2 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*sqrt(c*x_0 + c)], [-c*x_0*x_3 + c*x_1, c*x_0*(-c + x_1), -c*x_2 + c*x_3*(c - x_2), c*x_2 - c*x_3 + c*tan(x_0/c)]]."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "INFO",
+        "message": "Expression [-c*x_1 + c*sin(x_3), c*sqrt(x_0) + c*x_1, c*x_2 + c*x_3, c**2*x_2 - c*x_3] is not valid."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:03",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:04",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:05",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:06",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:07",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "INFO",
+        "message": "Expression [c*x_0/x_1 - c*x_2, c*(-x_0 + x_1), c*x_0*x_3 + c*x_2, c*x_2 - c*x_3] is not valid."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "INFO",
+        "message": "Expression [c*sqrt(x_0) - c*x_1*x_2, c**2*x_0 - c*x_1, c*x_2 + c*x_3, c*x_2 - c*x_3] is not valid."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:08",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:09",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "invalid value encountered in log"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "ERROR",
+        "message": "fit_score: error: SVD did not converge in Linear Least Squares"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "INFO",
+        "message": "Expression [-c*x_0 + c*x_1*x_2, -c**2*x_1 + c*x_0, -c*x_2*x_3 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*log(c + x_0)] is not valid."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "INFO",
+        "message": "Expression [c*(-x_0 + x_1), -c**2*x_1 + c*x_0, c**2*x_2 - c*x_2 + c*x_3, c*x_2 - c*x_3 + c*sqrt(c*x_0 + c)] is not valid."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:10",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Num candidate expressions: 15"
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n0   [-c*x_1 - c*x_2 + c*x_3, c*x_1, c*x_2 + c*x_3,...  ...  [12.5428*x_1 - 1.9211*x_2 + 0.2392*x_3, -0.285...\n9   [c*x_0 + c*x_1 - c*x_2, c*(x_0 - x_1), c*x_2 +...  ...  [-0.004*x_0 + 12.7232*x_1 - 2.2149*x_2, -0.288...\n1   [-c*x_1*x_2 + c*x_3, c*x_0*x_1 + c*(c - x_1), ...  ...  [5.764*x_1*x_2 + 0.1593*x_3, 0.0052*x_0*x_1 + ...\n5   [c*x_0 - c*x_1 - c*x_2, -c**2*x_1 + c*x_0*x_1,...  ...  [-0.004*x_0 + 12.7232*x_1 - 2.2149*x_2, 0.0052...\n2   [-c*x_1 - c*x_2 + c*exp(x_3), c*x_0*x_1 + c*(c...  ...  [11.9028*x_1 - 1.8075*x_2 + 0.0857*exp(x_3), 0...\n11  [-c*x_1 + c*sin(x_0), c*(c*x_1 - x_0), c**2*x_...  ...  [4.5355*x_1 + 0.1461*sin(x_0), -0.2881*x_1, -0...\n15  [-c*x_0*x_3 + c*x_1, c*x_0*(-c + x_1), -c*x_2 ...  ...  [-0.0018*x_0*x_3 + 2.6172*x_1, 0.0038*x_0*x_1,...\n14  [-c**2*x_0 + c*x_1, c*x_0*(c - x_1) - c*x_1, c...  ...  [-0.0021*x_0 + 1.9681*x_1, 0.0052*x_0*x_1 + 0....\n12  [c*(-x_0 + x_1), c*(x_0 - x_1), c*x_2 + c*x_3,...  ...  [-0.0021*x_0 + 1.9681*x_1, -0.2881*x_1, -0.201...\n13  [-c*x_0*x_2 + c*x_1, -c**2*x_1 + c*x_0*x_1, -c...  ...  [-0.0274*x_0*x_2 - 7.6938*x_1, 0.0052*x_0*x_1 ...\n8   [c*x_0*x_1 - c*x_2, -c**2*x_1 + c*x_0, -c**2*x...  ...  [0.0917*x_0*x_1 + 1.9418*x_2, -0.2881*x_1, -0....\n7   [-c*x_0*x_1 + c*x_2, -c*x_0*x_1 + c*(c - x_1),...  ...  [0.0917*x_0*x_1 + 1.9418*x_2, 0.0052*x_0*x_1 +...\n3   [-c*x_1 + c*x_3, c*x_1 + c*(x_0 - x_1), c*x_2 ...  ...  [2.6458*x_1 + 0.1331*x_3, -0.0002*x_0 - 0.2929...\n6   [-c*x_0 + c*x_1*exp(-x_0), c*x_0*sin(x_1) - c*...  ...  [-0.0029*x_0, 0.0057*x_0*sin(x_1) + 0.1476*x_1...\n4   [c*(-x_0 + x_1) + c*(-x_0 + x_2), -c*x_1 + c*(...  ...  [-0.1929*x_0 + 20.4219*x_1 - 4.6507*x_2 - 13.8...\n\n[15 rows x 5 columns]."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Succesfully generated 21 seed functions in 1799.8965598269715 seconds."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Initial proposals already meet the tolerance."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "22/07/2025 07:20:11",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpyb806dvs'>"
+    }
+]

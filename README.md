@@ -25,34 +25,37 @@ pip install -r requirements.txt
 
 ```
 SymbolBench/
-├── pipeline.py              # Main pipeline for LLM-based symbolic regression
-├── hybrid_pipeline.py       # Hybrid pipeline combining LLM with genetic programming
-├── conf/                    # Hydra configuration files
-│   ├── model/              # Model configurations (GPT, Qwen, DeepSeek, etc.)
-│   ├── experiment/         # Experiment configurations (BN, DE, SCM)
-│   └── dataset/            # Dataset configurations
-├── scripts/                 # Experiment scripts
-│   ├── BN/                 # Boolean Network experiments
-│   ├── DE/                 # Differential Equation experiments
-│   │   ├── strogatz/      # Strogatz dataset scripts
-│   │   └── physiome/      # Physiome dataset scripts
-│   └── SCM/                # Structural Causal Model experiments
-├── data/                    # Datasets
-├── datasets/                # Dataset loaders
-├── models/                  # Model implementations
-├── prompts/                 # Prompt templates for each task
-├── verifiers/               # Verification modules for each task
-├── analysis/                # Analysis scripts
-└── summary/                 # Result summarization scripts
+├── README.md                # Project documentation
+├── requirements.txt         # Python dependencies
+└── src/                     # Source code
+    ├── pipeline.py          # Main pipeline for LLM-based symbolic regression
+    ├── hybrid_pipeline.py   # Hybrid pipeline combining LLM with genetic programming
+    ├── conf/                # Hydra configuration files
+    │   ├── model/          # Model configurations (GPT, Qwen, DeepSeek, etc.)
+    │   ├── experiment/     # Experiment configurations (BN, DE, SCM)
+    │   └── dataset/        # Dataset configurations
+    ├── scripts/             # Experiment scripts
+    │   ├── BN/             # Boolean Network experiments
+    │   ├── DE/             # Differential Equation experiments
+    │   │   ├── strogatz/  # Strogatz dataset scripts
+    │   │   └── physiome/  # Physiome dataset scripts
+    │   └── SCM/            # Structural Causal Model experiments
+    ├── data/                # Datasets
+    ├── datasets/            # Dataset loaders
+    ├── models/              # Model implementations
+    ├── prompts/             # Prompt templates for each task
+    ├── verifiers/           # Verification modules for each task
+    ├── analysis/            # Analysis scripts
+    └── summary/             # Result summarization scripts
 ```
 
 ## Configuration
 
-**Step1:** Go to the conf/config.yaml and set the "root:" to your own directory.
+**Step1:** Go to the `src/conf/config.yaml` and set the "root:" to your own directory.
 
-**Step2:** Configure model caching directory for each model file (e.g., conf/model/ChatTS-14B.yaml sets "cache_dir: '/home/ubuntu/models'")
+**Step2:** Configure model caching directory for each model file (e.g., `src/conf/model/ChatTS-14B.yaml` sets "cache_dir: '/home/ubuntu/models'")
 
-**Step3 (optional):** If using models from OpenAI of TogetherAI, set your API keys within scripts under the ***script*** folder:
+**Step3 (optional):** If using models from OpenAI or TogetherAI, set your API keys within scripts under the `src/scripts/` folder:
 
 ```bash
 export OPENAI_API_KEY="your_openai_api_key_here"
@@ -60,6 +63,12 @@ export TOGETHER_API_KEY="your_together_api_key_here"
 ```
 
 ## Running Experiments
+
+All commands should be run from the `src/` directory:
+
+```bash
+cd src
+```
 
 ### Quick Run:
 
@@ -113,6 +122,8 @@ bash scripts/SCM/SCM_reasoning.sh <start_idx> <end_idx> <batch_size> <model>
 
 ## Evaluation
 
+Run evaluation scripts from the `src/` directory:
+
 ### Evaluate Boolean Networks
 ```bash
 python evaluate_bn.py --OOD 0
@@ -131,7 +142,7 @@ python evaluate_scm.py
 
 ## Supported Models
 
-The benchmark supports various LLMs through configuration files in `conf/model/`. Currently, models from **OpenAI**, **TogetherAI**, and **HuggingFace** are supported
+The benchmark supports various LLMs through configuration files in `src/conf/model/`. Currently, models from **OpenAI**, **TogetherAI**, and **HuggingFace** are supported
 
 ## Experiment Settings
 
@@ -154,9 +165,9 @@ Each task supports four experimental settings:
 
 ## Output
 
-Results are saved in the `runs/` directory with the following structure:
+Results are saved in the `src/runs/` directory with the following structure:
 ```
-runs/<model>/<modality>/<experiment_name>/Expr_<idx>/
+src/runs/<model>/<modality>/<experiment_name>/Expr_<idx>/
 ├── final_results.npy 
 └── ...
 ```

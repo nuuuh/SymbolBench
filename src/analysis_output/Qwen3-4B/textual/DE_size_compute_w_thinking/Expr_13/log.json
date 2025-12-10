@@ -1,0 +1,622 @@
+[
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-4B/textual/DE_size_compute_w_thinking/Expr_13/."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Slurm job ID: 287."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 1203329429."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Using device: cuda:2 with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 13."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Groundtruth Function:                domain             model  ... substituted solutions\n12  electrophysiology  gall_susa_1999_c  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "12/07/2025 11:12:42",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:45",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-4B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "12/07/2025 11:12:46",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 11:15:03",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five synthetic ODE s for electrophysiology, using the variables x0 to x3. The equations must be in a specific JSON format with certain constraints.\n\nFirst, I need to understand the variables. x0 is membrane potential in millivolts, x1 is the n gate of a potassium current, x2 is intracellular calcium concentration, and x3 is the calcium in the reticular compartment. The time series data shows x0 decreasing slowly, x1 decreasing, x2 decreasing, and x3 increasing. So, the  might model a process where calcium is being released or moved between compartments, affecting the membrane potential and the gate states.\n\nThe requirements say that equations can only use x0 to x3 and constants c. They need to be algebraic expressions with basic operations, trigonometric functions, etc. Also, each sample should have a good fitting score and low complexity.\n\nLet me think about possible relationships. For x0, which is the membrane potential, maybe it's influenced by the calcium concentrations. For example, calcium influx could affect the membrane potential. x1 is a gate variable for a potassium current, so its dynamics might be related to calcium levels. x2 and x3 are calcium concentrations, so maybe there's a coupling between them, like calcium moving from one compartment to another.\n\nFirst sample: Maybe x0 is driven by a constant c, but that seems too simple. Alternatively, x0 could be a function of x2 and x3. For example, x0 might be influenced by the difference between x2 and x3. So, something like x0 = c*(x2 - x3) + some term. But the ODEs need to be differential equations, so maybe the rate of change of x0 is related to the other variables.\n\nWait, the  says it's a  of ODEs. So each x_i's derivative would be an expression involving the other variables. For example, dx0/dt = c*(x2 - x3). But the example given in the prompt has equations that are algebraic expressions, not necessarily derivatives. Wait, no, the example shows equations as if they are the right-hand sides of the ODEs. For example, in the example, the first equation is \"c*x_0*x_1 + c*x_2 - c*x_3 + c\", which would be the derivative of x0, maybe.\n\nSo the task is to create a  where each equation is the derivative of x_i. But the  didn't specify if they're ODEs or algebraic equations. Wait, the first requirement says \"synthetic ordinary differential equation (ODE) or a  of coupled ODEs\". So the equations are the right-hand sides of the ODEs. So each equation is dx_i/dt = some expression.\n\nBut the example given in the prompt is a  of equations separated by |, which would correspond to different ODEs. So, for example, the first sample has four equations for dim=4.\n\nSo, I need to create four equations for each sample, each being the derivative of x0, x1, x2, x3. Each equation is an algebraic expression involving the variables and constants.\n\nNow, considering the data. The membrane potential (x0) is decreasing slowly. The n gate (x1) is decreasing, and x2 is decreasing, x3 is increasing. So, perhaps x0 is being affected by some calcium dynamics. For example, if calcium is entering the cell, it might cause a depolarization (increase in V), but the data shows V decreasing, so maybe calcium is leaving, or the current is affecting it.\n\nAlternatively, maybe the  is modeling a neuron's behavior where calcium is released into the cytoplasm (x2) and then maybe moves to the reticular compartment (x3). So, x3 could be a reservoir, and x2 is the active intracellular calcium. The n gate (x1) could be part of a potassium current that's regulated by calcium. So, perhaps x1's dynamics depend on calcium levels, and x0 is influenced by the potassium current and calcium.\n\nLet me think of possible equations. For x1, the gate variable might be governed by a rate equation involving calcium. For example, dx1/dt = c*(x2 - x3) * x1*(1 - x1). That's a common form for activation variables, like the Hodgkin-Huxley model. But the variables here are x2 and x3, so maybe dx1/dt = c*(x2 - x3) * x1*(1 - x1). That would make sense as a dynamic for x1.\n\nFor x0, maybe it's driven by the potassium current (which is related to x1) and calcium. For example, dx0/dt = -c * x1 + c * (x3 - x2). This would mean that the potassium current (x1) is causing a negative change in V, and calcium movement (x3 - x2) might be causing a positive change. But the data shows x0 decreasing, so maybe the potassium current is dominant.\n\nFor x2 and x3, perhaps they are governed by a simple exchange. For example, dx2/dt = -c * (x2 - x3), which would make x2 decrease and x3 increase as time goes on. This is a simple diffusion-like equation.\n\nSo putting that together, the first sample could be:\n\ndx0/dt = -c * x1 + c * (x3 - x2)\ndx1/dt = c * (x2 - x3) * x1 * (1 - x1)\ndx2/dt = -c * (x2 - x3)\ndx3/dt = c * (x2 - x3)\n\nBut need to check the format. The example uses expressions with +, -, *, /, etc. Also, need to use only the variables x0 to x3 and constants c.\n\nAnother possibility is that the equations are simpler. For example, maybe x0 is a function of x1 and x2, and x1 is a function of x2 and x3, etc. But need to ensure that the equations fit the data trends.\n\nAlternatively, since the data shows x0 decreasing, x1 decreasing, x2 decreasing, x3 increasing. So perhaps:\n\ndx0/dt = -c * x1\ndx1/dt = -c * x1\ndx2/dt = -c * x2\ndx3/dt = c * x3\n\nBut this would make x0 decrease exponentially, x1 decrease, x2 decrease, x3 increase. But the x1 data shows a more gradual decrease, and the x3 increases. But the equations here are linear, and the data might not fit well. However, the  said that the equations should first achieve a good fitting score. So maybe linear equations are sufficient.\n\nBut maybe the  is more complex. For example, x0 is influenced by x1 and x3. For example, dx0/dt = -c * x1 + c * x3. Then, x1 is a function of x2, like dx1/dt = c * x2. x2 is a function of x3, dx2/dt = -c * x3, and x3 is a function of x2, dx3/dt = c * x2. But that would create a  where x2 and x3 are inversely related, which might fit the data.\n\nAlternatively, think of x2 and x3 as two compartments exchanging calcium. So dx2/dt = -c*(x2 - x3) and dx3/dt = c*(x2 - x3). Then, x0 could be influenced by x2 and x3. Maybe dx0/dt = -c*(x2 - x3) - c*x1.\n\nFor x1, maybe it's a function of x2. For example, dx1/dt = c*(x2 - x3) * x1*(1 - x1). That's similar to the standard activation curve for a gate variable.\n\nSo, the first sample could be:\n\ndx0/dt = -c*x1 - c*(x2 - x3)\ndx1/dt = c*(x2 - x3)*x1*(1 - x1)\ndx2/dt = -c*(x2 - x3)\ndx3/dt = c*(x2 - x3)\n\nThis  has some coupling between x2 and x3, and x1 depends on their difference. x0 is affected by x1 and the difference between x2 and x3. This seems plausible for electrophysiology.\n\nAnother sample might be simpler. For example, x0 is driven by a constant c, and the other variables are functions of each other. For instance:\n\ndx0/dt = c\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nBut this would make x0 increase, but the data shows x0 decreasing. So maybe dx0/dt = -c. Then, x0 is a constant, but that doesn't fit the data. Alternatively, maybe x0 is a function of x3. For example, dx0/dt = -c*x3. But x3 is increasing, so that would cause x0 to decrease, which matches the data.\n\nBut then, for x1, maybe dx1/dt = -c*x1. For x2, dx2/dt = -c*x2. For x3, dx3/dt = c*x3. This would make x3 increase exponentially, which matches the data. x0 would decrease if dx0/dt = -c*x3. But x3 is increasing, so x0 would decrease over time. That seems plausible. However, this would be a  with different dynamics for each variable, which is possible.\n\nSo for the second sample, the equations could be:\n\ndx0/dt = -c*x3\ndx1/dt = -c*x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nThis is a simple  where x3 increases, x2 decreases, x1 decreases, and x0 decreases as x3 increases. This might fit the data, especially if the data for x3 is exponential.\n\nThird sample: Maybe the equations are more coupled. For example, x1 depends on x2 and x3, and x0 depends on x1 and x2. For example:\n\ndx0/dt = -c*x1 + c*x2\ndx1/dt = c*(x2 - x3) * x1*(1 - x1)\ndx2/dt = -c*x2 + c*x3\ndx3/dt = c*x3\n\nThis  has x2 and x3 exchanging, and x0 depends on x1 and x2. x1 is again a gate variable. This might fit the data.\n\nFourth sample: Maybe x0 is influenced by the difference between x3 and x2, and x1 is a function of x2. For example:\n\ndx0/dt = c*(x3 - x2)\ndx1/dt = c*(x2 - x3)*x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nThis would make x2 decrease, x3 increase, and x0 change based on their difference. x1 is a function of the difference between x2 and x3, which could be positive or negative.\n\nFifth sample: Perhaps x0 is a function of x1 and x3, and x1 is a function of x2 and x3. For example:\n\ndx0/dt = -c*x1 + c*x3\ndx1/dt = c*(x2 - x3) * x1\ndx2/dt = -c*x2\ndx3/dt = c*x3\n\nThis  would have similar elements to previous ones, but with some variations.\n\nNow, I need to check if these equations are algebraic expressions, using only the variables and constants. Also, ensure that they are in the correct format with the pipe symbol separating the equations.\n\nEach sample should be a JSON object with \"eq\" and \"dim\" as 4. The equations need to be in a format like \"c*x_0 + c*x_1 | ...\", but here the equations are for the derivatives, so each part would be the derivative expression.\n\nSo, for the first sample, the equations would be:\n\ndx0/dt = -c*x1 - c*(x2 - x3)\ndx1/dt = c*(x2 - x3)*x1*(1 - x1)\ndx2/dt = -c*(x2 - x3)\ndx3/dt = c*(x2 - x3)\n\nSo the JSON would be:\n\n{\n  \"eq\": \"-c*x_1 - c*(x_2 - x_3) | c*(x_2 - x_3)*x_1*(1 - x_1) | -c*(x_2 - x_3) | c*(x_2 - x_3)\",\n  \"dim\": 4\n}\n\nBut the 's example uses \"c*x_0*x_1 + c*x_2 - c*x_3 + c\", so perhaps each equation is the right-hand side, with the variables and constants. So the first sample's equations are as above.\n\nNow, ensuring that the equations are as per the 's requirements. Also, the equations should have a good fitting score, which in this case might be achieved by having terms that match the observed trends. For example, the first sample has x2 and x3 being inversely related, which matches the data (x2 decreasing, x3 increasing). The equations for x0, x1, etc., are designed to reflect those dynamics.\n\nI need to generate five such samples, each with different expressions. Let's create five different s that are simple and plausible for electrophysiology, using the variables and constants as per the rules.\n</think>\n\n{\"eq\": \"-c*x_1 - c*(x_2 - x_3) | c*(x_2 - x_3)*x_1*(1 - x_1) | -c*(x_2 - x_3) | c*(x_2 - x_3)\", \"dim\": 4}, {\"eq\": \"-c*x_3 | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"c*(x_3 - x_2) | c*(x_2 - x_3)*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"c*(x_3 - x_2) | -c*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}, {\"eq\": \"c*(x_3 - x_2) | c*(x_2 - x_3)*x_1 | -c*x_2 | c*x_3\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 11:15:03",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_3, c*x_1, c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1*(x_2 - x_3), c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1*(x_2 - x_3), c*x_2, c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 11:15:03",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 11:18:45",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, let's tackle this problem. The  wants me to generate five sets of synthetic ODEs for an electrophysiology context. The variables are x0 (membrane potential), x1 (n gate for K current), x2 (Ca_i concentration), and x3 (Ca_ret concentration). The equations need to be algebraic expressions using only x0 to x3 and constants c. Also, the equations should fit the given time series data, which shows x0 increasing slowly from -76 mV to around -73 mV, x1 decreasing from 0.1 to near 0, x2 decreasing, and x3 increasing.\n\nFirst, I need to think about how these variables relate in electrophysiology. The membrane potential (x0) is likely influenced by ionic currents. The n gate (x1) is part of a potassium current, which might be activated by voltage changes. Calcium concentrations (x2 and x3) are involved in intracellular signaling, with Ca_i being the free calcium and Ca_ret possibly the calcium stored in the reticulum.\n\nLooking at the data, x0 is increasing, which might be due to depolarization. The n gate is decreasing, which could indicate that the K current is decreasing as the cell depolarizes. Calcium concentrations: x2 is decreasing, possibly due to being used in the cell, while x3 is increasing, maybe as it's being released from the reticulum.\n\nFor the ODEs, each equation should relate the variables. Since x0 is the membrane potential, its rate of change might depend on the current, which could involve x1 (K current) and other currents. However, the equations need to be algebraic, not involving derivatives. Wait, the problem says ODEs, but the equations must be algebraic expressions. Wait, no. Wait, the  says \"generate a synthetic ordinary differential equation (ODE) or a  of coupled ODEs\". But in the format example, the equations are algebraic expressions. Wait, maybe there's confusion here. The  says equations must be algebraic expressions involving x variables and constants. But ODEs typically involve derivatives. But the example given has equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\", which are algebraic, not involving derivatives. Wait, maybe the  is using the term ODE in a different way here. Maybe the  is supposed to model the dynamics, but the equations are algebraic, perhaps as part of a  that could be solved numerically. But the problem says ODEs, but the equations are algebraic. Hmm, maybe the  made a mistake, but according to the instructions, the equations must be algebraic expressions, not involving derivatives. So the  is a set of equations that could represent the state of the , not the derivatives. But the problem mentions ODEs, which usually involve derivatives. Maybe this is a misunderstanding, but according to the example given, the equations are algebraic. So I need to proceed with that.\n\nSo, for each variable, the equations should describe how they are related. For example, x0 might depend on the difference between the calcium concentrations and other terms. Let's think about possible relationships.\n\nx0 (V) is the membrane potential. In electrophysiology, the membrane potential can be influenced by ionic currents. However, since the equations are algebraic, not differential, perhaps the  is a set of equations that describe the state variables. But that's unclear. However, given the example provided by the , it's likely that the equations are algebraic, not involving time derivatives. Therefore, the  is a set of equations that relate the variables, possibly representing a steady state or some other relationship.\n\nBut given that the time series data is provided, which shows x0 changing over time, the  must model the dynamics. However, the equations are algebraic expressions, which suggests that the ODEs are expressed in terms of the variables and constants. Wait, perhaps the  made a mistake in the instructions. Alternatively, maybe the  is a set of algebraic equations that could be part of a larger ODE . But given the example, I need to generate equations that are algebraic expressions involving the variables and constants.\n\nAlternatively, maybe the  wants ODEs, but the equations are algebraic expressions of the derivatives. For example, dx0/dt = ... where the right-hand side is an algebraic expression. But the 's example shows that the equations are not involving derivatives. For example, the example given has equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\", which are algebraic, not involving derivatives. Therefore, perhaps the  wants a  of algebraic equations, not ODEs. But the initial instruction says \"generate a synthetic ordinary differential equation (ODE) or a  of coupled ODEs\". This is conflicting.\n\nBut given the example provided by the , the equations are algebraic. Therefore, I need to proceed with generating algebraic equations that relate the variables. However, the time series data shows dynamic changes, so the  must model how these variables change over time. But since the equations are algebraic, maybe the  is a set of equations that can be used in a model where the time derivative is determined by these equations. Alternatively, maybe the equations are part of a model where the variables are related in a way that can be used for numerical solving.\n\nAlternatively, maybe the equations are the right-hand sides of ODEs. For example, dx0/dt = c*x0 + ... etc. But the 's example shows equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c\", which would be the right-hand side of an ODE. So perhaps the equations are the ODEs, but the example shows them as algebraic expressions. So, the  is asking for ODEs where the right-hand sides are algebraic expressions.\n\nSo, the  is a set of ODEs, where each equation is an algebraic expression involving the variables and constants. For example, dx0/dt = c*x0 + c*x1 - c*x2 + c. But the example given in the problem has equations separated by |, so for a  of equations, each equation is separated by |. So, the example is for a  of 4 equations (dim=4), each equation is an algebraic expression for the derivative.\n\nSo, given that, I need to create ODEs where the right-hand side is an algebraic expression of the variables and constants.\n\nLooking at the data: x0 is increasing, x1 is decreasing, x2 is decreasing, x3 is increasing.\n\nIn electrophysiology, the membrane potential (x0) is influenced by ionic currents. For example, the potassium current (n gate) would be involved in the flow of K+ ions, which would affect the membrane potential. The calcium concentrations (x2 and x3) are related to intracellular calcium levels, which can influence various channels and currents.\n\nLet's think about possible relationships. For example, the membrane potential might be influenced by the difference between the calcium concentrations. For example, x0 could be a function of x3 (Ca_ret) and x2 (Ca_i), but how?\n\nAlternatively, the n gate (x1) might be part of the activation of the K current, which would depend on the membrane potential. For example, the rate of change of x1 could be a function of x0. But since the equations are algebraic, perhaps the rate of change is determined by the expression. But the  wants the ODEs, which would have derivatives on the left-hand side.\n\nBut the example given by the  shows equations like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\", which are the right-hand sides of the ODEs. So, the  is a set of ODEs where the right-hand side is an algebraic expression involving the variables and constants.\n\nSo, for each variable, the derivative is given by an algebraic expression. For example, dx0/dt = c*x0 + c*x1 - c*x2 + c, etc.\n\nBut the problem says that the  should model a plausible real-world or conceptual dynamical process in electrophysiology.\n\nLet's think about possible ODEs:\n\n1. For x0 (V): The membrane potential might depend on the difference between the intracellular and extracellular calcium concentrations. For example, the change in membrane potential could be related to the difference in calcium concentrations. But that's vague.\n\nAlternatively, x0 could be a function of the calcium concentrations. For example, x0 = c1*(x3 - x2) + c2. But that's just an algebraic equation, not an ODE.\n\nWait, but the  says that the equations are ODEs, so the left-hand side is the derivative of the variable. So, dx0/dt = c*(x3 - x2) + ... something. But the equations must be algebraic expressions involving x0, x1, x2, x3 and constants c.\n\nAnother approach: the n gate (x1) is part of a potassium current. The activation of the n gate is voltage-dependent. So, maybe x1 is a function of x0. For example, dx1/dt = c*(x0 - c1)*x1*(1 - x1), which is a standard type of gating equation. But that's a differential equation. But the  wants the right-hand side of the ODE to be an algebraic expression. However, the example given in the problem includes terms like c*x0*x1, so perhaps the equations are linear or non-linear combinations.\n\nAlternatively, the  might not require the ODEs to be differential equations, but just a  of equations. But that's not clear. However, the example given by the  shows equations that are algebraic expressions, which are likely the right-hand sides of the ODEs. So, each equation is the derivative of the variable.\n\nGiven that, let's proceed.\n\nFor x0 (V), the membrane potential. In a simple model, the membrane potential could be influenced by the difference between the intracellular and extracellular calcium concentrations. For example, the change in membrane potential could be proportional to the difference in calcium concentrations. However, since the data shows x0 increasing, and x3 increasing while x2 decreasing, maybe x0 is related to (x3 - x2). For example, dx0/dt = c*(x3 - x2). But that's a simple equation.\n\nFor x1 (n gate), the activation of the n gate is typically voltage-dependent. The standard model for this is the Hodgkin-Huxley equations, but here we need a simpler form. For example, dx1/dt = c*(x0 - c1)*x1*(1 - x1). But this is a non-linear equation. However, the  says that the equations must be algebraic expressions involving only the variables and constants. But in this case, it's a differential equation. But the 's example shows that the right-hand side is an algebraic expression. So, the ODE would be dx1/dt = c*(x0 - c1)*x1*(1 - x1). But this uses x0 and x1. However, the problem says that the constants can be denoted by c. So, this is allowed.\n\nSimilarly, for x2 (Ca_i) and x3 (Ca_ret), their changes might be related to the current flowing through channels. For example, the change in Ca_i could be related to the difference between Ca_ret and Ca_i, but multiplied by some constant. For example, dx2/dt = c*(x3 - x2). Similarly, dx3/dt = -c*(x3 - x2), but that would make the equations dependent on each other.\n\nBut the 's example shows equations that are algebraic expressions. Let's think of a  that can be simplified and has low complexity.\n\nLet me try to create equations where:\n\ndx0/dt = c * (x3 - x2)\n\ndx1/dt = c * (x0 - c1) * x1 * (1 - x1)\n\ndx2/dt = -c * (x3 - x2)\n\ndx3/dt = c * (x3 - x2)\n\nBut this might not fit the data, but it's a possible structure. However, the constants are denoted by c. Wait, but in the problem statement, the  says that the constants should be denoted only by c. So, in this case, the equations would have constants c, but the actual values are not specified. So, for example, in dx1/dt = c*(x0 - c1)*x1*(1 - x1), but here c1 is a constant. Wait, but the  says that constants should be denoted by c. So, maybe the equations should only have c as the constant, not other constants. For example, the standard Michaelis-Menten equation has a constant K, but in this case, we need to use only c.\n\nAlternatively, the equations can have multiple c's as constants. The  says \"the constants should be denoted ONLY by c\". So, the constants are represented as c, and not other letters. So, in the equations, all constants are represented as c, possibly with different instances.\n\nBut the problem allows combining basic mathematical operations and constants. So, for example, the equation could be dx0/dt = c*(x3 - x2), which is a simple equation.\n\nAnother possible equation: dx1/dt = c*x0 - c*x1. This would make x1 depend on the membrane potential and itself. But given the data, x1 is decreasing, so maybe dx1/dt is negative, which would fit.\n\nBut the data shows x0 increasing, x1 decreasing, x2 decreasing, x3 increasing. So, for x0, if dx0/dt is positive, then x0 is increasing. For x1, if dx1/dt is negative, then x1 is decreasing. For x2, if dx2/dt is negative, then x2 is decreasing. For x3, if dx3/dt is positive, then x3 is increasing.\n\nSo, possible equations:\n\ndx0/dt = c*(x3 - x2) \u2192 this would be positive if x3 > x2, which matches the data.\n\ndx1/dt = -c*x1 + c*x0 \u2192 this would make x1 depend on x0 and itself. If x0 is increasing and x1 is decreasing, maybe this equation is plausible.\n\ndx2/dt = -c*(x3 - x2) \u2192 this would make x2 decrease if x3 > x2, which fits the data.\n\ndx3/dt = c*(x3 - x2) \u2192 this would make x3 increase if x3 > x2, which fits the data.\n\nBut this is a  where x0 and x3 are connected through x2. Also, x1 is connected to x0. This seems plausible for a .\n\nNow, check the equations:\n\ndx0/dt = c*(x3 - x2) \u2192 this is an algebraic expression involving x3 and x2.\n\ndx1/dt = c*x0 - c*x1 \u2192 this is an algebraic expression.\n\ndx2/dt = -c*(x3 - x2) \u2192 same as -c*x3 + c*x2.\n\ndx3/dt = c*(x3 - x2) \u2192 same as before.\n\nSo, this  has four equations. Let's check if this fits the data.\n\nIn the data, x3 increases while x2 decreases, so x3 - x2 is positive. Therefore, dx0/dt = c*(positive) \u2192 positive, which matches x0 increasing. dx3/dt is positive as well. dx2/dt is negative, so x2 decreases. dx1/dt is c*x0 - c*x1. If x0 is increasing and x1 is decreasing, then this equation could be plausible.\n\nBut how to make sure that the equations are simple and have low complexity. The equations are linear in terms of x0, x1, x2, x3, and c.\n\nSo, for the first sample, the equations could be:\n\ndx0/dt = c*(x3 - x2) | dx1/dt = c*(x0 - x1) | dx2/dt = -c*(x3 - x2) | dx3/dt = c*(x3 - x2)\n\nBut the 's example has equations separated by |, so for dim=4, the JSON would be:\n\n{\n  \"eq\": \"c*(x3 - x2) | c*(x0 - x1) | -c*(x3 - x2) | c*(x3 - x2)\",\n  \"dim\": 4\n}\n\nBut need to check the variables and constants. However, in the problem statement, the  says that the equations must be algebraic expressions involving only the x variables and constants c. So, the above is acceptable.\n\nBut wait, the first equation is c*(x3 - x2), which is correct. The second equation is c*(x0 - x1), which is linear. The third is -c*(x3 - x2), and the fourth is c*(x3 - x2).\n\nBut this  has some dependencies. For example, dx0/dt and dx3/dt are both c*(x3 - x2). Similarly, dx2/dt is -c*(x3 - x2). So, the  is symmetric in some way. However, this might be acceptable.\n\nAnother sample could be similar but with different terms. For example, dx1/dt = c*x0 - c*x1, which is the same as above. Alternatively, other combinations.\n\nBut the  requires five samples. So, each sample should have different equations but in the same structure. For example, maybe different combinations of variables.\n\nAnother possibility: for x1, dx1/dt = c*x0 - c*x1. For x2 and x3, dx2/dt = -c*x2 + c*x3, dx3/dt = c*x3 - c*x2. This is similar to the previous .\n\nBut maybe another  where x0 is related to x1, and x2 and x3 are related through each other.\n\nAnother sample could be:\n\ndx0/dt = c*x0 - c*x1\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x3 - c*x2\n\nBut this might be redundant, but it's acceptable.\n\nAnother sample could have different terms. For example:\n\ndx0/dt = c*x3 - c*x2\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x3 - c*x2\n\nThis is the same as the first sample, but perhaps different coefficients.\n\nBut the  wants the equations to have low complexity. So, the first sample seems acceptable.\n\nNow, generating five samples:\n\nSample 1:\n\ndx0/dt = c*(x3 - x2) | dx1/dt = c*(x0 - x1) | dx2/dt = -c*(x3 - x2) | dx3/dt = c*(x3 - x2)\n\nSample 2:\n\ndx0/dt = c*(x3 - x2) | dx1/dt = c*x0 - c*x1 | dx2/dt = -c*(x2 - x3) | dx3/dt = c*(x3 - x2)\n\nBut note that -c*(x2 - x3) is the same as c*(x3 - x2), so this is the same as Sample 1.\n\nAlternative approach: maybe use different variables. For example, have x1 depend on x3 and x2.\n\nSample 2:\n\ndx0/dt = c*x0 - c*x1\n\ndx1/dt = c*(x3 - x2)\n\ndx2/dt = -c*(x3 - x2)\n\ndx3/dt = c*(x3 - x2)\n\nThis way, x1 is influenced by x3 and x2.\n\nSample 3:\n\ndx0/dt = c*x0 - c*x1\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x3 - c*x2\n\nSample 4:\n\ndx0/dt = c*x3 - c*x2\n\ndx1/dt = c*x0 - c*x1\n\ndx2/dt = -c*x2 + c*x3\n\ndx3/dt = c*x3 - c*x2\n\nSample 5:\n\ndx0/dt = c*x0 - c*x1\n\ndx1/dt = c*(x3 - x2)\n\ndx2/dt = -c*(x3 - x2)\n\ndx3/dt = c*x3 - c*x2\n\nBut some of these might be similar. To ensure diversity, each sample should have different equations. However, given the constraints, some might be similar but still acceptable.\n\nAnother approach: vary the equations so that each has different combinations. For example:\n\nSample 1:\n\ndx0/dt = c*(x3 - x2) | dx1/dt = c*x0 - c*x1 | dx2/dt = -c*(x3 - x2) | dx3/dt = c*(x3 - x2)\n\nSample 2:\n\ndx0/dt = c*x0 - c*x1 | dx1/dt = c*(x3 - x2) | dx2/dt = -c*(x3 - x2) | dx3/dt = c*(x3 - x2)\n\nSample 3:\n\ndx0/dt = c*x3 - c*x2 | dx1/dt = c*x0 - c*x1 | dx2/dt = -c*x2 + c*x3 | dx3/dt = c*x3 - c*x2\n\nSample 4:\n\ndx0/dt = c*x0 - c*x1 | dx1/dt = c*(x0 - x1) | dx2/dt = -c*(x2 - x3) | dx3/dt = c*(x3 - x2)\n\nSample 5:\n\ndx0/dt = c*(x3 - x2) | dx1/dt = c*x0 - c*x1 | dx2/dt = -c*x2 + c*x3 | dx3/dt = c*x3 - c*x2\n\nThese samples vary in the order and the terms used, but they are all based on the same core equations. Now, converting these into the required JSON format.\n</think>\n\n{\"eq\": \"c*(x3 - x2) | c*(x0 - x1) | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*x0 - c*x1 | c*(x3 - x2) | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*x3 - c*x2 | c*x0 - c*x1 | -c*x2 + c*x3 | c*x3 - c*x2\", \"dim\": 4}, {\"eq\": \"c*x0 - c*x1 | c*(x0 - x1) | -c*(x2 - x3) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*(x3 - x2) | c*x0 - c*x1 | -c*x2 + c*x3 | c*x3 - c*x2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 11:18:45",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*(-x_2 + x_3), c*(x_0 - x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*(x_0 - x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*x_0 - c*x_1, c*(-x_2 + x_3), c*(-x_2 + x_3), c*(-x_2 + x_3)], [-c*x_2 + c*x_3, c*x_0 - c*x_1, c*x_2 + c*x_3, -c*x_2 + c*x_3], [c*x_0 - c*x_1, c*(x_0 - x_1), c*(x_2 - x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_0 - c*x_1, c*x_2 + c*x_3, -c*x_2 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 11:18:45",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 11:20:57",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, I need to generate five sets of ODEs for electrophysiology, using the given variables x0, x1, x2, x3. Let me start by understanding the context.\n\nThe variables are:\n- x0: Membrane potential (V) in millivolts.\n- x1: n gate of a rapidly activating K current (dimensionless).\n- x2: Intracellular Ca\u00b2+ concentration (Ca_i) in micromolar.\n- x3: Retained Ca\u00b2+ concentration (Ca_ret) in micromolar.\n\nThe time series data shows that x0 is slowly increasing (from -76 to around -73.9), x1 is decreasing, x2 is decreasing, and x3 is increasing. So, maybe these variables are part of a model where the membrane potential is changing over time, possibly due to ionic currents, and Ca concentrations are changing as well.\n\nIn electrophysiology, the membrane potential (V) is often governed by the Goldman equation or a simplified version. But since the problem requires ODEs, perhaps we can model the dynamics of V, the n gate, Ca_i, and Ca_ret.\n\nFor x1 (the n gate), it's part of a potassium current. The n gate typically follows a kinetics model, like a Hodgkin-Huxley model, where the gate's activation is a function of voltage. Maybe x1's derivative is something like a function of x0 and x1, involving constants like c.\n\nFor x2 (Ca_i) and x3 (Ca_ret), these are concentrations. The dynamics might involve calcium influx, efflux, or redistribution. For example, Ca_i could be changing due to influx from the extracellular space, and Ca_ret might be related to the calcium stored in the sarcoplasmic reticulum or something similar. The rate of change of Ca_i could depend on Ca_ret and other factors.\n\nLet me think about possible equations. For x0 (V), the derivative might be related to current flows. But the problem states that the equations must be algebraic expressions, not necessarily involving derivatives. Wait, the  said \"generate a synthetic ordinary differential equation (ODE) or a  of coupled ODEs\". Wait, but the output format is for the equations, which are the right-hand sides of the ODEs. So the  is expecting equations for dx0/dt, dx1/dt, dx2/dt, dx3/dt. However, the instructions say that the equations must be algebraic expressions, which might be a bit confusing. But given the example provided, like \"c*x_0*x_1 + c*x_2 - c*x_3 + c | ...\", it's likely that the equations are the RHS of the ODEs. So the equations are the derivatives of each variable.\n\nBut the 's example has equations that are algebraic expressions. So the ODEs would be dx/dt = equation. So for each variable, the rate of change is given by that expression.\n\nBut the 's problem says that the  should model a plausible real-world process. Let's think about possible models.\n\nFor the membrane potential (x0), it's typically governed by the net current. But since the data shows x0 is increasing slowly, maybe it's a steady-state or a slow change. Alternatively, maybe it's part of a model where x0 is influenced by other variables.\n\nBut given that the equations need to be algebraic expressions, maybe each variable's rate of change is a function of the other variables and constants. For example, the derivative of x0 (V) could be related to the currents through the n gate (K+ current) and other currents. However, the problem says that the equations must be algebraic expressions, not involving derivatives. Wait, that doesn't make sense. Wait, the 's instructions say \"generate a synthetic ordinary differential equation (ODE) or a  of coupled ODEs in the following structured format.\" But the example given is equations that are algebraic expressions, which are the RHS of the ODEs. So the ODEs are dx/dt = equation. Therefore, the equations in the JSON are the RHS expressions.\n\nBut the  also says that the equations must be algebraic expressions involving the variables and constants. So each equation is the derivative of a variable. Therefore, I need to create four equations for x0, x1, x2, x3, each being the derivative (dx/dt), and they should be algebraic expressions.\n\nSo, for x0, maybe it's influenced by the n gate's current. For example, the K+ current is I_K = c * x1 * (x0 - V_rest), but since the problem requires algebraic expressions, maybe something like dx0/dt = -c * x1 * (x0 - x0_rest). But the data shows x0 is increasing, so maybe the derivative is positive. However, the actual data is a time series that's increasing from -76 to -73.9, which is a slow increase. Maybe the model is something like the membrane potential is changing due to the current, but perhaps the equations are simplified.\n\nAlternatively, since x1 is a gate, its rate of change could be a function of x0. For example, in the Hodgkin-Huxley model, the gates have specific kinetics. For the n gate, the activation is governed by a rate equation, which might be something like dx1/dt = c * (x0 - x1) or similar. But that's just a guess.\n\nLooking at the time series data for x1: it starts at 0.1 and decreases to around 0.006. So x1 is decreasing, which could be because the gate is inactivating. So perhaps dx1/dt is negative, depending on x0 and x1.\n\nFor Ca_i (x2) decreasing, and Ca_ret (x3) increasing, this could be due to a model where Ca_i is being pumped out or stored into Ca_ret. So maybe dx2/dt = -c * x2 + ... and dx3/dt = c * x2 - ... but that's just a rough idea.\n\nSo, putting this together, each equation should be a function of the variables and constants. Let's think of possible equations.\n\nSample 1:\n\nx0's derivative: Maybe it's related to the current through the K+ channel. If the n gate is opening, it's allowing K+ to leave, which would hyperpolarize the membrane. But the data shows x0 increasing, so maybe the current is leading to depolarization? Not sure. Alternatively, maybe x0 is a result of other variables.\n\nAlternatively, perhaps the  is a simplified model where x0 is governed by the balance between the Ca_i and Ca_ret. For example, x0 could be a function of x2 and x3. But this is speculative.\n\nAnother approach: the problem says that the equations should have a good fitting score and low complexity. So the equations should be simple but plausible.\n\nLet me think of the equations for each variable.\n\nFor x1 (n gate), the rate of change could be something like a function of the voltage x0. For example, in the Hodgkin-Huxley model, the activation gate's rate is given by a function of the voltage. For example, dx1/dt = c * (x0 - x1) * (x0 - x0_rest). But since the data shows x1 decreasing, perhaps dx1/dt is negative. So maybe:\n\ndx1/dt = -c * (x0 - x1) \n\nBut this is just a guess.\n\nFor x2 (Ca_i), maybe it's being removed by some process, like being transported out of the cell. So dx2/dt = -c * x2 + c * x3.\n\nFor x3 (Ca_ret), maybe it's being filled by the Ca_i, so dx3/dt = c * x2 - c * x3.\n\nFor x0 (V), perhaps it's a function of the Ca concentrations. For example, if Ca_i is high, it could cause depolarization. But the data shows x0 increasing. Alternatively, the membrane potential is influenced by the n gate. For example, if x1 is the fraction of open channels, then the current is I = c * x1 * (x0 - x0_rest), leading to dx0/dt = -I / C, where C is a constant. But since the problem says to use constants as c, maybe:\n\ndx0/dt = -c * x1 * (x0 - x0_rest) \n\nBut since the actual values are not given, and we need to use variables, maybe the equation is:\n\ndx0/dt = -c * x1 * (x0 - x0_rest) \n\nBut x0_rest is not a variable. Hmm, but the  says that constants should be denoted by c. So perhaps the equation is simplified, like:\n\ndx0/dt = -c * x1 * x0 \n\nBut that's arbitrary. Alternatively, since the data shows x0 is increasing, maybe the derivative is positive. So perhaps:\n\ndx0/dt = c * (x3 - x2) \n\nThis would mean that the membrane potential is changing based on the difference between Ca_ret and Ca_i. This is a plausible assumption.\n\nSo, for the first sample, the equations could be:\n\ndx0/dt = c*(x3 - x2) \n\ndx1/dt = -c*(x0 - x1) \n\ndx2/dt = -c*x2 + c*x3 \n\ndx3/dt = c*x2 - c*x3 \n\nBut then, the  would have x2 and x3 changing in opposite ways, which might fit the data. However, the equations should be algebraic expressions, which they are.\n\nBut let's check if these equations are plausible. The first equation for x0 is a function of the difference between x3 and x2. The second equation for x1 is a function of the difference between x0 and x1. The third and fourth equations for x2 and x3 are coupled, with x2 decreasing and x3 increasing.\n\nThis seems like a possible model. Let's check if this fits the data.\n\nBut the  requires that the equations should be in the format with the right-hand sides separated by |. For example, the first sample's equations would be:\n\n\"eq\": \"c*(x3 - x2) | -c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4\n\nBut I need to make sure that the equations are algebraic expressions involving the variables and constants. The above equations are valid.\n\nNow, for the other samples, I need to generate similar but different equations. The key is to make them different but plausible.\n\nSample 2:\n\nMaybe x1 is related to x0 and x1. For example, dx1/dt = c*(x0 - x1) * (x0 - x0_rest). But since x0_rest is a constant, perhaps we can model it as a function of x0. But without knowing the actual value, maybe we can simplify. Alternatively, maybe:\n\ndx1/dt = c * (x0 - x1) \n\ndx0/dt = -c * x1 * (x0 - x0_rest) \n\nBut again, x0_rest is not a variable. Alternatively, maybe:\n\ndx0/dt = -c * x1 \n\ndx1/dt = c * (x0 - x1) \n\ndx2/dt = -c * x2 + c * x3 \n\ndx3/dt = c * x2 - c * x3 \n\nThis would be a different set of equations, but similar structure.\n\nSample 3:\n\nMaybe the equations involve more complex terms. For example, x1 could be a function of x0 and x3, and x0 is a function of x2 and x3. For example:\n\ndx0/dt = c * (x3 - x2) \n\ndx1/dt = c * (x0 - x1) * (x3 - x2) \n\ndx2/dt = -c * x2 + c * x3 \n\ndx3/dt = c * x2 - c * x3 \n\nThis introduces a product term for dx1/dt, which could make it more complex but still algebraic.\n\nSample 4:\n\nAnother possibility is that x0 is influenced by x1, and x1 is influenced by x0, while x2 and x3 are connected. For example:\n\ndx0/dt = -c * x1 \n\ndx1/dt = c * (x0 - x1) \n\ndx2/dt = -c * x2 + c * x3 \n\ndx3/dt = c * x2 - c * x3 \n\nThis is similar to sample 2 but with different signs.\n\nSample 5:\n\nMaybe some equations involve trigonometric functions or other terms. For example, dx0/dt = c * sin(x0) * (x3 - x2), but this might complicate things. However, the  allows trigonometric functions. Alternatively, using exponents. But the equations need to be simple for fitting.\n\nAlternatively, for dx1/dt, use a more complex term, like dx1/dt = c * (x0 - x1) * (x3 - x2). This would make it more complex.\n\nSo, considering all that, the five samples could be variations of the equations where each equation has different combinations of variables and constants, but keeping them simple and plausible.\n\nNow, I need to ensure that each sample is a JSON object with the \"eq\" field and \"dim\":4. Each equation is separated by |, and uses only the variables and constants as per the requirements.\n</think>\n\n{\"eq\": \"c*(x3 - x2) | -c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4},{\"eq\": \"c*(x3 - x2) | c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4},{\"eq\": \"c*(x3 - x2) | c*(x0 - x1)*(x3 - x2) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4},{\"eq\": \"-c*x1 | c*(x0 - x1) | -c*x2 + c*x3 | c*x2 - c*x3\", \"dim\": 4},{\"eq\": \"c*(x3 - x2) | c*(x0 - x1) | -c*x2 + c*x3 | c*x3 - c*x2\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 11:20:57",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1)*(-x_2 + x_3), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, -c*x_2 + c*x_3]]"
+    },
+    {
+        "timestamp": "12/07/2025 11:20:57",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:51",
+        "level": "INFO",
+        "message": "Model output: <think>\nOkay, so I need to generate five synthetic ODEs for the given electrophysiology problem. Let me start by understanding the variables and their meanings. The variables are x0 (membrane potential in mV), x1 (n gate for a K current), x2 (Ca_i concentration in micromolar), and x3 (Ca_ret concentration in micromolar). The time series data shows that x0 is slowly increasing from -76 to around -73.9, x1 is decreasing, x2 is decreasing, and x3 is increasing. \n\nFirst, I should model how these variables change over time. In electrophysiology, membrane potential (x0) is influenced by ion currents, which are controlled by gates like x1. The calcium concentrations (x2 and x3) might be involved in processes like calcium influx and sequestration. \n\nFor x0, the membrane potential might be governed by the balance of currents. A simple model could involve a leak current and a current through the K channel (x1). The K current could be something like a function of the gate variable x1, maybe a simple linear or nonlinear relation. For example, the K current could be proportional to x1, and the membrane potential would change due to this current and some other terms.\n\nThen, for x1 (the n gate), it's likely governed by a rate equation that depends on the membrane potential. In models like the Hodgkin-Huxley, gates have activation and inactivation dynamics. So maybe x1's derivative is a function involving x0 and possibly x2 or x3. For example, a term like (x0 + c) might influence the gate's opening.\n\nFor the calcium concentrations, x2 (Ca_i) might be influenced by influx from x3 (Ca_ret), perhaps through a process like exocytosis or endocytosis. The rate of change of Ca_i could be a function of the difference between Ca_ret and Ca_i, scaled by some constant. Similarly, Ca_ret might be affected by the consumption of Ca_i, maybe through a term like (x2 - c) or something similar.\n\nBut I need to make sure that the equations are algebraic expressions using only x0, x1, x2, x3, and constants c. Also, the equations should fit the given data, so they should reflect the observed trends. For instance, x0 is increasing slowly, so the derivative of x0 might be a small positive value. x1 is decreasing, so its derivative should be negative. x2 is decreasing, so its derivative is negative. x3 is increasing, so its derivative is positive.\n\nLet me think of possible equations. For x0, maybe it's driven by a combination of current through the K channel (x1) and some other current. Let's say the derivative of x0 is proportional to (x1 - c), which could represent a current. But that's just a guess. Alternatively, maybe the derivative of x0 is a function involving x1 and x2. Wait, the data shows that x1 is decreasing, and x0 is increasing. So perhaps the derivative of x0 is related to the K current, which is negative since x1 is decreasing. Wait, if x1 is the gate, then maybe the K current is proportional to x1, and the derivative of x0 would be related to the sum of currents. But since x0 is increasing, maybe the current is positive? Wait, the membrane potential is increasing, so maybe the current is positive. But I need to think more carefully.\n\nAlternatively, considering the standard model, the membrane potential change is often given by the equation:\n\ndx0/dt = - (I_K + I_other)/C_m\n\nBut since the problem is synthetic, I can create a simple relation. For example, dx0/dt = c*(x1 - x2). If x1 is decreasing and x2 is decreasing, maybe that term could be positive. But I need to check the data. The data for x1 is decreasing, x2 is decreasing. So if x1 is 0.1 and x2 is 0.52, then (x1 - x2) would be negative. But x0 is increasing, so maybe the derivative is positive. Hmm, that might not fit. Alternatively, dx0/dt = c*(x2 - x3). Since x3 is increasing, x2 is decreasing, so x2 - x3 might be negative. Not sure.\n\nAlternatively, maybe the derivative of x0 is a function of x1. If x1 is decreasing, then perhaps dx0/dt = -c*x1. But that would mean that as x1 decreases, the derivative of x0 becomes less negative, but in the data, x0 is increasing. Wait, if dx0/dt is positive, then maybe it's something like c*(x1 - x2). But with x1 and x2 both decreasing, their difference depends on their rates. Alternatively, maybe the derivative of x0 is related to the difference between x3 and x2. Since x3 is increasing and x2 is decreasing, that difference would be positive, leading to a positive derivative for x0.\n\nLet me try that. For x0, dx0/dt = c*(x3 - x2). Then, if x3 is increasing and x2 is decreasing, this would be positive, which matches the data where x0 is increasing.\n\nNow for x1, which is the n gate. The gate's activation might depend on the membrane potential. For example, dx1/dt = c*(x0 + c) - c*x1. This is a simple differential equation where the gate is activated by the membrane potential and inactivated by itself. But I need to check if that would make x1 decrease. If x0 is increasing, then (x0 + c) is increasing, so the term would be positive. But if x1 is being multiplied by -c, then the equation could be a negative term. Wait, maybe dx1/dt = c*(x0 + c) * (1 - x1). That would make x1 increase when x0 is high, but in the data, x1 is decreasing. Hmm, that's conflicting.\n\nAlternatively, maybe the derivative of x1 is negative when x0 is high. Let me think of a simple model where the gate x1 is decreasing when x0 is increasing. For example, dx1/dt = -c*(x0 - c) * x1. That way, if x0 is increasing, (x0 - c) is positive, so the derivative is negative if x1 is positive, leading to a decrease in x1. That could fit the data where x1 is decreasing.\n\nFor x2 (Ca_i), maybe it's being consumed by some process. The derivative could be something like dx2/dt = c*(x3 - x2). Since x3 is increasing and x2 is decreasing, this would lead to a positive rate of change for x2 if x3 is higher than x2, but wait, the data shows that x2 is decreasing. Wait, if x3 is increasing, then x3 - x2 might be positive, but the derivative of x2 is negative. That's a problem. Maybe the equation is dx2/dt = -c*(x3 - x2). Then, if x3 is increasing and x2 is decreasing, x3 - x2 would be positive, so the derivative would be negative, which matches the data. So dx2/dt = -c*(x3 - x2).\n\nSimilarly, for x3 (Ca_ret), maybe it's being replenished by the consumption of x2. So dx3/dt = c*(x2 - x3). If x2 is decreasing and x3 is increasing, then x2 - x3 is negative, leading to a negative derivative for x3, but that contradicts the data where x3 is increasing. Wait, that's not right. Maybe the equation is dx3/dt = c*(x3 - x2). If x3 is increasing, then x3 - x2 is positive, leading to a positive derivative. That would make sense. So dx3/dt = c*(x3 - x2).\n\nWait, but in that case, if x3 is increasing and x2 is decreasing, then x3 - x2 is positive, so dx3/dt is positive, which matches the data. And dx2/dt = -c*(x3 - x2) would be negative, so x2 is decreasing. That works. So combining these equations:\n\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut wait, if dx0 and dx2 are both c*(x3 - x2) and -c*(x3 - x2), that would mean that dx0 = -dx2. So their rates are opposite. But the data shows that x0 is increasing and x2 is decreasing, which fits. However, the equations for x0 and x2 are related. \n\nBut this would make the  have two equations that are opposites. However, this is a possible structure. Let me check if this fits the data trends. \n\nAlternatively, maybe I can make the equations simpler. For example, dx0/dt = c*(x1 - x2). If x1 is decreasing and x2 is decreasing, but x0 is increasing. Hmm, not sure. Alternatively, maybe the derivative of x0 is a function of x1. For example, dx0/dt = -c*x1. If x1 is decreasing, then dx0/dt would be increasing. That could fit. But how does that relate to the data? Let me check the data. For example, x1 starts at 0.1 and decreases, so if dx0/dt is -c*x1, then dx0/dt is negative, but the data shows x0 increasing. That's a contradiction. So maybe that's not correct.\n\nAlternatively, maybe dx0/dt = c*(x1 - x3). If x1 is decreasing and x3 is increasing, then x1 - x3 would be negative, so dx0/dt would be negative, but x0 is increasing. That's not right. \n\nWait, the data shows x0 increasing, so dx0/dt is positive. So I need an equation where dx0/dt is positive. For example, dx0/dt = c*(x3 - x2). Since x3 is increasing and x2 is decreasing, x3 - x2 is positive, leading to positive dx0/dt. That's good. Then for x2, dx2/dt = -c*(x3 - x2). That would make dx2/dt negative because x3 - x2 is positive. So x2 is decreasing. That's correct. For x3, dx3/dt = c*(x3 - x2). That would be positive because x3 - x2 is positive, so x3 increases. That's correct. \n\nNow for x1. The derivative of x1 is likely related to the membrane potential x0. For example, dx1/dt = c*(x0 - c) - c*x1. If x0 is increasing, then (x0 - c) is positive, leading to a positive term. If x1 is decreasing, then maybe the equation is such that the term is negative. Wait, but x1 is decreasing, so dx1/dt is negative. Let me think. If the equation is dx1/dt = c*(x0 - c) * (1 - x1), then when x0 is high, (x0 - c) is positive, and (1 - x1) is positive if x1 is less than 1. But the data shows x1 decreasing from 0.1 to near 0.006, so maybe that's correct. However, this equation would make x1 increase when x0 is high, but the data shows it's decreasing. That doesn't fit. \n\nAlternatively, maybe dx1/dt = -c*(x0 - c) * x1. So if x0 is high, (x0 - c) is positive, and x1 is positive, so the derivative is negative, which would make x1 decrease. That fits the data. So dx1/dt = -c*(x0 - c)*x1.\n\nSo combining all equations:\n\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut this is a  of four equations. However, the problem says that each sample should be a JSON object with the same format. Also, the equations should be algebraic expressions. Let me check if these equations are algebraic. Yes, they are. \n\nBut the problem states that the equations should be algebraic expressions involving only the variables and constants. The equations I have are all linear in terms of the variables, except for the x1 term in the dx1/dt equation. But that's allowed, as long as they are algebraic. \n\nNow, to make sure that these equations are as simple as possible, and have a good fitting score. The equations are relatively simple and have a structure that matches the data trends. \n\nSo for the first sample, the equations would be:\n\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut the problem requires that the equations be separated by | for coupled equations. So in the JSON format, it would be:\n\n\"eq\": \"c*(x3 - x2) | -c*(x0 - c)*x1 | -c*(x3 - x2) | c*(x3 - x2)\"\n\nBut wait, the  mentioned that for coupled equations (dim > 1), separate right-hand sides using the pipe symbol. So the first sample's equation would be written as four parts separated by |, each corresponding to the derivative of x0, x1, x2, x3.\n\nNow, generating five samples. Each sample should be a different set of equations. To vary them, perhaps change the structure. For example, maybe some equations use different constants or different relationships.\n\nBut the  says that the constants should be denoted only by c, and no actual values. Also, the equations should be as simple as possible. Let me think of other possibilities.\n\nAnother possible : x0 is driven by x1 and x2. For example, dx0/dt = c*x1 - c*x2. If x1 is decreasing and x2 is decreasing, but x0 is increasing, then the difference between x1 and x2 would determine the rate. But this is not clear. Alternatively, dx0/dt = c*x2 - c*x3. Since x3 is increasing, that would be negative if x2 is decreasing, but that might not fit.\n\nAlternatively, maybe dx0/dt is related to the product of x1 and x2. But that would complicate things. The previous  seems simpler and more plausible.\n\nAnother sample: maybe x1's equation is different. For instance, dx1/dt = c*(x0 - c) - c*x1. This is a linear equation where x1 approaches a steady state. But if x0 is increasing, then (x0 - c) is positive, so the equation would have a positive term, leading to x1 increasing. But the data shows x1 decreasing. So that's not good.\n\nAlternatively, dx1/dt = -c*(x0 - c) - c*x1. That would make the term negative if x0 is increasing, leading to x1 decreasing. That could fit.\n\nSo for another sample, the equations could be:\n\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c) - c*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut that's similar to the first sample. Alternatively, maybe the equations for x2 and x3 are different. For example, dx2/dt = -c*(x2 - x3), which would be the same as before.\n\nAlternatively, maybe dx0/dt is c*x1 - c*x2. Then, since x1 is decreasing and x2 is decreasing, if x1 decreases more than x2, the derivative of x0 would be positive. But this is more speculative. However, this could be another sample.\n\nSo for sample 2:\n\ndx0/dt = c*x1 - c*x2\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut this would have different equations. However, I need to make sure that the equations are algebraic and fit the data. The first sample's equations are likely better because they directly relate x0 and x2/x3, which match the data trends. \n\nSo, for the five samples, I can generate different variations of these equations. For example:\n\nSample 1:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 2:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x1 - c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 3:\ndx0/dt = c*x3 - c*x2\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nWait, but the first sample's dx0 is c*(x3 -x2), which is the same as c*x3 -c*x2. So sample 3 is the same as sample 1. Not helpful. \n\nAlternatively, for sample 2, maybe dx1/dt is a different equation, such as dx1/dt = -c*x1*(x0 - c). That's the same as sample 1. \n\nAnother idea: dx1/dt = c*(x0 - c) * x1. Then, if x0 is increasing, (x0 - c) is positive, and x1 is positive, so dx1/dt is positive, but the data shows x1 decreasing. That's the opposite. So that's not good. \n\nAlternatively, dx1/dt = -c*x1 * (x0 - c). Then, if x0 is increasing, (x0 - c) is positive, so the derivative is negative, which would make x1 decrease. That's correct. So this is the same as sample 1. \n\nAlternatively, maybe dx1/dt = -c*x1*(x0 + c). But that would also lead to a negative derivative when x0 is positive, which would fit the data. \n\nBut perhaps the first sample is the most straightforward. Then, for other samples, I can vary the equations for x1, maybe using different functions. For example:\n\nSample 2: dx1/dt = -c*(x0 - c) * (x1 - c)\nSample 3: dx1/dt = -c*(x1 - c) * x0\nSample 4: dx1/dt = -c*(x1 - c) * (x0 + c)\nSample 5: dx1/dt = -c*x1 * (x0 - c)\n\nBut I need to ensure that these equations are algebraic and fit the data. However, the problem says that the equations should have low complexity. The first sample's equations are already simple. To generate five samples, I can have variations in the equations for x1 and possibly others. \n\nAlternatively, for some samples, maybe the equations for x2 and x3 are different. For example, dx2/dt = -c*(x3 - x2) and dx3/dt = c*(x2 - x3). But that would make dx3/dt = -c*(x3 - x2), which would be the negative of the previous equation, leading to dx3/dt = -c*(x3 - x2). But this would cause x3 to decrease, which is not the case. So that's not good. \n\nAlternatively, maybe dx2/dt = c*(x3 - x2) and dx3/dt = -c*(x3 - x2). Then, dx2/dt is positive, but the data shows x2 is decreasing. So that's not correct.\n\nThus, the first set of equations seems the most plausible. For other samples, I can vary the x1 equation. For example:\n\nSample 1:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 2:\ndx0/dt = c*x3 - c*x2\ndx1/dt = -c*x1*(x0 + c)\ndx2/dt = -c*x3 + c*x2\ndx3/dt = c*x3 - c*x2\n\nWait, but this might not be consistent. Also, the equations for x0 and x2 are the same as sample 1. \n\nAlternatively, for sample 2, maybe dx0/dt is something else. For example, dx0/dt = c*x1 - c*x3. Since x1 is decreasing and x3 is increasing, this could be negative, but x0 is increasing. Not sure. \n\nAlternatively, sample 2 could have dx0/dt = c*(x1 - x3). But with x1 decreasing and x3 increasing, this would be negative, which would make x0 decrease, but data shows x0 increasing. Not correct.\n\nTherefore, it's better to stick with the first sample and vary the other equations. Let me think of five different equations where x0, x1, x2, x3 are related in different ways, but all fit the data trends. \n\nSample 1: As before.\n\nSample 2: Maybe dx1/dt is a different function. For example, dx1/dt = -c*x1 + c*(x0 - c). So this is a linear equation for x1. If x0 is increasing, (x0 - c) is positive, leading to a positive term. If x1 is decreasing, then the equation would have a negative derivative. But how?\n\nAlternatively, dx1/dt = -c*(x0 + c) * x1. This is the same as sample 1.\n\nSample 3: dx0/dt = c*(x1 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut this would mean that dx0 is dependent on x1 - x2. If x1 is decreasing and x2 is decreasing, but x3 is increasing, then x1 - x2 could be positive or negative. This is more uncertain, but perhaps it could fit.\n\nSample 4: Maybe dx0/dt = c*x3 - c*x2, and dx1/dt is different, like dx1/dt = -c*(x1 - c). This would be a simple equation for x1, leading to x1 approaching c as t increases. If c is a positive constant, and x1 starts at 0.1, this would make x1 increase, but the data shows x1 decreasing. So this is not correct. \n\nAlternatively, dx1/dt = -c*(x1 - c). Then, if x1 is less than c, the derivative is negative, making x1 decrease. That fits the data. So sample 4 could be:\n\ndx0/dt = c*x3 - c*x2\ndx1/dt = -c*(x1 - c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut then, the equation for dx0 is c*(x3 - x2), which is the same as sample 1. But this is different in the x1 equation. \n\nSample 5: dx0/dt = c*(x3 - x2)\ndx1/dt = -c*x1*(x0 + c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nThis is the same as sample 1, but with a different x1 equation.\n\nSo, to generate five samples, I need to vary the equations in such a way that they are different but still plausible. Let me list them:\n\nSample 1:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 2:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x1 - c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 3:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*x1*(x0 + c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 4:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x0 + c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nSample 5:\ndx0/dt = c*(x3 - x2)\ndx1/dt = -c*(x1 - c)\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nBut sample 2 and 5 are similar. To ensure variation, I can make some other changes. For example, in sample 2, maybe dx1/dt is different, and in sample 3, dx1/dt is a different expression. \n\nAlternatively, for sample 3, dx1/dt could be -c*(x0 - c)*x1. Wait, that's the same as sample 1. \n\nAlternatively, sample 3: dx0/dt = c*x1 - c*x2\ndx1/dt = -c*(x0 - c)*x1\ndx2/dt = -c*(x3 - x2)\ndx3/dt = c*(x3 - x2)\n\nThis would be a different equation for x0, but the rest are the same. \n\nSo, to generate five different samples, here's how I can do it:\n\nSample 1:\neq: c*(x3 - x2) | -c*(x0 - c)*x1 | -c*(x3 - x2) | c*(x3 - x2)\n\nSample 2:\neq: c*(x3 - x2) | -c*(x1 - c) | -c*(x3 - x2) | c*(x3 - x2)\n\nSample 3:\neq: c*(x3 - x2) | -c*x1*(x0 + c) | -c*(x3 - x2) | c*(x3 - x2)\n\nSample 4:\neq: c*(x3 - x2) | -c*x1*(x0 - c) | -c*(x3 - x2) | c*(x3 - x2)\n\nSample 5:\neq: c*(x3 - x2) | -c*(x1 + c) | -c*(x3 - x2) | c*(x3 - x2)\n\nBut in sample 4, the equation is the same as sample 1. Wait, no, sample 1 is -c*(x0 - c)*x1, and sample 4 is -c*x1*(x0 - c). These are the same. So sample 4 is the same as sample 1.\n\nTherefore, to ensure variation, perhaps some samples have different structures. For example, in sample 2, dx1/dt is -c*(x1 - c). In sample 3, dx1/dt is -c*x1*(x0 + c). In sample 4, dx1/dt is -c*x1*(x0 - c). In sample 5, dx1/dt is -c*(x1 + c). \n\nBut in the data, x1 is decreasing. So for sample 2, dx1/dt = -c*(x1 - c) would have a negative derivative when x1 < c. If c is a positive constant, and x1 starts at 0.1, which is less than c (assuming c is around 1?), then this equation would have dx1/dt = -c*(0.1 - c) = -c*(negative number) = positive. But the data shows x1 decreasing, so this would be incorrect. Wait, no. Let me think. If the equation is dx1/dt = -c*(x1 - c). Then, if x1 < c, (x1 - c) is negative, so -c*(x1 - c) is positive. This would make x1 increase, which contradicts the data. So this is wrong.\n\nAh, so sample 2's equation would not fit the data. That's a problem. Therefore, I need to make sure that the equations for dx1/dt are such that when x0 is increasing, the derivative of x1 is negative. \n\nTherefore, in sample 2, the correct equation for dx1/dt should be something like -c*(x0 - c)*x1, which is the same as sample 1. Alternatively, if the equation is -c*(x0 - c) * x1, that would be correct. \n\nBut in the earlier thought, sample 2 was incorrectly designed. So I need to correct that. Therefore, the correct equations for dx1/dt are those that result in a negative derivative for x1. \n\nSo for sample 2, perhaps dx1/dt = -c*(x0 - c) * (x1 - c). This is more complex, but would lead to x1 decreasing when x0 is increasing. However, the complexity might be higher than necessary.\n\nBut the  says that the equations should be as simple as possible. So the best approach is to keep the equations as simple as possible. Hence, sample 1's equation is the best.\n\nTherefore, the five samples can have the same equations, but that's not allowed. So I need to generate different equations that are still plausible.\n\nAlternative approach: For some samples, the equations for x0 and x2 are different. For example:\n\nSample 1: dx0 = c*(x3 - x2), dx2 = -c*(x3 - x2)\n\nSample 2: dx0 = c*(x3 - x2), dx2 = -c*(x3 - x2)\n\nWait, that's the same. Not helpful.\n\nAlternatively, Sample 2: dx0 = c*(x2 - x3), but this would be negative, leading to x0 decreasing. But data shows x0 increasing. Not correct.\n\nAlternatively, dx0 = c*x3 - c*x2, which is same as sample 1.\n\nHmm. It's challenging to generate different equations without changing the structure too much. Maybe some samples have different equations for x3. For example:\n\nSample 1:\ndx0 = c*(x3 - x2)\ndx1 = -c*(x0 - c)*x1\ndx2 = -c*(x3 - x2)\ndx3 = c*(x3 - x2)\n\nSample 2:\ndx0 = c*(x3 - x2)\ndx1 = -c*x1*(x0 + c)\ndx2 = -c*(x3 - x2)\ndx3 = c*(x3 - x2)\n\nSample 3:\ndx0 = c*(x3 - x2)\ndx1 = -c*x1*(x0 - c)\ndx2 = -c*(x3 - x2)\ndx3 = c*(x3 - x2)\n\nSample 4:\ndx0 = c*(x3 - x2)\ndx1 = -c*(x0 - c)*x1\ndx2 = -c*(x3 - x2)\ndx3 = c*(x3 - x2)\n\nSample 5:\ndx0 = c*(x3 - x2)\ndx1 = -c*(x1 - c)*x0\ndx2 = -c*(x3 - x2)\ndx3 = c*(x3 - x2)\n\nBut sample 1 and 4 are the same. To differentiate, I need to change some parts. For example, sample 2's dx1 could be -c*x1*(x0 + c), sample 3's dx1 is -c*x1*(x0 - c), sample 5's dx1 is -c*(x1 - c)*x0.\n\nThese are all different and fit the data as long as the terms are such that dx1 is negative.\n\nSo, the five samples are as follows:\n\nSample 1: equations as before.\n\nSample 2: dx1/dt = -c*x1*(x0 + c)\n\nSample 3: dx1/dt = -c*x1*(x0 - c)\n\nSample 4: dx1/dt = -c*(x0 - c)*x1\n\nSample 5: dx1/dt = -c*(x1 - c)*x0\n\nBut sample 4 is the same as sample 1. So I need to adjust. \n\nAlternatively, sample 4: dx1/dt = -c*x1*(x0 + c)\n\nSample 5: dx1/dt = -c*(x1 - c)*x0\n\nBut this requires that the equations are valid.\n\nIn any case, the  wants five samples. Given the constraints, the best approach is to have four variations of the dx1 equation and one that is similar to the first. However, to ensure they are different, I can make them as described.\n</think>\n\n{\"eq\": \"c*(x3 - x2) | -c*(x0 - c)*x1 | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*(x3 - x2) | -c*x1*(x0 + c) | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*(x3 - x2) | -c*x1*(x0 - c) | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*(x3 - x2) | -c*(x1 - c)*x0 | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}, {\"eq\": \"c*(x3 - x2) | -c*(x0 - c)*x1 | -c*(x3 - x2) | c*(x3 - x2)\", \"dim\": 4}."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:51",
+        "level": "INFO",
+        "message": "Parsed model outputs: [[c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_0*(-c + x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)]]"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:51",
+        "level": "INFO",
+        "message": "Generated 22 functions: [[c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)], [c*x_3, c*x_1, c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1*(x_2 - x_3), c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3], [c*(-x_2 + x_3), c*x_1*(x_2 - x_3), c*x_2, c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*(x_0 - x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*x_0 - c*x_1, c*(-x_2 + x_3), c*(-x_2 + x_3), c*(-x_2 + x_3)], [-c*x_2 + c*x_3, c*x_0 - c*x_1, c*x_2 + c*x_3, -c*x_2 + c*x_3], [c*x_0 - c*x_1, c*(x_0 - x_1), c*(x_2 - x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_0 - c*x_1, c*x_2 + c*x_3, -c*x_2 + c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1)*(-x_2 + x_3), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - c*x_3], [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3, -c*x_2 + c*x_3], [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_0*(-c + x_1), c*(-x_2 + x_3), c*(-x_2 + x_3)], [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x_3), c*(-x_2 + x_3)]]."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "INFO",
+        "message": "Expression [c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "ERROR",
+        "message": "fit_score: error: Pow.__new__() missing 1 required positional argument: 'e'"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "INFO",
+        "message": "Expression [c*x_1 - c*(x_2 - x_3), c*x_1*(c - x_1)*(x_2 - x_3), c*(x_2 - x_3), c*(x_2 - x_3)] is not valid."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:52",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:53",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:54",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:55",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:56",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:57",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:58",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:26:59",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:00",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:00",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:00",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:01",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "Library ensembling is no longer performed by feature libraries.  Use EnsemblingOptimizer to fit an ensemble model."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:02",
+        "level": "WARN",
+        "message": "`np.math` is a deprecated alias for the standard library `math` module (Deprecated Numpy 1.25). Replace usages of `np.math` with `math`"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Num candidate expressions: 15"
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Current functions:                                                  expr  ...                                          fit_exprs\n18  [c*(-x_2 + x_3), c*x_0*(-c + x_1), c*(-x_2 + x...  ...  [0.4965*x_2 + 0.1083*x_3, 0.0038*x_0*x_1, -0.2...\n15  [c*(-x_2 + x_3), c*x_1*(-c + x_0), c*(-x_2 + x...  ...  [0.4965*x_2 + 0.1083*x_3, 0.0052*x_0*x_1 + 0.1...\n16  [c*(-x_2 + x_3), c*x_1*(c + x_0), c*(-x_2 + x_...  ...  [0.4965*x_2 + 0.1083*x_3, 0.0052*x_0*x_1 + 0.1...\n4   [c*(-x_2 + x_3), c*(x_0 - x_1), c*(-x_2 + x_3)...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.2014...\n10  [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3,...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.2014...\n14  [c*(-x_2 + x_3), c*(x_0 - x_1), c*x_2 + c*x_3,...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.2014...\n9   [c*(-x_2 + x_3), c*x_0 - c*x_1, c*x_2 + c*x_3,...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.2014...\n7   [-c*x_2 + c*x_3, c*x_0 - c*x_1, c*x_2 + c*x_3,...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2881*x_1, -0.2014...\n12  [c*(-x_2 + x_3), c*(x_0 - x_1)*(-x_2 + x_3), c...  ...  [0.4965*x_2 + 0.1083*x_3, -0.2447*x_1*x_2 - 0....\n8   [c*x_0 - c*x_1, c*(x_0 - x_1), c*(x_2 - x_3), ...  ...  [-0.0021*x_0 + 1.9681*x_1, -0.2881*x_1, -0.201...\n6   [c*x_0 - c*x_1, c*(-x_2 + x_3), c*(-x_2 + x_3)...  ...  [-0.0021*x_0 + 1.9681*x_1, -0.0554*x_2 + 0.003...\n13  [c*x_1, c*(x_0 - x_1), c*x_2 + c*x_3, c*x_2 - ...  ...  [4.8884*x_1, -0.2881*x_1, -0.2014*x_2 + 0.0007...\n2               [c*(-x_2 + x_3), c*x_1, c*x_2, c*x_3]  ...  [0.4965*x_2 + 0.1083*x_3, -0.2858*x_1, -0.1993...\n1   [c*(-x_2 + x_3), c*x_1*(x_2 - x_3), c*x_2, c*x_3]  ...  [0.4965*x_2 + 0.1083*x_3, -0.2475*x_1*x_2 - 0....\n0                        [c*x_3, c*x_1, c*x_2, c*x_3]  ...  [0.2116*x_3, -0.2858*x_1, -0.1993*x_2, 0.0412*...\n\n[15 rows x 5 columns]."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Succesfully generated 22 seed functions in 845.2795965319965 seconds."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Initial proposals already meet the tolerance."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Found valid function."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "INFO",
+        "message": "Final Results Saved."
+    },
+    {
+        "timestamp": "12/07/2025 11:27:03",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmpbrp5lm6h'>"
+    }
+]

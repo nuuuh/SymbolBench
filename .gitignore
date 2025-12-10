@@ -8,26 +8,26 @@ logs/
 /__pycache__
 **/__pycache__
 /.ipynb_checkpoints
-/outputs
+src/outputs
 **/outputs
-/runs
-/hybrid_output
+src/runs
+src/hybrid_output
 **/hybrid_output
 **/runs
-/multirun
+src/multirun
 **/multirun
-/openai
+src/openai
 **/profiles
 
-/experiments
-/ellyn
+src/experiments
+src/ellyn
 
 *.csv
 *.pt
 
-/causal_graph_figs
-/old
+src/causal_graph_figs
+src/old
 
-!data/boolnet.csv
+!src/data/boolnet.csv
 
-/analysis_output
+src/analysis_output

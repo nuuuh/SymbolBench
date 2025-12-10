@@ -1,0 +1,217 @@
+[
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Project root: /home/ubuntu/projects/Symbolic_LLMs/."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Logging to /home/ubuntu/projects/Symbolic_LLMs/analysis_output/Qwen3-32B/textual/DE_size_compute_wo_thinking/Expr_27/."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Slurm job ID: 326."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Seed not specified, using random seed: 491580519."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Using device: auto with dtype: torch.bfloat16."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Device name: NVIDIA L40S."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Cache dir: /opt/dlami/nvme/models."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Loaded data from /home/ubuntu/projects/Symbolic_LLMs/data/DE_4_dims.json with index 27."
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Groundtruth Function:           domain                            model  ... substituted solutions\n26  neurobiology  butera_rinzel_smith_1999_model2  ...                      \n\n[1 rows x 20 columns]"
+    },
+    {
+        "timestamp": "22/07/2025 07:14:47",
+        "level": "INFO",
+        "message": "Unknown dataset type. Using analysis dataset."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:00",
+        "level": "INFO",
+        "message": "Loaded Model: Qwen/Qwen3-32B, visual_inputs: False, time_series_embedding: False."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:02",
+        "level": "INFO",
+        "message": "Attempt 1 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:03",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 1."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:03",
+        "level": "INFO",
+        "message": "Attempt 2 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:03",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 2."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:03",
+        "level": "INFO",
+        "message": "Attempt 3 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:04",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 3."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:04",
+        "level": "INFO",
+        "message": "Attempt 4 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:05",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 4."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:05",
+        "level": "INFO",
+        "message": "Attempt 5 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:06",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 5."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:06",
+        "level": "INFO",
+        "message": "Attempt 6 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:07",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 6."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:07",
+        "level": "INFO",
+        "message": "Attempt 7 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:08",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 7."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:08",
+        "level": "INFO",
+        "message": "Attempt 8 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:09",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 8."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:09",
+        "level": "INFO",
+        "message": "Attempt 9 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:10",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 9."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:10",
+        "level": "INFO",
+        "message": "Attempt 10 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:11",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 10."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:11",
+        "level": "INFO",
+        "message": "Attempt 11 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:12",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 11."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:12",
+        "level": "INFO",
+        "message": "Attempt 12 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:13",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 12."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:13",
+        "level": "INFO",
+        "message": "Attempt 13 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:14",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 13."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:14",
+        "level": "INFO",
+        "message": "Attempt 14 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:15",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 14."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:15",
+        "level": "INFO",
+        "message": "Attempt 15 of 15 to generate functions."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:16",
+        "level": "ERROR",
+        "message": "Failed to generate functions on attempt 15."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:16",
+        "level": "INFO",
+        "message": "Generated 0 functions: []."
+    },
+    {
+        "timestamp": "22/07/2025 07:15:16",
+        "level": "WARN",
+        "message": "Implicitly cleaning up <TemporaryDirectory '/tmp/tmp9kcqhxzq'>"
+    }
+]
